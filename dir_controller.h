@@ -4,7 +4,6 @@
 #include <QObject>
 #include <QString>
 #include <QSet>
-
 /*
  * Класс Dir_Controller
  * Предоставляет методы для работы с группами файлов
