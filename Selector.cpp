@@ -18,7 +18,7 @@ public:
 	bool file_has_data();
 	void read_next_file();
 	void read_next_data();
-	void get_input_files()
+	void get_input_files();
 	
 private:
 	const int buffer_size_;
