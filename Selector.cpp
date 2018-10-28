@@ -1,29 +1,21 @@
-#include <iostream>
-#include <string>
-#include <vector>
+#include "Selector.h"
 
-class Selector {
-public:
-	Selector();
-	~Selector();
-	Selector(const Selector&) = delete;
-	Selector(Selector&) = delete;
-	Selector& operator=(const Selector&) = delete;
-	Selector& operator=(Selector&) = delete;
+void Selector::set_filesnames(std::vector<std::string> filesnames) {
 
-	std::string file_name;
-	int file_size;
+}
 
-	void set_filesnames(std::vector<std::string>);
+bool Selector::has_file() {
 
-	bool has_file();
-	bool has_data();
-	void read_next_file();
-	void read_next_data();
+}
+
+bool Selector::has_data() {
 	
-private:
-	int buffer_size_;
-	int file_index_;
-	int data_index_;
-	std::vector<std::string> input_files_;
-};
+}
+
+void Selector::read_next_file() {
+
+}
+
+void Selector::read_next_data() {
+	
+}
