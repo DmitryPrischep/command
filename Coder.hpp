@@ -10,7 +10,7 @@ public:
 	Coder& operator=(Coder&) = delete;
 
 	void set_input_data_size(const int size);
-	int get_output_size();
+	int get_output_data_size();
 	virtual char* encode(const char* data, int size) = 0;
 	virtual char* decode(const char* data, int size) = 0;
 
