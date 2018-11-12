@@ -1,6 +1,7 @@
 #include <iostream>
 #include <map>
 #include <string>
+#include <iterator>
 
 class LZW : public Coder {
 public:
@@ -11,8 +12,8 @@ public:
 	LZW& operator=(const LZW&) = delete;
 	LZW& operator=(LZW&) = delete;
 
-	char* encode(const char* data, int size);
-	char* decode(const char* data, int size);
+	char* compress(const char* data, int size);
+	char* decompress(const char* data, int size);
 
 protected:
 	int input_size_;
@@ -20,6 +21,7 @@ protected:
 	const char* input_data_; // а нужна ли?
 	char* output_data_;
 
-private:
-	std::map <std::string, char> dict;
+	encode(const std::string& data, std::back_insert_iterator result, dictionary_size);
+	decode(std::back_insert_iterator begin, std::back_insert_iterator end, int dictionary_size);
+	
 };
