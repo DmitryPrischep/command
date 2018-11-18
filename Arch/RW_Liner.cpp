@@ -11,3 +11,8 @@ bool RW_Liner::Write(vector<char>& array){
     }
     Write_File(*out_file, array);
 }
+
+
+bool RW_Liner::Read(vector<char> &array) {
+   // Re
+}

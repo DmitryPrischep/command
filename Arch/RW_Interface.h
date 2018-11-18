@@ -8,6 +8,7 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+
 using std::ofstream;
 using std::ifstream;
 using std::vector;
@@ -17,6 +18,7 @@ public:
     bool TakeHeader(FileInfo file_header);
     void TakeFileOut(ofstream& file);
     bool TakeBody(vector<char>& array);
+    bool Take_Dictionary(vector<char>& array); // На вход ожидает словарь от Компрессора
     virtual bool Write(vector<char>& array);
     bool Write_File(ofstream& File, vector<char>& array);
     bool Insert_Header(ofstream& File);
@@ -31,11 +33,13 @@ public:
 
 protected:
     vector<char> header;
-    vector<char> bufer;
+    vector<char> dictionary;
     File_Header Main_header;
     FileInfo file_info;
     ofstream* out_file;
     ifstream* in_file; // not use yet
+    const int position_begin_dictionary = 20; // Для быстрого перемещения по файлу
+    int position_size_of_dictionary;
     int file_amoun = 0;  // Считает сколько раз мы считали header & bufer
     bool state_header_was_wrote = false; // Показывает распарсен ли уже header
     bool state_body_was_wrote = false; //  Показывает была ли запись body.

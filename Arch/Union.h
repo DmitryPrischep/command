@@ -7,41 +7,20 @@
 
 /* Все Union-ы и Strust-ы для нужд архиватора */
 
-union Main_header_sizeFile{
-    long int size_int;
-    unsigned char size_char[8];
-};
-union Main_header_amountFile{
-    long int amount_int;
-    unsigned char amount_char[8];
-};
-union Main_header_settings{
-    int settings_int;
-    unsigned char settings_char[4];
-};
-
 class File_Header{
 public:
-    Main_header_sizeFile size;
-    Main_header_amountFile amount;
-    Main_header_settings settings;
+    long int size;
+    long int amount;
+    int settings;
 
     void AddSize(int size);
     void AddFile();
 };
-union Side_header_size {
-    long int size_int ;
-    unsigned char size_char[8];
-};
-union Side_header_pathSize {
-    long int pathSize_int;
-    unsigned char pathSize_char[8];
-};
 class Side_Header{
 public:
     Side_Header();
-    Side_header_size size{};
-    Side_header_pathSize pathSize{};
+    long int size;
+    long int pathSize;
 };
 
 
