@@ -68,8 +68,9 @@ char* LZW::compress(const char* data, int size) {
 	std::vector<int> encoded;
 	std::vector<char> result;
 	int dict_size = 256;
-	encode(str_data, encoded, dict_size);
+	encode(str_data, std::back_inserter(encoded), dict_size);
 
+	/*
 	int fill = 0; // количество записанных бит в байте
 	for (int i = 0; i < size; i++) {
 		int value = encoded[i];
@@ -82,6 +83,7 @@ char* LZW::compress(const char* data, int size) {
 			fill = (fill + 1) % 8;
 		}
 	}
+	*/
 
 	//return result;
 
