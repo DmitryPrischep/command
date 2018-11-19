@@ -1,6 +1,10 @@
 #ifndef AES_H
 #define AES_H
 #include <vector>
+#include <key.h>
+
+typedef unsigned char byte;
+typedef std::vector<std::vector<byte>> ByteArray;
 
 class AES final
 {
@@ -8,13 +12,13 @@ public:
     AES();
     AES(const int sizeKey);
     ~AES();
-    unsigned char xorByte(unsigned char first, unsigned char second);
-    void xorByteBlock(unsigned char*** block, unsigned char** key);
-    unsigned char subByte(unsigned char byte, bool systemStatus);
-    void subBytes(unsigned char*** block, bool systemStatus);
-    void shiftRows(unsigned char*** block, bool type);
-    void mixColumns(unsigned char*** block, bool type);
-    unsigned char mulGalois(unsigned char a, unsigned char b);
+    unsigned char xorByte(byte first, byte second);
+    void xorByteBlock(ByteArray &block, ByteArray key);
+    byte subByte(byte value, bool direction);
+    void subBytes(ByteArray &block, bool direction);
+    void shiftRows(ByteArray& block, bool direction);
+    void mixColumns(ByteArray& block, bool direction);
+    byte mulGalois(byte a, byte b);
 
 private:
     void initSBox();
@@ -25,10 +29,10 @@ private:
     static const int lengthWord = 4;
     static const int countWord = 4;
 
-    const unsigned char* sBox;
-    const unsigned char* invsBox;
-    const unsigned char** rcon[];
-
+    Key key;
+    ByteArray sBox;
+    ByteArray invsBox;
+    ByteArray rcon;
 };
 
 #endif // AES_H

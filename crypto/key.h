@@ -3,20 +3,25 @@
 #include <vector>
 #include <string>
 
+typedef unsigned char byte;
+typedef std::vector<std::vector<byte>> ByteArray;
+
 class Key final
 {
 public:
     Key();
     void setKey(std::string filePath);
-    unsigned char** getMatrixKey(int index);
+    ByteArray getMatrixKey(size_t index);
 
 private:
-    /*unsigned char**/ void shiftWord(const std::vector<unsigned char>& word);
-    /*unsigned char**/ void subWord(const std::vector<unsigned char>& word);
-    unsigned char** getEncryptKey(std::vector<unsigned char> key);
+    void shiftWord(const std::vector<byte>& word);
+    void subWord(const std::vector<byte>& word);
+    ByteArray getEncryptKey(std::vector<byte> key);
 
-    static unsigned char** key;
-
+    static ByteArray dataKey;
+//    static const int countRound = 10;
+//    static const int lengthWord = 4;
+//    static const int countWord = 4;
 };
 
 #endif // KEY_H
