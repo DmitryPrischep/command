@@ -1,4 +1,4 @@
-#include "Coder.h"
+#include "Coder.hpp"
 #include <vector>
 
 void Coder::set_input_data_size(const int size) {

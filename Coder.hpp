@@ -1,22 +1,15 @@
-#include <iostream>
+#include <string>
+#include <vector>
 
 class Coder {
 public:
-	Coder();
-	~Coder() {delete[] output_data_;};
+	Coder() {};
 	Coder(const Coder&) = delete;
-	Coder(Coder&) = delete;
+	Coder(Coder&&) = delete;
 	Coder& operator=(const Coder&) = delete;
-	Coder& operator=(Coder&) = delete;
+	Coder& operator=(Coder&&) = delete;
+	~Coder() {};
 
-	void set_input_data_size(const int size);
-	int get_output_data_size();
-	virtual char* encode(const char* data, int size) = 0;
-	virtual char* decode(const char* data, int size) = 0;
-
-protected:
-	int input_size_;
-	int output_size_;
-	const char* input_data_; // а нужна ли?
-	char* output_data_;
+	virtual std::vector<int> compress(const char* data, int size) = 0;
+	virtual std::vector<char> decompress(std::vector<int> data, int size) = 0;
 };
