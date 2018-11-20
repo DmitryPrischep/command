@@ -1,4 +1,5 @@
-#include "AdaptiveHuffman.h"
+#include "AdaptiveHuffman.hpp"
+#include <algorithm>
 
 std::vector<bit_t> AdaptiveHuffman::encode(byte_t byte) noexcept {
 	std::vector<bit_t> code;
@@ -33,7 +34,7 @@ std::vector<byte_t> AdaptiveHuffman::get_code(const Node* node) const noexcept {
 	return code;
 }
 
-std::vector<byte_t> Tree::decode(const std::vector<bit_t>& code) noexcept {
+std::vector<byte_t> AdaptiveHuffman::decode(const std::vector<bit_t>& code) noexcept {
     
     std::vector<byte_t> result;
 
@@ -75,7 +76,7 @@ std::vector<byte_t> Tree::decode(const std::vector<bit_t>& code) noexcept {
     return result;
 }
 
-void Tree::add_new_byte(byte_t byte) noexcept {
+void AdaptiveHuffman::add_new_byte(byte_t byte) noexcept {
     // create a node with data
     escape_->left  = new Node(byte, escape_->number - 1, 0, escape_);
     // create a new escape node
@@ -90,7 +91,7 @@ void Tree::add_new_byte(byte_t byte) noexcept {
     update_tree(leaves_[byte]);
 }
 
-void Tree::update_tree(Node* node) noexcept {
+void AdaptiveHuffman::update_tree(Node* node) noexcept {
 
 	while (node != nullptr) {
 		Node* highest = highest_node(node); 
@@ -100,7 +101,7 @@ void Tree::update_tree(Node* node) noexcept {
 	}
 }
 
-void Tree::exchange(Node* a, Node* b) noexcept
+void AdaptiveHuffman::exchange(Node* a, Node* b) noexcept
 {
 	// avoid unnecessary and dangerous situations
 	if (a == root_ || b == root_ || a == b || a->parent == b || b->parent == a) {
@@ -128,11 +129,12 @@ void Tree::exchange(Node* a, Node* b) noexcept
 
 #define MAX_NODES 2 * (256 + 1)
 
-Node* Tree::highest_node(Node* node) const noexcept {
+Node* AdaptiveHuffman::highest_node(Node* node) const noexcept {
 	Node* highest = node;
 
-	for (size_t i = node->number + 1; i <= MAX_NODES && _nodes[i]->weight == node->weight; ++i) {
-		highest = _nodes[i];
+	for (size_t i = node->number + 1; i <= MAX_NODES 
+			&& nodes_[i]->weight == node->weight; ++i) {
+		highest = nodes_[i];
 	}
 
 	return highest;

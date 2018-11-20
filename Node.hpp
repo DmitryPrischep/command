@@ -1,4 +1,11 @@
-#include <cstdef>
+//#include <cstdef>
+
+typedef std::uint_fast8_t byte_t;
+
+//A bit type declaration. Yep, I know it's not a really bit.
+//This type was introduced specially to increase code readability.
+typedef std::uint_fast8_t bit_t;
+
 
 struct Node {
 	byte_t byte;

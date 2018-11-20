@@ -1,10 +1,3 @@
-char* LZW::compress(const char* data, int size) {
-	std::string str_data(data, size);
-	std::vector<int> encoded;
-	std::vector<char> result;
-	int dict_size = 256;
-	encode(str_data, std::back_inserter(encoded), dict_size);
-
 	/*
 	int fill = 0; // количество записанных бит в байте
 	for (int i = 0; i < size; i++) {
@@ -22,4 +15,47 @@ char* LZW::compress(const char* data, int size) {
 
 	//return result;
 
+#include <iostream>
+#include <vector>
+#include <iterator>
+#include "AdaptiveHuffman.hpp"
+
+int main() {
+	std::cout << "Start" << std::endl;
+	
+	int size = 256;
+	char data[256];
+
+	for (int i = 0; i < size; i++) {
+		std::cin >> data[i];
+	}
+
+	std::cout << "Read data" << std::endl;
+
+	AdaptiveHuffman* coder = new AdaptiveHuffman();
+
+	std::vector<byte_t> r_buffer(size);
+	std::vector<bit_t> w_buffer;
+
+	for(int i = 0; i < size; i++) {
+		r_buffer[i] = data[i];
+	}
+
+
+	std::cout << "Input size: " << r_buffer.size() << std::endl;
+
+	for (int i = 0; i < size; i++) {
+		std::vector<bit_t> code = coder->encode(r_buffer[i]);
+		std::copy(std::begin(code), std::end(code), std::back_inserter(w_buffer));
+	}
+
+	byte_t extra_bits = 0;
+	if (w_buffer.size() % 8 != 0) {
+		extra_bits = 8 - w_buffer.size() % 8;
+		std::fill_n(std::back_inserter(w_buffer), extra_bits, 0);
+	}
+
+	std::cout << "Result size: " << w_buffer.size() << std::endl;
+
+	return 0;
 }
