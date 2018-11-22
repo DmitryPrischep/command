@@ -13,8 +13,6 @@
 	}
 	*/
 
-	//return result;
-
 #include <iostream>
 #include <vector>
 #include <iterator>
@@ -24,47 +22,20 @@ int main() {
 	std::cout << "Start" << std::endl;
 	
 	int size = 256;
-	char data[256];
-
+	std::vector<char> data(size);
 	for (int i = 0; i < size; i++) {
 		std::cin >> data[i];
 	}
 
-	std::cout << "Read data" << std::endl;
-
 	AdaptiveHuffman* coder = new AdaptiveHuffman();
+	std::vector<char> result = coder->compress(data);
 
-	std::vector<byte_t> r_buffer(size);
-	std::vector<bit_t> w_buffer;
-
-	for(int i = 0; i < size; i++) {
-		r_buffer[i] = data[i];
-	}
-
-	for (auto b : r_buffer) {
-		std::cout << b;
-	}
-	std::cout << std::endl;	
-	std::cout << "Input size: " << r_buffer.size() << std::endl;
-
-	for (int i = 0; i < size; i++) {
-		std::vector<bit_t> code = coder->encode(r_buffer[i]);
-		std::cout << "internal code (size): " << code.size() << std::endl;
-		std::copy(std::begin(code), std::end(code), std::back_inserter(w_buffer));
-	}
-
-	byte_t extra_bits = 0;
-	if (w_buffer.size() % 8 != 0) {
-		extra_bits = 8 - w_buffer.size() % 8;
-		std::fill_n(std::back_inserter(w_buffer), extra_bits, 0);
-	}
-
-	for (auto b : w_buffer) {
+	std::cout << "Result" << std::endl;
+	for (auto b : result) {
 		std::cout << (int) b;
 	}
 	std::cout << std::endl;
-	std::cout << "Result size: " << w_buffer.size() << std::endl;
-	// перевод в байты
+	std::cout << "Total result size: " << result.size() << std::endl;
 
 	return 0;
 }

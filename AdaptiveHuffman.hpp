@@ -23,6 +23,7 @@ public:
 	
 	std::vector<bit_t> encode(byte_t byte) noexcept;
 	std::vector<byte_t> decode(const std::vector<bit_t>& code) noexcept;
+	std::vector<char> compress(std::vector<char> data) noexcept;
 
 
 

@@ -17,6 +17,47 @@ AdaptiveHuffman::AdaptiveHuffman()
     ascii_.reserve(8);
 }
 
+std::vector<char> AdaptiveHuffman::compress(std::vector<char> data) noexcept {
+	std::vector<bit_t> bit_result;
+	std::vector<byte_t> input_data;
+	for (auto x : data) {
+		input_data.push_back(x);
+	}
+
+	for (int i = 0; i < input_data.size(); i++) {
+		std::vector<bit_t> code = encode(input_data[i]);
+		std::cout << "internal code (size): " << code.size() << std::endl;
+		std::copy(std::begin(code), std::end(code), std::back_inserter(bit_result));
+	}
+
+	byte_t extra_bits = 0;
+	if (bit_result.size() % 8 != 0) {
+		extra_bits = 8 - bit_result.size() % 8;
+		std::fill_n(std::back_inserter(bit_result), extra_bits, 0);
+	}
+
+	/*
+	for (auto b : bit_result) {
+		std::cout << (int) b;
+	}
+	std::cout << std::endl;
+	std::cout << "Result size: " << bit_result.size() << std::endl;
+	*/
+
+	std::vector<char> result;
+	for (int i = 0; i < bit_result.size() / 8; i++) {
+		int temp = 0;
+		for (int j = 0; j < 8; j++) {
+			if ( (char) bit_result[i+j] > 0) {
+				temp |= 1 << j;
+			}		
+		}
+		result.push_back(temp);
+	}
+
+	return result;
+}
+
 std::vector<bit_t> AdaptiveHuffman::encode(byte_t byte) noexcept {
 	std::vector<bit_t> code;
 	std::cout << "input byte: " << byte << std::endl;
