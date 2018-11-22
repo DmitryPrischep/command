@@ -1,17 +1,36 @@
 #include "AdaptiveHuffman.hpp"
 #include <algorithm>
+#include <iostream>
+
+
+#define MAX_NODES 2 * (256 + 1)
+
+AdaptiveHuffman::AdaptiveHuffman()
+    : escape_(new Node(0, MAX_NODES))
+    , root_(escape_)
+    , decoder_(root_)
+{
+    std::fill(std::begin(leaves_), std::end(leaves_), nullptr);
+    std::fill(std::begin(nodes_), std::end(nodes_), nullptr);
+
+    nodes_[root_->number] = root_;
+    ascii_.reserve(8);
+}
 
 std::vector<bit_t> AdaptiveHuffman::encode(byte_t byte) noexcept {
 	std::vector<bit_t> code;
+	std::cout << "input byte: " << byte << std::endl;
 
 	// if node already encoded
 	if (leaves_[byte]) {
 		code = get_code(leaves_[byte]);
+		std::cout << "code already encoded: " << code.size() << std::endl;
 	    update_tree(leaves_[byte]);
 	}
 	else {
 		// output code = escape code + ascii code
 		code = get_code(escape_);
+		std::cout << "new byte: " << code.size() << std::endl;
 		for (size_t i = 0; i < 8 * sizeof(byte_t); ++i) {
 		    code.push_back(0x1 & (byte >> (7 - i)));
 		}
@@ -25,11 +44,13 @@ std::vector<byte_t> AdaptiveHuffman::get_code(const Node* node) const noexcept {
 	// left is 1 and right is 0
 	std::vector<bit_t> code;
 
+	std::cout << node->number << std::endl;
+
 	while (node != root_) {
 		code.push_back(node->parent->left == node);
 		node = node->parent;
 	}
-	std::reverse(begin(code), end(code));
+	std::reverse(std::begin(code), std::end(code));
 
 	return code;
 }
@@ -126,8 +147,6 @@ void AdaptiveHuffman::exchange(Node* a, Node* b) noexcept
 	std::swap(a->number, b->number);
 	std::swap(a->parent, b->parent);
 }
-
-#define MAX_NODES 2 * (256 + 1)
 
 Node* AdaptiveHuffman::highest_node(Node* node) const noexcept {
 	Node* highest = node;

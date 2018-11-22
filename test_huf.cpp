@@ -41,11 +41,15 @@ int main() {
 		r_buffer[i] = data[i];
 	}
 
-
+	for (auto b : r_buffer) {
+		std::cout << b;
+	}
+	std::cout << std::endl;	
 	std::cout << "Input size: " << r_buffer.size() << std::endl;
 
 	for (int i = 0; i < size; i++) {
 		std::vector<bit_t> code = coder->encode(r_buffer[i]);
+		std::cout << "internal code (size): " << code.size() << std::endl;
 		std::copy(std::begin(code), std::end(code), std::back_inserter(w_buffer));
 	}
 
@@ -55,7 +59,12 @@ int main() {
 		std::fill_n(std::back_inserter(w_buffer), extra_bits, 0);
 	}
 
+	for (auto b : w_buffer) {
+		std::cout << (int) b;
+	}
+	std::cout << std::endl;
 	std::cout << "Result size: " << w_buffer.size() << std::endl;
+	// перевод в байты
 
 	return 0;
 }

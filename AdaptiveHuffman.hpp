@@ -13,7 +13,7 @@ typedef std::uint_fast8_t bit_t;
 //class AdaptiveHuffman : public Coder {
 class AdaptiveHuffman {
 public:
-	AdaptiveHuffman() {};
+	AdaptiveHuffman();
 	AdaptiveHuffman(const AdaptiveHuffman&) = delete;
 	AdaptiveHuffman(AdaptiveHuffman&&) = delete;
 	AdaptiveHuffman& operator=(const AdaptiveHuffman&) = delete;
