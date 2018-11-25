@@ -72,20 +72,28 @@ std::string LZW::decode(std::vector<int>::iterator begin, std::vector<int>::iter
   return result;
 }
 
-std::vector<int> LZW::compress(const char* data, int size) {
-  std::string str_data(data, size);
+std::vector<unsigned char> LZW::compress(std::vector<unsigned char> data) {
+  std::string str_data(data.begin(), data.end());
   std::vector<int> encoded;
-  int dict_size = 256;
+  int dict_size = dictionary_size_;
   encode(str_data, std::back_inserter(encoded), dict_size);
 
-  return encoded;
+  std::vector<unsigned char> result(encoded.begin(), encoded.end());
+  //for (int i = 0; i < encoded.size(); i++) {
+  //  result[i] = static_cast<unsigned char>(encoded[i]);
+  //}
+
+  return result;
 }
 
 
-std::vector<char> LZW::decompress(std::vector<int> data, int size) {
+std::vector<unsigned char> LZW::decompress(std::vector<unsigned char> data) {
 
-  int dict_size = 256;
-  std::string decoded = decode(data.begin(), data.end(), 256);
-  std::vector<char> result(decoded.begin(), decoded.end());
+  std::veсtor<int> int_data(data.begin(), data.end());
+
+  int dict_size = dictionary_size_; 
+  std::string decoded = decode(int_data.begin(), int_data.end(), dict_size);
+
+  std::vector<unsigned char> result(decoded.begin(), decoded.end());
   return result;
 }

@@ -4,44 +4,35 @@
 #include "Coder.hpp"
 #include "Node.hpp"
 
-typedef std::uint_fast8_t byte_t;
+#define NODES_SIZE 2 * DATA_SIZE + 1
 
-//A bit type declaration. Yep, I know it's not a really bit.
-//This type was introduced specially to increase code readability.
-typedef std::uint_fast8_t bit_t;
-
-//class AdaptiveHuffman : public Coder {
-class AdaptiveHuffman {
+class AdaptiveHuffman : public Coder {
 public:
 	AdaptiveHuffman();
 	AdaptiveHuffman(const AdaptiveHuffman&) = delete;
 	AdaptiveHuffman(AdaptiveHuffman&&) = delete;
 	AdaptiveHuffman& operator=(const AdaptiveHuffman&) = delete;
 	AdaptiveHuffman& operator=(AdaptiveHuffman&&) = delete;
-	~AdaptiveHuffman() {};
+	~AdaptiveHuffman() {}; //{delete escape_;};
 
-	
-	std::vector<bit_t> encode(byte_t byte) noexcept;
-	std::vector<byte_t> decode(const std::vector<bit_t>& code) noexcept;
-	std::vector<char> compress(std::vector<char> data) noexcept;
-
-
+	std::vector<unsigned char> compress(std::vector<unsigned char> data);
+	std::vector<unsigned char> decompress(std::vector<unsigned char> data);
 
 private:
-	Node* escape_;                 //! a pointer to the special escape node
-	Node* root_;                   //! a tree root
-	Node* leaves_[256 + 1];  //! fast access to the leaves by byte
-	Node* nodes_[515];   //! fast access to the nodes by number
-	Node* decoder_;                //! pointer to the current decoding node
-	std::vector<bit_t> ascii_;     //! decoder ASCII buffer
+	int nodes_size_;
+	Node* escape_;					// указатель на узел со спец символом
+	Node* root_;					// указатель на корень
+	Node* leaves_[DATA_SIZE];   // fast access to the leaves by byte
+	Node* nodes_[NODES_SIZE];		// доступ по индексу к узлам
+	Node* dec_;
 
-	std::vector<bit_t> get_code(const Node* node) const noexcept;
-	void add_new_byte(byte_t byte) noexcept;
+
+	std::vector<uint8_t> encode(unsigned char byte) noexcept;
+	std::vector<unsigned char> decode(const std::vector<uint8_t>& code) noexcept;
+
+	std::vector<uint8_t> get_code(const Node* node) const noexcept;
+	void add_new_byte(unsigned char byte) noexcept;
 	void update_tree(Node* node) noexcept;
 	void exchange(Node* a, Node* b) noexcept;
 	Node* highest_node(Node* node) const noexcept;
-
-	//std::vector<bit_t> encode(byte_t byte) noexcept override;
-	//std::vector<byte_t> decode(const std::vector<bit_t>& code) noexcept override;
-
 };
