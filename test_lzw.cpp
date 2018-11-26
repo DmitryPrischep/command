@@ -10,19 +10,21 @@ int main() {
     std::cin >> data[i];
   }
 
-  LZW* coder = new LZW();
+  Coder* coder = new LZW();
 
-  std::vector<int> result = coder->compress(data);
+  std::vector<unsigned char> result = coder->compress(data);
 
+  /*
   for (auto x : result) {
     std::cout << (int) x << " ";
   }
   std::cout << std::endl;
-  std::cout << "Compress size: " << result.size() << std::endl;
+  */
+  std::cout << "Compressed size: " << result.size() << std::endl;
 
-  std::vector<int> decoded = coder->decompress(result);
+  std::vector<unsigned char> decoded = coder->decompress(result);
   for (auto x : decoded) {
-    std::cout << (int) x << " ";
+    std::cout << (unsigned char) x << "";
   }
   std::cout << std::endl;
   std::cout << "Decompress size: " << decoded.size() << std::endl;
