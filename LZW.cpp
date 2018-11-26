@@ -2,9 +2,42 @@
 #include <map>
 #include <cmath>
 
-void LZW::encode(const std::string& data, std::back_insert_iterator<std::vector<int>> result, int dictionary_size) {
+#include <iostream>
 
-  int dict_size = dictionary_size;  
+LZW::LZW() : dictionary_size_(DATA_SIZE) {
+
+}
+
+std::vector<int> LZW::compress(std::vector<unsigned char> data) {
+  std::string str_data(data.begin(), data.end());
+  std::vector<int> encoded;
+  encode(str_data, std::back_inserter(encoded));
+
+  std::vector<unsigned char> result;
+  for (auto byte : encoded) {
+    unsigned char high = (byte >> 16) & 0xffff; // 256?
+    unsigned char little = byte & 0xffff;
+    std::cout << (uint16_t) high << " " << (uint16_t) little << " ";
+    result.push_back(high);
+    result.push_back(little);
+  }
+  std::cout << std::endl;
+
+  return encoded;
+}
+
+
+std::vector<int> LZW::decompress(std::vector<int> data) {
+
+  std::string decoded = decode(data.begin(), data.end());
+
+  std::vector<int> result(decoded.begin(), decoded.end());
+  return result;
+}
+
+void LZW::encode(const std::string& data, std::back_insert_iterator<std::vector<int>> result) {
+
+  int dict_size = dictionary_size_;  
 
   std::map<std::string, int> dict;
 
@@ -37,9 +70,9 @@ void LZW::encode(const std::string& data, std::back_insert_iterator<std::vector<
   */
 }
 
-std::string LZW::decode(std::vector<int>::iterator begin, std::vector<int>::iterator end, int dictionary_size) {
+std::string LZW::decode(std::vector<int>::iterator begin, std::vector<int>::iterator end) {
 
-  int dict_size = dictionary_size;  
+  int dict_size = dictionary_size_;  
 
   std::map<int, std::string> dict;
 
@@ -69,31 +102,5 @@ std::string LZW::decode(std::vector<int>::iterator begin, std::vector<int>::iter
     begin++;
   }
 
-  return result;
-}
-
-std::vector<unsigned char> LZW::compress(std::vector<unsigned char> data) {
-  std::string str_data(data.begin(), data.end());
-  std::vector<int> encoded;
-  int dict_size = dictionary_size_;
-  encode(str_data, std::back_inserter(encoded), dict_size);
-
-  std::vector<unsigned char> result(encoded.begin(), encoded.end());
-  //for (int i = 0; i < encoded.size(); i++) {
-  //  result[i] = static_cast<unsigned char>(encoded[i]);
-  //}
-
-  return result;
-}
-
-
-std::vector<unsigned char> LZW::decompress(std::vector<unsigned char> data) {
-
-  std::veсtor<int> int_data(data.begin(), data.end());
-
-  int dict_size = dictionary_size_; 
-  std::string decoded = decode(int_data.begin(), int_data.end(), dict_size);
-
-  std::vector<unsigned char> result(decoded.begin(), decoded.end());
   return result;
 }

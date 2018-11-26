@@ -1,5 +1,4 @@
 #include <iostream>
-//#include "Coder.hpp"
 #include "LZW.hpp"
 
 int main() {
@@ -11,19 +10,19 @@ int main() {
     std::cin >> data[i];
   }
 
-  Coder* coder = new LZW();
+  LZW* coder = new LZW();
 
-  std::vector<unsigned char> result = coder->compress(data);
+  std::vector<int> result = coder->compress(data);
 
   for (auto x : result) {
-    std::cout << (uint16_t) x << " ";
+    std::cout << (int) x << " ";
   }
   std::cout << std::endl;
   std::cout << "Compress size: " << result.size() << std::endl;
-  //std::string decoded = decompress(result, size);
-  std::vector<unsigned char> decoded = coder->decompress(result);
+
+  std::vector<int> decoded = coder->decompress(result);
   for (auto x : decoded) {
-    std::cout << (uint16_t) x << " ";
+    std::cout << (int) x << " ";
   }
   std::cout << std::endl;
   std::cout << "Decompress size: " << decoded.size() << std::endl;
