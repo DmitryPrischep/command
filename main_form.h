@@ -12,7 +12,6 @@
 #include <QToolBar>
 #include <QIcon>
 #include <assert.h>
-
 namespace Ui {
 class Main_Form;
 }

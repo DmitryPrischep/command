@@ -2,6 +2,9 @@
 #include "ui_main_form.h"
 #include <QDebug>
 #include <QFileInfo>
+extern "C" {
+
+}
 Main_Form::Main_Form(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Main_Form)
@@ -44,8 +47,8 @@ void Main_Form::on_pushButton_clicked()
     dir_controller.clearAll(); //Очищаем предыдущий список директорий и путей файлов
     //Добавляем в список для отправки все выделенные файлы
     //Функция для получения всех файлов внутри директории
-    std::function<void(QString)> getFiles = [this, &getFiles](QString path) -> void {
-            QFileInfo fileInfo(path);
+    std::function<void(string)> getFiles = [this, &getFiles](string path) -> void {
+            QFileInfo fileInfo(QString::fromStdString(path));
             //Если получили файл, тогда добавляем путь до него
             if (fileInfo.isFile())
                dir_controller << path;
@@ -53,10 +56,10 @@ void Main_Form::on_pushButton_clicked()
                 /* Если директория, то применяем рекурсия и получаем все пути файлов в ней
                  * и во вложенных директориях, если таковые имеются
                 */
-                QFileInfoList list_files = QDir(path).entryInfoList(); //Получаем содержимое каталога
+                QFileInfoList list_files = QDir(QString::fromStdString(path)).entryInfoList(); //Получаем содержимое каталога
                 foreach (QFileInfo file, list_files) { //Проходимся по всем элементам каталога
-                    QString filePath = file.absoluteFilePath();
-                    QString fileName = file.fileName();
+                    string filePath = file.absoluteFilePath().toStdString();
+                    string fileName = file.fileName().toStdString();
                     if (fileName == "." || fileName == "..") continue;
                         getFiles(filePath); //Рекурсивно добавляем все пути из директории
                 }
@@ -65,12 +68,13 @@ void Main_Form::on_pushButton_clicked()
 
     foreach (QModelIndex index, ui->tree->selectionModel()->selectedRows()) {
         QFileInfo fileInfo = model->fileInfo(index); //Получаем информацию о файле/директории
-        QString file = fileInfo.absoluteFilePath(); //Получаем абсолютный путь до файла
+        string file = fileInfo.absoluteFilePath().toStdString(); //Получаем абсолютный путь до файла
             getFiles(file); //Получаем все пути из директории / путь до данного файла
     }
 
-   QSet<QString> temp = dir_controller.sendList(); //Временный накопитель директорий текущей операции
-    foreach (QString str, temp) {
-       qDebug() << str;
+   set<string> temp = dir_controller.sendList(); //Временный накопитель директорий текущей операции
+    foreach (string str, temp) {
+       qDebug() << QString::fromStdString(str);
     }
+
 }

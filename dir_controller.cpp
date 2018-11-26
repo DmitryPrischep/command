@@ -4,28 +4,26 @@ Dir_Controller::Dir_Controller()
 
 }
 
-Dir_Controller::Dir_Controller(const QStringList &list)
+Dir_Controller::Dir_Controller(const set<string> &list)
 {
     clearAll(); //Стираем предыдущие директории и пути файлов
-    foreach (QString dir, list) {
-        *this << dir;
-    }
+    list_of_files = list;
 }
 
-Dir_Controller &Dir_Controller::operator <<(const QString &dir)
+Dir_Controller &Dir_Controller::operator <<(const string &dir)
 {
-  list_of_files << dir;
+  list_of_files.insert(dir);
   return *this;
 }
 
-bool Dir_Controller::contains(const QString &dir)
+bool Dir_Controller::contains(const string &dir)
 {
-    return list_of_files.contains(dir);
+    return list_of_files.count(dir) > 0;
 }
 
-void Dir_Controller::remove(const QString &dir)
+void Dir_Controller::remove(const string &dir)
 {
-    list_of_files.remove(dir);
+    list_of_files.erase(dir);
 }
 
 void Dir_Controller::clearAll()
@@ -33,7 +31,7 @@ void Dir_Controller::clearAll()
     list_of_files.clear();
 }
 
-QSet<QString> Dir_Controller::sendList() const
+set<string> Dir_Controller::sendList() const
 {
     return list_of_files;
 }

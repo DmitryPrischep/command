@@ -3,7 +3,11 @@
 
 #include <QObject>
 #include <QString>
-#include <QSet>
+#include <set>
+#include <experimental/vector>
+#include <iostream>
+using namespace std;
+
 /*
  * Класс Dir_Controller
  * Предоставляет методы для работы с группами файлов
@@ -20,20 +24,20 @@ class Dir_Controller : public QObject
 {
     Q_OBJECT
     //Список выделенных файлов для архивации
-    QSet<QString> list_of_files;
+    set<string> list_of_files;
     Options options;
 public:
     explicit Dir_Controller();
-    explicit Dir_Controller(const QStringList &list);
-    Dir_Controller& operator << (const QString &);
-    bool contains(const QString &);
-    void remove(const QString &);
+    explicit Dir_Controller(const set<string> &list);
+    Dir_Controller& operator << (const string &);
+    bool contains(const string &);
+    void remove(const string &);
     void clearAll();
 signals:
 
 public slots:
     //Отправка списка файлов на архивацию и сжатие
-    QSet<QString> sendList() const;
+    set<string> sendList() const;
     Options sendOptions() const;
 };
 
