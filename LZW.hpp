@@ -16,6 +16,7 @@ public:
 
 private:
 	const int dictionary_size_;
+	const int bit_resolution_;
 	std::vector<int> encode(const std::string& data);
 	std::string decode(const std::vector<int>& data);	
 };

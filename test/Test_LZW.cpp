@@ -1,4 +1,4 @@
-#include "../LZW.h"
+#include "../LZW.hpp"
 #include "gtest/gtest.h"
 
 class Test_LZW : public ::testing::Test {
