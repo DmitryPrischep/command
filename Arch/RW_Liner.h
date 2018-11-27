@@ -22,18 +22,7 @@ protected:
 // Пример использования
 
 /*
-void GenData(vector<char> &data, int cupasity){
-    srand(time(0));
-    for (int i = 0; i < cupasity; ++i) {
-        data.__emplace_back(rand()%256);
-    }
-}
-void Print(vector<char> &data){
-    for (int i = 0; i < data.size(); ++i) {
-        std::cout << data[i] << " ";
-    }
-    std::cout << std::endl;
-}
+
 int main() {
     RW_Interface *inter = new RW_Liner;
     FileInfo info("as.txt", 123);

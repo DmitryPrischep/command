@@ -4,10 +4,33 @@
 
 #ifndef ARCH_FILEINFO_H
 #define ARCH_FILEINFO_H
-#include "Union.h"
 #include <iostream>
 
 using std::copy;
+
+
+class File_Header{
+public:
+    File_Header(): size(0), amount(0), settings(0) {
+
+    }
+
+    unsigned long int size;
+    unsigned long int amount;
+    unsigned int settings;
+
+    void AddSize(int size);
+    void AddFile();
+    void SubtractSize(int size);
+    void SubtractFile();
+    bool IsAmountFull();
+};
+class Side_Header{
+public:
+    Side_Header();
+    unsigned long int size;
+    unsigned long int pathSize;
+};
 
 class FileInfo{
 public:
@@ -16,8 +39,12 @@ public:
     ~FileInfo();
     void AddPath(char* inpath);
     void AddSizeFile(int size);
+    void PlusSizeFile(int size);
+    void SubstractSizeFile(int size);
+    bool IsFileFull();
     bool IsFull();
-    Side_Header Length();
+    int Size();
+    int Length();
     int PathLength();
     char* Path();
 
@@ -25,8 +52,8 @@ public:
     char** GivePath();
 private:
     char* path; // Кинь сюда путь твоего файла через методы или инициализыцию
-    Side_Header file;   // Реализован в Union.h
-    // Сделан на union тк надо будет читать в бинарный файл
+    Side_Header file;   // Реализован выше
+
     void TakePathLength();
 };
 // Пример использования
