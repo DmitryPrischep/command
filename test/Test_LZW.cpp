@@ -1,34 +1,32 @@
-#include "../LZW.hpp"
-#include "gtest/gtest.h"
+#include <iostream>
+#include "LZW.hpp"
+#include <cassert>
 
-class Test_LZW : public ::testing::Test {
-};
+int main() {
 
-TEST_F(Test_LZW, compress) {
-	int size = 256;
-	std::vector<unsigned char> data(256);
+    std::string input = "Lempel–Ziv–Welch (LZW) is a universal lossless data compression algorithm created by Abraham Lempel, Jacob Ziv, and Terry Welch. It was published by Welch in 1984 as an improved implementation of the LZ78 algorithm published by Lempel and Ziv in 1978!!";
 
-	for (int i = 0; i < size; i++) {
-		data[i] = '0';
-	}
+    assert(input.size() == 256);
 
-	std::vector<unsigned char> result = compress(data);
+    std::vector<char> data(input.begin(), input.end());
 
-	EXPECT_EQ(46 == result.size(), true);
-}
+    Coder* coder = new LZW();
 
-/*
-TEST_F(Test_LZW, decompress) {
-	int size = 256;
-	std::vector<unsigned char> data = {'a', 'b', 'c'}; //
+    std::vector<char> compress_result = coder->compress(data);
+    std::vector<char> decompress_result = coder->decompress(compress_result);
 
-	std::vector<unsigned char> result = decompress(data);
-	
-	EXPECT_EQ(32 <= output_size_, true); //
-}
-*/
+    for (auto x : decompress_result) {
+    std::cout << (char) x << "";
+    }
+    std::cout << std::endl;
 
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+    std::cout << "Input size: " << input.size() << std::endl;
+    std::cout << "Compressed size: " << compress_result.size() << std::endl;
+    std::cout << "Decompressed size: " << decompress_result.size() << std::endl;
+    std::cout << "Compressing is: " << 100 - 100*compress_result.size()/decompress_result.size() << " %" << std::endl;
+
+
+    delete coder;
+
+    return 0;
 }

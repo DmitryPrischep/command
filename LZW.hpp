@@ -11,12 +11,12 @@ public:
 	LZW& operator=(LZW&&) = delete;
 	~LZW() {};
 
-	std::vector<unsigned char> compress(const std::vector<unsigned char>& data);
-	std::vector<unsigned char> decompress(const std::vector<unsigned char>& data);
+	std::vector<char> compress(const std::vector<char>& data);
+	std::vector<char> decompress(const std::vector<char>& data);
 
 private:
 	const int dictionary_size_;
-	const int bit_resolution_;
+	int bit_resolution_;
 	std::vector<int> encode(const std::string& data);
 	std::string decode(const std::vector<int>& data);	
 };

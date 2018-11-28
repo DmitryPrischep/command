@@ -1,64 +1,45 @@
-#include "../Selector.h"
-#include "gtest/gtest.h"
+#include <iostream>
+#include <cassert>
+#include "../Selector.hpp"
+#include "../LZW.hpp"
 
-class Test_Selector : public ::testing::Test {
-};
-
-TEST_F(Test_Selector, set_filesnames) {
-
-	std::string test_string = "test_string";
-	std::vector<std::string> test_input_filenames;
-	test_input_filenames.push_back(test_string);
-
-	set_filesnames(test_input_filenames);
-
-	ASSERT_TRUE(input_files_.size() <= 0);
-
-	for (int i = 0; i < input_files_.size(); i++) {
-		ASSERT_TRUE(input_files_[i].size() <= 0);;	
+template <typename T>
+void print(const std::vector<T>& vect) {
+	for ( auto v : vect) {
+		std::cout << v << "";
 	}
-
+	std::cout << std::endl;
 }
 
-TEST_F(Test_Selector, has_file) {
-	
-	ASSERT_TRUE(file_index_ >= input_files_.size());
-	ASSERT_TRUE(file_index_ < 0);
+int main() {
 
-	if (file_index_ >= 0 && file_index < input_files_.size()) {
-		ASSERT_TRUE(false, has_file());
-	}
+    std::set<std::string> data = {"in1.txt", "in2.txt"};
+    assert(data.size() == 2);
 
-}
+    Selector selector;    
+    selector.set_filesnames(data);
 
-TEST_F(Test_Selector, has_data) {
-	ASSERT_TRUE(data_index_ >= input_files_[file_index_].size());
-	ASSERT_TRUE(data_index_ < 0);
+    while (selector.has_file()) {
+    	selector.read_file();
+    	while (selector.has_data()) {
+    		std::vector<char> buffer = selector.read_data();
+            std::cout << "buffer size: " << buffer.size() << std::endl;
+            assert(buffer.size() <= 256);
+    		//print(data);
+    		selector.next_data();
 
-	if (data_index_ >= 0 && data_index_ < input_files_[file_index_].size()) {
-		ASSERT_TRUE(false, has_data());
-	}
-}
+    		Coder* coder = new LZW();
+    		std::vector<char> compressed_data = coder->compress(buffer);
+    		std::cout << "compressed size: " << compressed_data.size() << std::endl;
 
-TEST_F(Test_Selector, read_next_file) {
-	ASSERT_TRUE(file_index_ >= input_files_.size() - 1);
-	ASSERT_TRUE(file_index_ < 0);
+    		std::vector<char> decompressed_data = coder->decompress(compressed_data);
+    		std::cout << "decompressed size: " << decompressed_data.size() << std::endl;
+    		//print(decompressed_data);
 
-	if (file_index_ >= 0 && file_index < input_files_.size() - 1) {
-		ASSERT_TRUE(false, has_file());
-	}
-}
+    	}
+    	selector.next_file();
+    }
 
-TEST_F(Test_Selector, read_next_data) {
-	ASSERT_TRUE(data_index_ >= input_files_[file_index_].size() - 1);
-	ASSERT_TRUE(data_index_ < 0);
 
-	if (data_index_ >= 0 && data_index_ < input_files_[file_index_].size() - 1) {
-		ASSERT_TRUE(false, has_data());
-	}
-}
-
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+    return 0;
 }

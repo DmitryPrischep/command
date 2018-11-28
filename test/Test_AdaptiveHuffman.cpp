@@ -1,33 +1,50 @@
-#include "../AdaptiveHuffman.h"
-#include "gtest/gtest.h"
-
-class Test_AdaptiveHuffman : public ::testing::Test {
-};
-
-TEST_F(Test_AdaptiveHuffman, encode) {
-
-	char* test_input_data[256];
-	for (int i = 0; i < test_input_size; i++) {
-		test_input_data[i] = '0';
+	/*
+	int fill = 0; // количество записанных бит в байте
+	for (int i = 0; i < size; i++) {
+		int value = encoded[i];
+		int bits_count = log(value) / log(2); // количество значащих бит в числе
+		for (int j = 0; j < bits_count; j++) { // не уверен, что учел выход за 8 бит !!!!!!
+			if (fill == 0) {
+				result.push_back(0);
+			}
+			result.back() |= ( (value >> j) & 1u ) << (7 - fill); // "конкатенируем" значащие биты
+			fill = (fill + 1) % 8;
+		}
 	}
+	*/
 
-	char* test_output_data = encode(test_input_data, test_input_size);
+#include <iostream>
+#include <vector>
+#include <iterator>
+#include "AdaptiveHuffman.hpp"
 
-	EXPECT_EQ(32, output_size_);
-}
-
-TEST_F(Test_AdaptiveHuffman, decode) {
-	char* test_input_data[32];
-	for (int i = 0; i < 32; i++) {
-		test_input_data[i] = '0';
+int main() {
+	
+	int size = 256;
+	std::vector<unsigned char> data(size);
+	for (int i = 0; i < size; i++) {
+		std::cin >> data[i];
+		std::cout << (uint16_t) data[i] << " "; 
 	}
+	std::cout << std::endl;
 
-	char* test_output_data = decode(test_input_data, test_input_size);
+	Coder* coder = new AdaptiveHuffman();
+	std::vector<unsigned char> result = coder->compress(data);
 
-	EXPECT_EQ(256, output_size_);
-}
+	std::cout << "Result" << std::endl;
+	for (auto b : result) {
+		std::cout << (uint16_t) b << " ";
+	}
+	std::cout << std::endl;
+	std::cout << "Total result size: " << result.size() << std::endl;
 
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+	std::vector<unsigned char> prev_data = coder->decompress(result);	
+	std::cout << "Decompress" << std::endl;
+	for (auto b : prev_data) {
+		std::cout << (uint16_t) b << " ";
+	}
+	std::cout << std::endl;
+	std::cout << "Total decompress size: " << prev_data.size() << std::endl;
+
+	return 0;
 }

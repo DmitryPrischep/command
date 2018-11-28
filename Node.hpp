@@ -16,7 +16,7 @@ struct Node {
 			right(_right)
 	{}
 	~Node() {
-		//delete left;
-		//delete right;
+		delete left;
+		delete right;
 	}
 };

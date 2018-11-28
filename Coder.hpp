@@ -12,8 +12,8 @@ public:
 	Coder& operator=(Coder&&) = delete;
 	~Coder() {};
 
-	virtual std::vector<unsigned char> compress(const std::vector<unsigned char>& data) = 0;
-	virtual std::vector<unsigned char> decompress(const std::vector<unsigned char>& data) = 0;
+	virtual std::vector<char> compress(const std::vector<char>& data) = 0;
+	virtual std::vector<char> decompress(const std::vector<char>& data) = 0;
 
 protected:
 	const int data_size_;

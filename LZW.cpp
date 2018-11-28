@@ -3,25 +3,35 @@
 #include <cmath>
 #include <iterator>
 
-LZW::LZW() : dictionary_size_(DATA_SIZE), bit_resolution_(9) {
-
+LZW::LZW() : dictionary_size_(DATA_SIZE) {
+    // определяем количество бит под код подстроки из словаря
+    // пример, для входной последовательности длиной 256 байт, нужно 9 бит (256 + 256 = 512 = 2^9)
+    int i = 0;
+    int dict_power = dictionary_size_ + sizeof(char);
+    while ( (dict_power) >> i ) {
+        i++;
+    }
+    bit_resolution_ = i;
 }
 
-std::vector<unsigned char> LZW::compress(const std::vector<unsigned char>& data) {
+std::vector<char> LZW::compress(const std::vector<char>& data) {
+
     std::string str_data(data.begin(), data.end());
     std::vector<int> encoded = encode(str_data);
 
+    // разбиваем кодированную последовательность на биты, это необходимо, тк символы кодируются интами
     std::vector<uint8_t> bits;
     for (auto byte : encoded) {
         for (int i = 16 - bit_resolution_; i < 16; i++) {
-            unsigned char bit = ( 1 & (byte >> (15 - i)) ) ? 1 : 0;
+            char bit = ( 1 & (byte >> (15 - i)) ) ? 1 : 0;
             bits.push_back(bit);
         }
     }
 
-    std::vector<unsigned char> result;
+    // создаём последовательность байт (по 8 бит) из последовательности битов
+    std::vector<char> result;
     for (int i = 0; i < bits.size(); i += 8) {
-        unsigned char temp = 0;
+        char temp = 0;
         for (int j = 0; j < 8; j++) {
             temp |= bits[i+j] << (7 - j);
         }
@@ -31,16 +41,18 @@ std::vector<unsigned char> LZW::compress(const std::vector<unsigned char>& data)
 }
 
 
-std::vector<unsigned char> LZW::decompress(const std::vector<unsigned char>& data) {
+std::vector<char> LZW::decompress(const std::vector<char>& data) {
 
+    // разбиваем входную последовательность на биты
     std::vector<uint8_t> bits;
     for (auto byte : data) {
         for (int i = 0; i < 8; i++) {
-            unsigned char bit = ( 1 & (byte >> (7 - i)) ) ? 1 : 0;
+            char bit = ( 1 & (byte >> (7 - i)) ) ? 1 : 0;
             bits.push_back(bit);
         }
     }
 
+    // собираем из битов, последовательность для декодировки
     std::vector<int> data2;
     for (int i = 0; i < bits.size(); i += bit_resolution_) {
         int temp = 0;
@@ -52,79 +64,82 @@ std::vector<unsigned char> LZW::decompress(const std::vector<unsigned char>& dat
 
     std::string decoded = decode(data2);
 
-    std::vector<int> result2(decoded.begin(), decoded.end());
-    std::vector<unsigned char> result(result2.size());
-    for (int i = 0; i < result2.size(); i++) {
-    result[i] = (unsigned char) result2[i];
-    }
+    std::vector<char> result(decoded.begin(), decoded.end());
+
     return result;
 }
 
 std::vector<int> LZW::encode(const std::string& data) {
 
-  int dict_size = dictionary_size_;  
-  std::map<std::string, int> dict;
+    int dict_size = dictionary_size_;  
+    std::map<std::string, int> dict;
 
-  std::vector<int> result;
-  auto result_iter = std::back_inserter(result);
+    std::vector<int> result;
+    auto result_iter = std::back_inserter(result);
 
-  for (int i = 0; i < dict_size; i++) {
-    dict[std::string(1, i)] = i;
-  }
- 
-  std::string temp;
-  for (auto it = data.begin(); it != data.end(); ++it) {
-    char symbol = *it;
-    std::string loc_temp = temp + symbol;
-    if (dict.find(loc_temp) != dict.end()) {
-      temp = loc_temp;
+    // иницилизируем словарь стандартными (ascii) символами
+    for (int i = 0; i < dict_size; i++) {
+        dict[std::string(1, i)] = i;
     }
-    else {
+
+    // процесс кодировки
+    // если подстрока есть в словаре, вставляем её код
+    // если её там нет, то добавляем её в словарь и записываем код
+    std::string temp;
+    for (auto it = data.begin(); it != data.end(); ++it) {
+        char symbol = *it;
+        std::string loc_temp = temp + symbol;
+        if (dict.find(loc_temp) != dict.end()) {
+            temp = loc_temp;
+        }
+        else {
+            *result_iter++ = dict[temp];
+            dict[loc_temp] = dict_size++;
+            temp = std::string(1, symbol);
+        }
+    }
+
+    if (!temp.empty()) {
         *result_iter++ = dict[temp];
-        dict[loc_temp] = dict_size++;
-        temp = std::string(1, symbol);
     }
-  }
- 
-  if (!temp.empty()) {
-    *result_iter++ = dict[temp];
-  }
 
-  return result;
-
+    return result;
 }
 
 std::string LZW::decode(const std::vector<int>& data) {
 
-  int dict_size = dictionary_size_;  
-  std::map<int, std::string> dict;
+    int dict_size = dictionary_size_;  
+    std::map<int, std::string> dict;
 
-  auto data_it = data.begin();
+    auto data_it = data.begin();
 
-  for (int i = 0; i < dict_size; i++) {
-    dict[i] = std::string(1, i);
-  }
-
-  std::string temp(1, *data_it++);
-  std::string result = temp;
-  std::string entry;
-
-  while (data_it != data.end()) {
-    int code = *data_it;
-    if (dict.find(code) != dict.end()) {
-      entry = dict[code];
-    }
-    else {
-      entry = temp + temp[0];
+    // иницилизируем словарь стандартными (ascii) символами
+    for (int i = 0; i < dict_size; i++) {
+        dict[i] = std::string(1, i);
     }
 
-    result += entry;
-    dict[dict_size] = temp + entry[0];
-    dict_size++;
-    temp = entry;
+    std::string temp(1, *data_it++);
+    std::string result = temp;
+    std::string entry;
 
-    data_it++;
-  }
+    // ищем в словаре код
+    // вставляем соответствующую коду подстроку в декодированную последовательность
+    while (data_it != data.end()) {
+        int code = *data_it;
+        if (dict.find(code) != dict.end()) {
+            entry = dict[code];
+        }
+        else {
+            entry = temp + temp[0];
+        }
 
-  return result;
+        result += entry;
+        dict[dict_size] = temp + entry[0];
+        dict_size++;
+        temp = entry;
+
+        data_it++;
+    }
+
+    return result;
 }
