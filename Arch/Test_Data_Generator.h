@@ -12,6 +12,6 @@ using std::string;
 void GenData(vector<char> &data, int cupasity);
 void Print(vector<char> &data);
 char* CutStrings( char* &str, int size);
-vector<char> UnCompressor(vector<char>& vec){; // реализация компрессора
+vector<char> UnCompressor(vector<char> vec){; // реализация компрессора
 
 #endif //ARCH_TEST_DATA_GENERATOR_H

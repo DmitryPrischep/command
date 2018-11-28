@@ -17,7 +17,7 @@ public:
     bool BeginWrite();
     bool Write_File(ofstream& File, vector<char>& array);   // Пишет в конец файла
     bool TakeHeader(FileInfo file_header);  // запихивает подаваемы хэдер в массив header
-    void TakeFileOut(ofstream& file);   // устанавливает out_file значением входного файла. Задаем вывод для класса
+    void TakeFileOut(char* &file);   // устанавливает out_file значением входного файла. Задаем вывод для класса
     bool HaveOutFile();
     bool TakeBody(vector<char>& array, int len_stream); // передаем массив в write. По умолчанию сразу пишет и смотрит был ли задан хэдер. Если был, то пишет сначала его
     bool Take_Dictionary(vector<char>& array); // На вход ожидает словарь от Компрессора. Сохраняет его в dictionary
@@ -26,7 +26,7 @@ public:
     bool EndWriting();
 
 
-    bool TakeFileIn(ifstream& file);
+    bool TakeFileIn(char* &file);
     bool HaveInFile();
     virtual bool Read();    // Реализуется потомками, но задан по умолчанию.
     bool ReadHeader();  // Считать заголовок всего документа
@@ -34,13 +34,20 @@ public:
     vector<char> ReadBodyPath(bool &NoErr);    // Будет прыгать по файлу и читать кусочек файла. Далее передать в Разжатие, а после в FileRecoveryWrite
 
     virtual bool RecoveryWrite();
+
+    File_Header* File_header(){
+        return &Main_header;
+    }
+    FileInfo* File_info(){
+        return &file_info;
+    }
 protected:
     vector<char> header;
     vector<char> dictionary;
     File_Header Main_header;
     FileInfo file_info;
-    ofstream* out_file;
-    ifstream* in_file; // not use yet
+    ofstream out_file;
+    ifstream in_file;
     const int pieceInfo = 1024*4;
     int file_amoun = 0;  // Считает сколько раз мы считали header & bufer   // Он вообще нужен??
     // Флаги на запись
