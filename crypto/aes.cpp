@@ -2,13 +2,13 @@
 #include <vector>
 #include <string>
 
-
-
 AES::AES()
 {
-    initSBox();
-    initInvSBox();
-    initRcon();
+    init_s_box();
+    init_inv_s_box();
+    init_c_box();
+    init_inv_c_box();
+    init_r_con();
 }
 
 AES::AES(const int sizeKey)
@@ -16,38 +16,38 @@ AES::AES(const int sizeKey)
 
 }
 
-unsigned char AES::xorByte(byte first, byte second)
+unsigned char AES::xor_byte(byte first, byte second)
 {
     return first ^ second;
 }
 
-void AES::xorByteBlock(byteArray& block, byteArray key)
+void AES::xor_byte_block(ByteArray& block, ByteArray key)
 {
     for(size_t i = 0; i < block.size(); i++){
         for(size_t j = 0; j < block[i].size(); j++){
-            block[i][j] = xorByte(block[i][j], key[i][j]);
+            block[i][j] = xor_byte(block[i][j], key[i][j]);
         }
     }
 }
 
-byte AES::subByte(byte value, bool direction)
+byte AES::sub_byte(byte value, bool direction)
 {
-    byte i = value / sBox.size();
-    byte j = value % sBox.size();
-    return getSBoxElement(i, j, direction);
+    byte i = value / s_box.size();
+    byte j = value % s_box.size();
+    return get_s_element(i, j, direction);
 }
 
-void AES::subBytes(ByteArray &block, bool direction)
+void AES::sub_bytes(ByteArray &block, bool direction)
 {
     for (size_t i = 0; i < block.size(); i++){
         for (size_t j = 0; j < block[i].size(); j++){
-            block[i][j] = subByte(block[i][j], direction);
+            block[i][j] = sub_byte(block[i][j], direction);
         }
     }
 
 }
 
-void AES::shiftRows(ByteArray& block, bool direction)
+void AES::shift_rows(ByteArray& block, bool direction)
 {
     size_t k = 1;
     std::vector<byte> result(block.size());
@@ -70,18 +70,18 @@ void AES::shiftRows(ByteArray& block, bool direction)
     }
 }
 
-void AES::mixColumns(std::vector<byte>& block, bool direction)
+void AES::mix_columns(ByteArray& block, bool direction)
 {
-    byte mixSum = 0;
+    byte mix_sum = 0;
     std::vector<byte> result(4);
     for (size_t i = 0; i < block.size(); i++){
         for (size_t j = 0; j < block.size(); j++){
-            mixSum = 0;
+            mix_sum = 0;
             for(size_t k = 0; k < block.size(); k++){
-                byte temp = mulGalois(getCElement(j, k, direction), block[k][i]);
-                mixSum = xorByte(mixSum, temp);
+                byte temp = mul_galois(get_c_element(j, k, direction), block[k][i]);
+                mix_sum = xor_byte(mix_sum, temp);
             }
-            result[j] = mixSum;
+            result[j] = mix_sum;
         }
         for (size_t j = 0; j < result.size(); j++){
             block[j][i] = result[j];
@@ -89,7 +89,7 @@ void AES::mixColumns(std::vector<byte>& block, bool direction)
     }
 }
 
-byte AES::mulGalois(byte a, byte b)
+byte AES::mul_galois(byte a, byte b)
 {
     byte result = 0;
     //Convert to int32
@@ -106,10 +106,32 @@ byte AES::mulGalois(byte a, byte b)
     return result;
 }
 
-void AES::initSBox()
+
+byte AES::get_s_element(size_t x, size_t y, bool direction)
 {
-    sBox.resize(16, std::vector<byte>(16));
-    sBox = {
+    if(direction)
+        return s_box[x][y];
+    else
+        return inv_s_box[x][y];
+}
+
+byte AES::get_c_element(size_t x, size_t y, bool direction)
+{
+    if(direction)
+        return c_box[x][y];
+    else
+        return inv_c_box[x][y];
+}
+
+byte AES::get_r_gon(size_t x, size_t y)
+{
+    return r_con[x][y];
+}
+
+void AES::init_s_box()
+{
+//    s_box.resize(16, std::vector<byte>(16));
+    s_box.push_back() = {
         { 0x63, 0x7c, 0x77, 0x7b, 0xf2, 0x6b, 0x6f, 0xc5, 0x30, 0x01, 0x67, 0x2b, 0xfe, 0xd7, 0xab, 0x76 },
         { 0xca, 0x82, 0xc9, 0x7d, 0xfa, 0x59, 0x47, 0xf0, 0xad, 0xd4, 0xa2, 0xaf, 0x9c, 0xa4, 0x72, 0xc0 },
         { 0xb7, 0xfd, 0x93, 0x26, 0x36, 0x3f, 0xf7, 0xcc, 0x34, 0xa5, 0xe5, 0xf1, 0x71, 0xd8, 0x31, 0x15 },
@@ -129,10 +151,10 @@ void AES::initSBox()
     };
 }
 
-void AES::initInvSBox()
+void AES::init_inv_s_box()
 {
-    invsBox.resize(16, std::vector<byte>(16));
-    invsBox = {
+    inv_s_box.resize(16, std::vector<byte>(16));
+    inv_s_box = {
         { 0x52, 0x09, 0x6a, 0xd5, 0x30, 0x36, 0xa5, 0x38, 0xbf, 0x40, 0xa3, 0x9e, 0x81, 0xf3, 0xd7, 0xfb },
         { 0x7c, 0xe3, 0x39, 0x82, 0x9b, 0x2f, 0xff, 0x87, 0x34, 0x8e, 0x43, 0x44, 0xc4, 0xde, 0xe9, 0xcb },
         { 0x54, 0x7b, 0x94, 0x32, 0xa6, 0xc2, 0x23, 0x3d, 0xee, 0x4c, 0x95, 0x0b, 0x42, 0xfa, 0xc3, 0x4e },
@@ -152,10 +174,10 @@ void AES::initInvSBox()
     };
 }
 
-void AES::initRcon()
+void AES::init_r_con()
 {
-    rcon.resize(11, std::vector<byte>(4));
-    rcon = {
+    r_con.resize(11, std::vector<byte>(4));
+    r_con = {
         { 0x00, 0x00, 0x00, 0x00 },
         { 0x01, 0x00, 0x00, 0x00 },
         { 0x02, 0x00, 0x00, 0x00 },
@@ -167,5 +189,27 @@ void AES::initRcon()
         { 0x80, 0x00, 0x00, 0x00 },
         { 0x1b, 0x00, 0x00, 0x00 },
         { 0x36, 0x00, 0x00, 0x00 }
+    };
+}
+
+void AES::init_c_box()
+{
+    c_box.resize(4, std::vector<byte>(4));
+    c_box = {
+        { 0x02, 0x03, 0x01, 0x01 },
+        { 0x01, 0x02, 0x03, 0x01 },
+        { 0x01, 0x01, 0x02, 0x03 },
+        { 0x03, 0x01, 0x01, 0x02 }
+    };
+}
+
+void AES::init_inv_c_box()
+{
+    inv_c_box.resize(4, std::vector<byte>(4));
+    inv_c_box = {
+        { 0x0E, 0x0B, 0x0D, 0x09 },
+        { 0x09, 0x0E, 0x0B, 0x0D },
+        { 0x0D, 0x09, 0x0E, 0x0B },
+        { 0x0B, 0x0D, 0x09, 0x0E }
     };
 }

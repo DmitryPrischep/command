@@ -6,22 +6,27 @@
 typedef unsigned char byte;
 typedef std::vector<std::vector<byte>> ByteArray;
 
+//5 rules
+
 class Key final
 {
 public:
     Key();
-    void setKey(std::string filePath);
-    ByteArray getMatrixKey(size_t index);
+    Key(const std::string pass, const size_t key_size, size_t nb, size_t nk, size_t nr);
+    void set_key(std::string pass_string, size_t key_size);
+    ByteArray get_matrix_key(size_t index);
 
 private:
-    void shiftWord(const std::vector<byte>& word);
-    void subWord(const std::vector<byte>& word);
-    ByteArray getEncryptKey(std::vector<byte> key);
+    std::vector<byte> shift_word(const std::vector<byte>& word);
+    std::vector<byte> sub_word(const std::vector<byte>& word);
+    ByteArray get_encrypt_key(std::vector<byte> pass);
 
-    static ByteArray dataKey;
-//    static const int countRound = 10;
-//    static const int lengthWord = 4;
-//    static const int countWord = 4;
+    ByteArray data_key;
+    const size_t key_size;
+    const size_t length_word; //count_columns
+    const size_t count_word;
+    const size_t count_round;
 };
+
 
 #endif // KEY_H
