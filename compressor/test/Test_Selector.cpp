@@ -13,8 +13,8 @@ void print(const std::vector<T>& vect) {
 
 int main() {
 
-    std::set<std::string> data = {"in1.txt", "in2.txt"};
-    assert(data.size() == 2);
+    std::set<std::string> data = {"in1.txt", "in2.txt", "in3.txt"};
+    //assert(data.size() == 2);
 
     Selector selector;    
     selector.set_filesnames(data);

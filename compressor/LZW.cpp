@@ -5,7 +5,8 @@
 
 LZW::LZW() : dictionary_size_(DATA_SIZE) {
     // определяем количество бит под код подстроки из словаря
-    // пример, для входной последовательности длиной 256 байт, нужно 9 бит (256 + 256 = 512 = 2^9)
+    // пример, для входной последовательности длиной 256 байт, нужно 9 бит 
+    // так как, размер ascii + размер входной строки = 256 + 256 = 512 = 2^9
     int i = 0;
     int dict_power = dictionary_size_ + sizeof(char);
     while ( (dict_power) >> i ) {
@@ -52,9 +53,14 @@ std::vector<char> LZW::decompress(const std::vector<char>& data) {
         }
     }
 
+    // определяем размер кодированной последовательности без избыточных бит
+    // избыточные биты - биты, которыми заполнили младшие разряды байта, когда информационные биты закончились
+    int real_bits_size = bits.size() / bit_resolution_;
+    real_bits_size *= bit_resolution_;
+
     // собираем из битов, последовательность для декодировки
     std::vector<int> data2;
-    for (int i = 0; i < bits.size(); i += bit_resolution_) {
+    for (int i = 0; i < real_bits_size; i += bit_resolution_) {
         int temp = 0;
         for (int j = 0; j < bit_resolution_; j++) {
             temp |= bits[i+j] << (bit_resolution_ - 1 - j);
