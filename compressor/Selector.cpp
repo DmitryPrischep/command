@@ -5,7 +5,7 @@ Selector::Selector() : filename_(""), data_index_(0), file_size_(0) {
 }
 
 void Selector::set_filesnames(const std::set<std::string>& filesnames) {
-	std::cout << "set file names" << std::endl;
+	//std::cout << "set file names" << std::endl;
 	input_files_ = filesnames;
 	it_ = input_files_.begin();
 }
@@ -43,11 +43,11 @@ int Selector::file_size() {
 
 void Selector::read_file() {
 	if (has_file()) {
-		std::cout << *it_ << std::endl;
+		//std::cout << *it_ << std::endl;
 		filename_ = *it_;
 		file_.open(filename_);
 		file_size_ = file_size();
-		std::cout << "file size: " << file_size_ << std::endl;
+		//std::cout << "file size: " << file_size_ << std::endl;
     	file_.seekg(0, std::ios::beg);
 	}
 }
@@ -72,4 +72,5 @@ void Selector::next_file() {
 
 void Selector::next_data() {
 	data_index_ += 256;
+	//std::cout << "data_index_: " << data_index_ << std::endl;
 }
