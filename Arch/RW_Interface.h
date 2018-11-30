@@ -19,7 +19,7 @@ public:
     bool TakeHeader(FileInfo file_header);  // запихивает подаваемы хэдер в массив header
     void TakeFileOut(char* &file);   // устанавливает out_file значением входного файла. Задаем вывод для класса
     bool HaveOutFile();
-    bool TakeBody(vector<char>& array, int len_stream); // передаем массив в write. По умолчанию сразу пишет и смотрит был ли задан хэдер. Если был, то пишет сначала его
+    bool TakeBody(vector<char> array, int len_stream); // передаем массив в write. По умолчанию сразу пишет и смотрит был ли задан хэдер. Если был, то пишет сначала его
     bool Take_Dictionary(vector<char>& array); // На вход ожидает словарь от Компрессора. Сохраняет его в dictionary
     // !!! На отработну завершения проги + надо добавить в хэдер смещение от конца файла
     virtual bool Write(vector<char>& array, int len_stream);    // Реализуется потомками, но задан по умолчанию трубой без буфера прям в файл.
@@ -32,15 +32,15 @@ public:
     bool ReadHeader();  // Считать заголовок всего документа
     bool ReadFileHead();    // Считать заголовок 1 файла в file_info
     vector<char> ReadBodyPath(bool &NoErr);    // Будет прыгать по файлу и читать кусочек файла. Далее передать в Разжатие, а после в FileRecoveryWrite
+//    bool EndReading();
 
     virtual bool RecoveryWrite();
+    bool RecoveryGiveFile(char* path);  // out_file открывает определенным файлом
 
-    File_Header* File_header(){
-        return &Main_header;
-    }
-    FileInfo* File_info(){
-        return &file_info;
-    }
+
+
+    File_Header* File_header();
+    FileInfo* File_info();
 protected:
     vector<char> header;
     vector<char> dictionary;

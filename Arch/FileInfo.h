@@ -35,7 +35,8 @@ public:
 class FileInfo{
 public:
     FileInfo();
-    FileInfo(const char* inpath, int file_size);
+//    FileInfo(FileInfo& current);
+    FileInfo(char* inpath, int file_size);
     ~FileInfo();
     void AddPath(char* inpath);
     void AddSizeFile(int size);
@@ -51,7 +52,7 @@ public:
     Side_Header* GiveHeader();
     char** GivePath();
 private:
-    char* path; // Кинь сюда путь твоего файла через методы или инициализыцию
+    char* path; // Кинь сюда путь твоего файла через методы или инициализацию
     Side_Header file;   // Реализован выше
 
     void TakePathLength();

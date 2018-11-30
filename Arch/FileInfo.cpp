@@ -28,19 +28,19 @@ void File_Header::SubtractFile() {
 }
 
 bool File_Header::IsAmountFull() {
-    return ( amount > 0 ? true : false );
+    return  amount > 0 ? true : false;
 }
 
 // FileInfo
 FileInfo::FileInfo() {
-    path = new char(1);
+//    path = new char(1);
     file.pathSize = 0;
 }
-FileInfo::FileInfo(const char* inpath, int file_size){
+FileInfo::FileInfo(char* inpath, int file_size) {
     file.size = file_size;
-    path = new char(sizeof(inpath)); // ///////////////////////
-    copy(inpath, inpath + sizeof(inpath), path);
-    file.pathSize = 0;
+//    path = new char(strlen(inpath)+1); // ///////////////////////
+//    copy(inpath, inpath + strlen(inpath), path);
+    path = inpath;
     TakePathLength();
 }
 //FileInfo::~FileInfo() {}
@@ -62,13 +62,14 @@ char* FileInfo::Path(){
     return path;
 }
 void FileInfo::TakePathLength(){
-    file.pathSize = sizeof(path);
+    file.pathSize = strlen(path) + 1;
 }
 int FileInfo::PathLength() {
-    return sizeof(path);
+    return file.pathSize;
 }
-FileInfo::~FileInfo() {
-
+FileInfo::~FileInfo() { // Течет память когда удаляем path
+        if (path != nullptr)
+            delete path;
 }
 
 Side_Header *FileInfo::GiveHeader() {
@@ -96,3 +97,10 @@ void FileInfo::SubstractSizeFile(int size) {
 bool FileInfo::IsFileFull() {
     return (file.size > 0 ) ? true : false;
 }
+
+//FileInfo::FileInfo(FileInfo& current) {
+//    current.path = new char(this->PathLength());
+//    current.path = this->path;
+//    current.file.size = this->file.size;
+//    current.file.pathSize = this->file.pathSize;
+//}

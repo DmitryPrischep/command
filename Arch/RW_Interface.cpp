@@ -16,16 +16,16 @@ bool RW_Interface::BeginWrite() {
 bool RW_Interface::TakeHeader(FileInfo file_header){
     file_amoun -= 1; // Считает писали ли мы тело
     Main_header.AddFile();
-    Main_header.AddSize(file_header.Size()); // Функционал проверни пустого файла временно не доступен
+    Main_header.AddSize(file_header.Size());
 //    if ( !state_header_was_wrote && file_header.Length().size == 0 ){
 //        std::cerr << "Использование несколь раз header-а привело к ошибке" << std::endl;
 //        return false;
 //    }
-    for (int i = 0; i < 6; i++){
-        header.emplace_back(file_header.Size());
+    for (int i = 0; i < 4; i++){
+        header.emplace_back(file_header.Size() >> 8*i);
     }
-    for (int i = 0; i < 2; i++){
-        header.emplace_back(file_header.Length());
+    for (int i = 0; i < 4; i++){
+        header.emplace_back(file_header.Length() >> 8*i);
     }
     for ( int i = 0; i < file_header.PathLength(); i++){
         header.emplace_back(file_header.Path()[i]);
@@ -37,7 +37,7 @@ bool RW_Interface::Take_Dictionary(vector<char> &array) {
     std::copy(array.begin(), array.end(), dictionary.begin());
     state_have_dictionary = true;
 }
-bool RW_Interface::TakeBody(vector<char>& array, int len_stream){
+bool RW_Interface::TakeBody(vector<char> array, int len_stream){
     Main_header.AddSize(array.size() + 4);
     bool state_writing = Write(array, len_stream);
     state_header_was_wrote = false;
@@ -80,6 +80,7 @@ bool RW_Interface::Insert_Header() {
     return false;
 }
 bool RW_Interface::EndWriting() {
+    out_file.close();
     if ( state_have_dictionary )
         if (HaveOutFile()){
             Write_File(out_file, dictionary);
@@ -133,7 +134,7 @@ bool RW_Interface::ReadFileHead() {
         in_file.read((char*)&file_info.GiveHeader()->size, sizeof(file_info.GiveHeader()->size));
         in_file.read((char*)&file_info.GiveHeader()->pathSize, sizeof(file_info.GiveHeader()->pathSize));
         *file_info.GivePath() = new char(file_info.Length());
-        in_file.read((char*)&(*file_info.GivePath()), sizeof(file_info.Length()));
+        in_file.read((char*)&(*file_info.GivePath()), file_info.Length());
         return true;
     }
     std::cerr << "\nОтсутствует файл для считывания!\n";
@@ -162,9 +163,14 @@ vector<char> RW_Interface::ReadBodyPath(bool &NoErr) {  // Данное архи
     NoErr = false;
     return vector<char>(0);
 }
-
+File_Header* RW_Interface::File_header(){
+    return &Main_header;
+}
+FileInfo* RW_Interface::File_info(){
+    return &file_info;
+}
 bool RW_Interface::RecoveryWrite() {
-    return false;
+//    std::cout << strlen(*file_info.GivePath());
 }
 
 
