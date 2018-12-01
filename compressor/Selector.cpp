@@ -74,3 +74,7 @@ void Selector::next_data() {
 	data_index_ += 256;
 	//std::cout << "data_index_: " << data_index_ << std::endl;
 }
+
+void Selector::close_file() {
+	file_.close();;
+}

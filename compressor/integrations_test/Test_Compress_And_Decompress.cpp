@@ -26,6 +26,7 @@ int main() {
     rw.TakeFileOut(outfile);
     rw.BeginWrite();
 
+    Coder* coder = new LZW();
     while (selector.has_file()) {
     	selector.read_file();
 
@@ -35,7 +36,6 @@ int main() {
     		std::vector<char> buffer = selector.read_data();
     		selector.next_data();
 
-    		Coder* coder = new LZW();
     		std::vector<char> compressed_data = coder->compress(buffer);
             total_size += compressed_data.size();
             rw.TakeBody(compressed_data);
@@ -44,5 +44,26 @@ int main() {
     }
     rw.EndWriting();
     std::cout << "total_size: " << total_size << std::endl;
+
+    rw.TakeFileIn(outfile);
+    std::cout << outfile << std::endl;
+    std::cout << rw.HaveInFile() << std::endl;
+    if (rw.HaveInFile()) {
+        rw.ReadHeader();        
+        std::cout << "rw.ReadHeader()" << std::endl;
+        // не заходит в цикл
+        for (auto i = 0; rw.File_header()->IsAmountFull(); i++) {
+            std::cout << "loop - " << i << std::endl;
+            rw.ReadFileHead();
+            // file_info - где инициализация?
+            for ( file_info.IsFileFull() )  {
+                std::vector<char> uncompressed_data(rw.File_info()->FileSize());
+                std::vector<char> decompressed_data = coder->decompress(uncompressed_data);
+                std::cout << "decompressed: " << decompressed_data.size() << std::endl;
+            }
+        }
+    }
+
+    delete coder;
     return 0;
 }

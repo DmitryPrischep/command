@@ -13,7 +13,7 @@ void print(const std::vector<T>& vect) {
 
 int main() {
 
-    std::set<std::string> data = {"in1.txt", "in2.txt", "in3.txt"};Глава 01.mp3
+    std::set<std::string> data = {"in1.txt", "in2.txt", "in3.txt"};
 
     Selector selector;    
     selector.set_filesnames(data);
@@ -30,11 +30,12 @@ int main() {
 
     		Coder* coder = new LZW();
     		std::vector<char> compressed_data = coder->compress(buffer);
-    		//std::cout << "compressed size: " << compressed_data.size() << std::endl;
+    		std::cout << "compressed size: " << compressed_data.size() << std::endl;
             total_size += compressed_data.size();
 
-    		//std::vector<char> decompressed_data = coder->decompress(compressed_data);
-    		//std::cout << "decompressed size: " << decompressed_data.size() << std::endl;
+    		std::vector<char> decompressed_data = coder->decompress(compressed_data);
+            print(decompressed_data);
+    		std::cout << "decompressed size: " << decompressed_data.size() << std::endl;
     		//print(decompressed_data);
             //break;
 

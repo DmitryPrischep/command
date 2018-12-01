@@ -42,7 +42,7 @@ void Test_RW_Interface::Write_and_Read_Liner() {
     if (inter->HaveOutFile()){
         for (int z = 0; z < Num_test_files; z++){
             inter.TakeHeader(Test_files[z]);
-            inter.TakeBody(rubish[z]), rubish.size()); // убери второй элемент
+            inter.TakeBody(rubish[z]); // убери второй элемент
         }
     } else {
         std::cerr << "Нет файла для записи" << "\n";

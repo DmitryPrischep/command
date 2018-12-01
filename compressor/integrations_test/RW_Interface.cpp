@@ -29,6 +29,7 @@ bool RW_Interface::TakeHeader(FileInfo file_header){
         header.emplace_back(str[i]);
     }
     state_header_was_wrote = true;
+    delete str;
     return true;
 }
 bool RW_Interface::Take_Dictionary(vector<char> &array) {

@@ -23,6 +23,7 @@ public:
 	std::vector<char> read_data();
 	void next_file();
 	void next_data();
+	void close_file();
 	
 private:
 	std::string filename_;
