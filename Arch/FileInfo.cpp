@@ -5,10 +5,59 @@
 
 /* Класс используется для передачи хэдера от компрессора  */
 
-// Side_Header
-Side_Header::Side_Header() {
-    size = 0;
-    pathSize = 0;
+FileInfo::FileInfo(std::string &inpath, int &file_size) {
+    path = inpath;
+    file_size = static_cast<unsigned long>(file_size);
+}
+
+FileInfo::FileInfo(std::string inpath, int file_size) {
+    path = inpath;
+    file_size = static_cast<unsigned long>(file_size);
+}
+
+void FileInfo::AddPath(std::string &inpath) {
+    path = inpath;
+}
+
+void FileInfo::AddSizeFile(int size) {
+    file_size = static_cast<unsigned long>(size);
+}
+
+void FileInfo::PlusSizeFile(int size) {
+    file_size += size;
+}
+
+void FileInfo::SubstractSizeFile(int size) {
+    file_size -= size;
+}
+
+bool FileInfo::IsFileFull() {
+    return file_size > 0 ? true : false;
+}
+
+bool FileInfo::IsPathFull() {
+    return path.size() > 0 ? true : false;
+}
+
+unsigned long FileInfo::FileSize() {
+    return file_size;
+}
+
+unsigned long FileInfo::PathSize() {
+    return path.size();
+}
+
+char *FileInfo::Path() {
+    char* tmp = new char(path.size());
+    strcpy(tmp, path.c_str());
+    return tmp;
+}
+
+FileInfo::FileInfo() : path(""), file_size(0) {}
+
+void FileInfo::AddPath(char *str) {
+    std::string tmp(str);
+    path = tmp;
 }
 
 void File_Header::AddSize(int size) {
@@ -28,79 +77,5 @@ void File_Header::SubtractFile() {
 }
 
 bool File_Header::IsAmountFull() {
-    return  amount > 0 ? true : false;
+    return amount > 0 ? true : false;
 }
-
-// FileInfo
-FileInfo::FileInfo() {
-//    path = new char(1);
-    file.pathSize = 0;
-}
-FileInfo::FileInfo(char* inpath, int file_size) {
-    file.size = file_size;
-//    path = new char(strlen(inpath)+1); // ///////////////////////
-//    copy(inpath, inpath + strlen(inpath), path);
-    path = inpath;
-    TakePathLength();
-}
-//FileInfo::~FileInfo() {}
-void FileInfo::AddPath(char* inpath){
-    path = inpath;
-    TakePathLength();
-}
-void FileInfo::AddSizeFile(int size){
-    file.size = size;
-}
-
-bool FileInfo::IsFull(){  // Возвращет 1 если все поля заполненны
-    return path != "" && file.size != 0;
-}
-int FileInfo::Length(){
-    return file.pathSize;
-}
-char* FileInfo::Path(){
-    return path;
-}
-void FileInfo::TakePathLength(){
-    file.pathSize = strlen(path) + 1;
-}
-int FileInfo::PathLength() {
-    return file.pathSize;
-}
-FileInfo::~FileInfo() { // Течет память когда удаляем path
-        if (path != nullptr)
-            delete path;
-}
-
-Side_Header *FileInfo::GiveHeader() {
-//    Side_Header* tmp = &file;
-    return &file;
-}
-
-char **FileInfo::GivePath() {
-    char ** tmp = &path;
-    return tmp;
-}
-
-int FileInfo::Size() {
-    return file.size;
-}
-
-void FileInfo::PlusSizeFile(int size) {
-    file.size += size;
-}
-
-void FileInfo::SubstractSizeFile(int size) {
-    file.size -= size;
-}
-
-bool FileInfo::IsFileFull() {
-    return (file.size > 0 ) ? true : false;
-}
-
-//FileInfo::FileInfo(FileInfo& current) {
-//    current.path = new char(this->PathLength());
-//    current.path = this->path;
-//    current.file.size = this->file.size;
-//    current.file.pathSize = this->file.pathSize;
-//}

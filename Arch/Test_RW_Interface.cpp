@@ -6,7 +6,7 @@
 
 
 void Test_RW_Interface::Write_and_Read_Liner() {
-    RW_Interface *inter = new RW_Liner;
+    RW_Interface inter;
     // Настройка количества тестовых данных
     const int Num_test_files = 4;
     // Задаем тестовую информацию
@@ -24,8 +24,7 @@ void Test_RW_Interface::Write_and_Read_Liner() {
     uniform_int_distribution<> memory(1024*1024*1, 1024*1024*50);
     for (int l = 0; l < Num_test_files; ++l) {
         char* tmp;
-        strcpy( tmp, Test_paths[l].c_str() );   // Это не эффективно, но пока так удобнее. Позже будет или оптимальнее, или автогенерация пути.
-        Test_files.emplace_back( tmp, memory(gen) );
+        Test_files.emplace_back( Test_paths[l], memory(gen) );
     }
     // Генерим информацию в файл
 
@@ -38,27 +37,26 @@ void Test_RW_Interface::Write_and_Read_Liner() {
         Print(k); cout << "\n";
     }
 
-    inter->TakeFileOut(file);
-    inter->BeginWrite();
+    inter.TakeFileOut(file);
+    inter.BeginWrite();
     if (inter->HaveOutFile()){
         for (int z = 0; z < Num_test_files; z++){
-            inter->TakeHeader(Test_files[z]);
-            inter->TakeBody(rubish[z]), rubish.size());
+            inter.TakeHeader(Test_files[z]);
+            inter.TakeBody(rubish[z]), rubish.size()); // убери второй элемент
         }
     } else {
         std::cerr << "Нет файла для записи" << "\n";
     }
-    inter->EndWriting();
+    inter.EndWriting();
 
-    inter->TakeFileIn(ifile);
-    if (inter->HaveInFile()){
-        inter->ReadHeader();
-        for ( auto i = 0; Main_header.IsAmountFull(); i++ ){
-            inter->ReadFileHead();
-            vector<char> Readed_rubish(rubish[i].size());
+    inter.TakeFileIn(ifile);
+    if (inter.HaveInFile()){
+        inter.ReadHeader();
+        for ( auto i = 0; inter.File_header()->IsAmountFull(); i++ ){
+            inter.ReadFileHead();
+            vector<char> Readed_rubish(inter.File_info()->FileSize());
             for ( file_info.IsFileFull() ){
-                bool problem;
-                UnCompressor(inter->ReadBodyPath(problem));
+                UnCompressor(inter->ReadBodyPath());
             }
         }
     } else {

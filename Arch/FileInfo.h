@@ -8,13 +8,11 @@
 
 using std::copy;
 
-
 class File_Header{
 public:
     File_Header(): size(0), amount(0), settings(0) {
 
     }
-
     unsigned long int size;
     unsigned long int amount;
     unsigned int settings;
@@ -25,48 +23,32 @@ public:
     void SubtractFile();
     bool IsAmountFull();
 };
-class Side_Header{
-public:
-    Side_Header();
-    unsigned long int size;
-    unsigned long int pathSize;
-};
+//class Side_Header{
+//public:
+//    Side_Header();
+//    unsigned long int size;
+//    unsigned long int pathSize;
+//};
 
 class FileInfo{
 public:
     FileInfo();
-//    FileInfo(FileInfo& current);
-    FileInfo(char* inpath, int file_size);
-    ~FileInfo();
-    void AddPath(char* inpath);
+    FileInfo(std::string &inpath, int &file_size);
+    FileInfo(std::string inpath, int file_size);
+    void AddPath(std::string &inpath);
+    void AddPath(char* str);
     void AddSizeFile(int size);
     void PlusSizeFile(int size);
     void SubstractSizeFile(int size);
     bool IsFileFull();
-    bool IsFull();
-    int Size();
-    int Length();
-    int PathLength();
+    bool IsPathFull();
+    unsigned long FileSize();
+    unsigned long PathSize();
     char* Path();
 
-    Side_Header* GiveHeader();
-    char** GivePath();
 private:
-    char* path; // Кинь сюда путь твоего файла через методы или инициализацию
-    Side_Header file;   // Реализован выше
-
-    void TakePathLength();
+    std::string path; // Кинь сюда путь твоего файла через методы или инициализацию
+    unsigned long file_size;   // Реализован выше
 };
-// Пример использования
-/*
-      char path[5] = "123";
-      FileInfo a(path, 1024);
-//    FileInfo a;
-//    a.AddPath(path);
-//    a.AddSizeFile(1024);
-      cout << a.IsFull() << " " << a.Path() << " " << a.Length().pathSize.pathSize_int << " " << a.Length().size.size_int << endl;
- */
 
-
-//#include "FileInfo.cpp"
 #endif //ARCH_FILEINFO_H
