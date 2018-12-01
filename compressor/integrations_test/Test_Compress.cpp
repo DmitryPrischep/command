@@ -25,7 +25,7 @@ int main() {
     RW_Interface rw;
     rw.TakeFileOut(outfile);
     rw.BeginWrite();
-
+    Coder* coder = new LZW();
     while (selector.has_file()) {
     	selector.read_file();
 
@@ -34,8 +34,6 @@ int main() {
     	while (selector.has_data()) {
     		std::vector<char> buffer = selector.read_data();
     		selector.next_data();
-
-    		Coder* coder = new LZW();
     		std::vector<char> compressed_data = coder->compress(buffer);
             total_size += compressed_data.size();
             rw.TakeBody(compressed_data);
@@ -43,6 +41,7 @@ int main() {
     	selector.next_file();
     }
     rw.EndWriting();
+    delete coder;
     std::cout << "total_size: " << total_size << std::endl;
     return 0;
 }

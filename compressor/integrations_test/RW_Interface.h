@@ -18,7 +18,7 @@ class RW_Interface{
 public:
     bool BeginWrite();
     bool Write_File(ofstream& File, vector<char>& array);   // Пишет в конец файла
-    bool TakeHeader(FileInfo file_header);  // запихивает подаваемы хэдер в массив header
+    bool TakeHeader(FileInfo file_header);  // запихивает подаваемый хэдер в массив header
     void TakeFileOut(std::string &file);   // устанавливает out_file значением входного файла. Задаем вывод для класса
     bool HaveOutFile();
     bool TakeBody(vector<char> array); // передаем массив в write. По умолчанию сразу пишет и смотрит был ли задан хэдер. Если был, то пишет сначала его
