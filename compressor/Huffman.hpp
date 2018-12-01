@@ -2,23 +2,26 @@
 #include <iterator>
 #include <vector>
 #include "Coder.hpp"
-#include "Node.hpp"
 
 #define NODES_SIZE 2 * DATA_SIZE + 1
 
-class AdaptiveHuffman : public Coder {
+class Huffman : public Coder {
 public:
-	AdaptiveHuffman();
-	AdaptiveHuffman(const AdaptiveHuffman&) = delete;
-	AdaptiveHuffman(AdaptiveHuffman&&) = delete;
-	AdaptiveHuffman& operator=(const AdaptiveHuffman&) = delete;
-	AdaptiveHuffman& operator=(AdaptiveHuffman&&) = delete;
-	~AdaptiveHuffman() {}; //{delete escape_;};
+	Huffman();
+	Huffman(const Huffman&) = delete;
+	Huffman(Huffman&&) = delete;
+	Huffman& operator=(const Huffman&) = delete;
+	Huffman& operator=(Huffman&&) = delete;
+	~Huffman() {}; //{delete escape_;};
 
 	std::vector<char> compress(const std::vector<char>& data);
 	std::vector<char> decompress(const std::vector<char>& data);
 
 private:
+
+
+
+	/*
 	int nodes_size_;
 	Node* escape_;					// указатель на узел со спец символом
 	Node* root_;					// указатель на корень
@@ -34,4 +37,5 @@ private:
 	void update_tree(Node* node) noexcept;
 	void exchange(Node* a, Node* b) noexcept;
 	Node* highest_node(Node* node) const noexcept;
+	*/
 };
