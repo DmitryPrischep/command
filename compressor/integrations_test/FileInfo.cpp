@@ -48,7 +48,7 @@ unsigned long FileInfo::PathSize() {
 }
 
 char *FileInfo::Path() {
-    char* tmp = new char(path.size());
+    char* tmp = new char(path.size()); //Круглые скобки? (Это работает на божьей силе);
     strcpy(tmp, path.c_str());
     return tmp;
 }

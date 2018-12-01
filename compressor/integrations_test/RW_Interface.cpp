@@ -19,16 +19,17 @@ bool RW_Interface::TakeHeader(FileInfo file_header){
     Main_header.AddSize(file_header.FileSize());
 
     for (int i = 0; i < sizeof(unsigned long); i++){
-        header.emplace_back(file_header.FileSize() >> 8*i);
+        header.push_back(file_header.FileSize() >> 8*i);
     }
     for (int i = 0; i < sizeof(unsigned long); i++){
-        header.emplace_back(file_header.PathSize() >> 8*i);
+        header.push_back(file_header.PathSize() >> 8*i);
     }
     char* str = file_header.Path();
     for ( int i = 0; i < file_header.PathSize(); i++){
-        header.emplace_back(str[i]);
+        header.push_back(str[i]);
     }
     state_header_was_wrote = true;
+    delete str;
     return true;
 }
 bool RW_Interface::Take_Dictionary(vector<char> &array) {
@@ -141,7 +142,7 @@ bool RW_Interface::ReadFileHead() {
     return false;
 }
 
-vector<char> RW_Interface::ReadBodyPath() {  // Данное архитектура плохая, но необходима для красивой и быстрой передачи данных
+vector<char> RW_Interface::ReadBodyPath() {  // Данная архитектура плохая, но необходима для красивой и быстрой передачи данных
     if (!state_Mainheader_was_read){
         std::cerr << "Заголовок еще не был прочитан!" << "\n";
         return vector<char>(0);
