@@ -1,6 +1,6 @@
 #include "AdaptiveHuffman.hpp"
 #include <algorithm>
-#include <iostream>
+#include <iterator>
 
 AdaptiveHuffman::AdaptiveHuffman() : escape_(new Node(0, NODES_SIZE - 1)) , root_(escape_) {
     std::fill(std::begin(leaves_), std::end(leaves_), nullptr);
@@ -16,7 +16,6 @@ std::vector<char> AdaptiveHuffman::compress(const std::vector<char>& data) {
 		std::copy(std::begin(code), std::end(code), std::back_inserter(bits));
 	}
 	
-	//std::cout << "enc bits "  << bits.size() << std::endl;
 	char extra_bits = 0;
 	if (bits.size() % 8 != 0) {
 		extra_bits = 8 - bits.size() % 8;
@@ -47,10 +46,6 @@ std::vector<char> AdaptiveHuffman::decompress(const std::vector<char>& data) {
 	char extra_bits = data[data.size() - 1];
 	bits.resize(bits.size() - 8 - extra_bits);
 
-	//std::cout << "dec bits " << bits.size() << std::endl;
-	//while (bits.size() < 256) {
-	//	bits.push_back(0);
-	//}
 	std::vector<char> result = decode(bits);
 	return result;
 }
@@ -105,10 +100,9 @@ std::vector<char> AdaptiveHuffman::decode(const std::vector<uint8_t>& code) noex
 		//  к следующему узлу
 		decoder = bit ? decoder->left : decoder->right;
 
-		// Decode an existing node.
-		// This stage occurs when decoder comes to a leaf but not the escape node.
+		// декодируем текущий узел
+		// если до листа дошли
 		if (decoder->left == nullptr && decoder != escape_) {
-			//std::cout << "dont see escape" << std::endl;
 		    result.push_back(decoder->byte);
 		    update_tree(leaves_[decoder->byte]);
 		    decoder = root_;
@@ -157,7 +151,6 @@ void AdaptiveHuffman::update_tree(Node* node) noexcept {
 
 void AdaptiveHuffman::exchange(Node* a, Node* b) noexcept
 {
-	// на всякий
 	if (a == root_ || b == root_ || a == b || a->parent == b || b->parent == a) {
 	    return;
 	}

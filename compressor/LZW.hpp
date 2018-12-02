@@ -11,12 +11,12 @@ public:
 	LZW& operator=(LZW&&) = delete;
 	~LZW() {};
 
-	std::vector<char> compress(const std::vector<char>& data);
-	std::vector<char> decompress(const std::vector<char>& data);
+	std::vector<char> compress(const std::vector<char>& data) noexcept;
+	std::vector<char> decompress(const std::vector<char>& data) noexcept;
 
 private:
 	const int dictionary_size_;
 	int bit_resolution_;
-	std::vector<int> encode(const std::string& data);
-	std::string decode(const std::vector<int>& data);	
+	std::vector<int> encode(const std::string& data) noexcept;
+	std::string decode(const std::vector<int>& data) noexcept;	
 };

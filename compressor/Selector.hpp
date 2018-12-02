@@ -1,4 +1,5 @@
-//#include <iostream>
+// Читает фиксированные отрезки байт 
+// из входных файлов и сжимает их
 #include <fstream>
 #include <string>
 #include <vector>
@@ -13,7 +14,7 @@ public:
 	Selector& operator=(const Selector&) = delete;
 	Selector& operator=(Selector&&) = delete;
 	~Selector() {};
-
+	
 	void set_filesnames(const std::set<std::string>& filesnames);
 	std::string get_filename();
 	bool has_file();

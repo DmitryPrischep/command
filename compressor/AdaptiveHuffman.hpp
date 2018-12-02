@@ -1,5 +1,4 @@
 #include <string>
-#include <iterator>
 #include <vector>
 #include "Coder.hpp"
 #include "Node.hpp"
@@ -13,16 +12,16 @@ public:
 	AdaptiveHuffman(AdaptiveHuffman&&) = delete;
 	AdaptiveHuffman& operator=(const AdaptiveHuffman&) = delete;
 	AdaptiveHuffman& operator=(AdaptiveHuffman&&) = delete;
-	~AdaptiveHuffman() {}; //{delete escape_;};
+	~AdaptiveHuffman() {delete escape_;};
 
-	std::vector<char> compress(const std::vector<char>& data);
-	std::vector<char> decompress(const std::vector<char>& data);
+	std::vector<char> compress(const std::vector<char>& data) noexcept;
+	std::vector<char> decompress(const std::vector<char>& data) noexcept;
 
 private:
 	int nodes_size_;
 	Node* escape_;					// указатель на узел со спец символом
 	Node* root_;					// указатель на корень
-	Node* leaves_[DATA_SIZE];   // fast access to the leaves by byte
+	Node* leaves_[DATA_SIZE];   	// словарь
 	Node* nodes_[NODES_SIZE];		// доступ по индексу к узлам
 
 

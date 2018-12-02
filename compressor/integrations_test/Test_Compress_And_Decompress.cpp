@@ -2,9 +2,9 @@
 #include <set>
 #include "../Selector.hpp"
 #include "../LZW.hpp"
-#include "RW_Interface.h"
-#include "FileInfo.h"
-#include "RW_Liner.h"
+#include "archive/RW_Interface.h"
+#include "archive/FileInfo.h"
+#include "archive/RW_Liner.h"
 
 template <typename T>
 void print(const std::vector<T>& vect) {
@@ -16,7 +16,7 @@ void print(const std::vector<T>& vect) {
 
 int main() {
     std::string outfile = "out.tartar";
-    std::set<std::string> data = {"in1.txt", "in2.txt", "in3.txt"};
+    std::set<std::string> data = {"test_data/in1.txt", "test_data/in2.txt", "test_data/in3.txt"};
 
     Selector selector;    
     selector.set_filesnames(data);

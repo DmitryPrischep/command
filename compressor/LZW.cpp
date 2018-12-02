@@ -3,7 +3,7 @@
 #include <cmath>
 #include <iterator>
 
-LZW::LZW() : dictionary_size_(DATA_SIZE) {
+LZW::LZW() : dictionary_size_(256) {
     // определяем количество бит под код подстроки из словаря
     // пример, для входной последовательности длиной 256 байт, нужно 9 бит 
     // так как, размер ascii + размер входной строки = 256 + 256 = 512 = 2^9
@@ -15,7 +15,7 @@ LZW::LZW() : dictionary_size_(DATA_SIZE) {
     bit_resolution_ = i;
 }
 
-std::vector<char> LZW::compress(const std::vector<char>& data) {
+std::vector<char> LZW::compress(const std::vector<char>& data) noexcept {
 
     std::string str_data(data.begin(), data.end());
     std::vector<int> encoded = encode(str_data);
@@ -42,7 +42,7 @@ std::vector<char> LZW::compress(const std::vector<char>& data) {
 }
 
 
-std::vector<char> LZW::decompress(const std::vector<char>& data) {
+std::vector<char> LZW::decompress(const std::vector<char>& data) noexcept {
 
     // разбиваем входную последовательность на биты
     std::vector<uint8_t> bits;
@@ -75,7 +75,7 @@ std::vector<char> LZW::decompress(const std::vector<char>& data) {
     return result;
 }
 
-std::vector<int> LZW::encode(const std::string& data) {
+std::vector<int> LZW::encode(const std::string& data) noexcept {
 
     int dict_size = dictionary_size_;  
     std::map<std::string, int> dict;
@@ -112,7 +112,7 @@ std::vector<int> LZW::encode(const std::string& data) {
     return result;
 }
 
-std::string LZW::decode(const std::vector<int>& data) {
+std::string LZW::decode(const std::vector<int>& data) noexcept {
 
     int dict_size = dictionary_size_;  
     std::map<int, std::string> dict;

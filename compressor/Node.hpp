@@ -1,3 +1,4 @@
+// структура узла для дерева Хаффмана
 struct Node {
 	char byte;
 	int number;
