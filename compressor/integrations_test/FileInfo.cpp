@@ -48,7 +48,7 @@ unsigned long FileInfo::PathSize() {
 }
 
 char *FileInfo::Path() {
-    char* tmp = new char(path.size());
+    char* tmp = new char[path.size()];
     strcpy(tmp, path.c_str());
     return tmp;
 }
@@ -58,6 +58,10 @@ FileInfo::FileInfo() : path(""), file_size(0) {}
 void FileInfo::AddPath(char *str) {
     std::string tmp(str);
     path = tmp;
+}
+
+std::string FileInfo::StrPath() {
+    return path;
 }
 
 void File_Header::AddSize(int size) {

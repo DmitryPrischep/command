@@ -13,8 +13,8 @@
 
 class RW_Liner : public RW_Interface {
 public:
-    virtual bool Write(vector<char>& array);
-    virtual bool Read(vector<char>& array);
+    virtual bool Write(vector<char>* array);
+    virtual bool Read(vector<char>* array);
 protected:
 
 };

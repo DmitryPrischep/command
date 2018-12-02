@@ -7,25 +7,28 @@
 #include "FileInfo.h"
 #include <iostream>
 #include <vector>
-//#include <boost/filesystem.hpp>
+#include <boost/filesystem.hpp>
 #include <fstream>
 
-//namespace fs = boost::filesystem;
+namespace fs = boost::filesystem;
 using std::ofstream;
 using std::ifstream;
 using std::vector;
 class RW_Interface{
 public:
+    ~RW_Interface() noexcept;
+
     bool BeginWrite();
-    bool Write_File(ofstream& File, vector<char>& array);   // Пишет в конец файла
+    bool Write_File(ofstream& File, vector<char>* array);   // Пишет в конец файла
+    bool Write_File(ofstream& File, vector<char>* array, unsigned long len_stream);   // Пишет в конец файла
     bool TakeHeader(FileInfo file_header);  // запихивает подаваемы хэдер в массив header
     void TakeFileOut(std::string &file);   // устанавливает out_file значением входного файла. Задаем вывод для класса
     bool HaveOutFile();
-    bool TakeBody(vector<char> array); // передаем массив в write. По умолчанию сразу пишет и смотрит был ли задан хэдер. Если был, то пишет сначала его
-    bool Take_Dictionary(vector<char>& array); // На вход ожидает словарь от Компрессора. Сохраняет его в dictionary
+    bool TakeBody(vector<char>* array); // передаем массив в write. По умолчанию сразу пишет и смотрит был ли задан хэдер. Если был, то пишет сначала его
+    bool Take_Dictionary(vector<char>* array); // На вход ожидает словарь от Компрессора. Сохраняет его в dictionary
     // !!! На отработну завершения проги + надо добавить в хэдер смещение от конца файла
-    virtual bool Write(vector<char>& array, int len_stream);    // Реализуется потомками, но задан по умолчанию трубой без буфера прям в файл.
-    bool EndWriting();
+    virtual bool Write(vector<char>* array, unsigned long len_stream);    // Реализуется потомками, но задан по умолчанию трубой без буфера прям в файл.
+    bool EndWriting() noexcept;
 
 
     bool TakeFileIn(std::string &file);
@@ -35,13 +38,13 @@ public:
     vector<char> ReadBodyPath();    // Будет прыгать по файлу и читать кусочек файла. Далее передать в Разжатие, а после в FileRecoveryWrite
 //    bool EndReading();
 
-    virtual bool RecoveryWrite();
-    //bool RecoveryPathDir(std::string path);  // Во
+    bool RecoveryWrite(vector<char>* input);
+    bool RecoveryPathDir(std::string path);  // Во
 
 
 
-    File_Header* File_header();
-    FileInfo* File_info();
+    File_Header File_header();
+    FileInfo File_info();
 protected:
     vector<char> header;
     vector<char> dictionary;
@@ -58,8 +61,10 @@ protected:
     bool state_have_in_file = false; // -\\- входной поток
     bool state_have_dictionary = false;  // был ли передан словарь?
     // Флаги на чтение
-    bool state_Mainheader_was_read = false;
-    bool state_header_was_read = false;
+    bool state_Mainheader_was_read = false; // Загловок заархивированного файла был прочитан
+    bool state_header_was_read = false; // Загловок одного файла был прочитан
+    bool state_header_was_read_firstly  = false;    // Загловок одного файла был прочитан впервый раз для текущего файла
+    bool state_header_was_read_IsDir;   // текущий файл директория
 
     bool Write_File(ofstream& File, vector<char>& array, int len_stream);   // Пишет в конец файла
     bool Insert_Header();

@@ -5,7 +5,7 @@
 template <typename T>
 void print(const std::vector<T>& vect) {
     for ( auto v : vect) {
-        std::cout << (int) v << " ";
+        std::cout << (int) v << ", ";
     }
     std::cout << std::endl;
 }
@@ -14,11 +14,12 @@ int main() {
 
     //std::string input = "Lempel–Ziv–Welch (LZW) is a universal lossless data compression algorithm created by Abraham Lempel, Jacob Ziv, and Terry Welch. It was published by Welch in 1984 as an improved implementation of the LZ78 algorithm published by Lempel and Ziv in 1978!!";
     //assert(input.size() == 256);
-
+    //char byte = 1;
     std::string input;
-    for (int i = 0; i < 256; i++) {
+    for (int i = 0; i < 255; i++) {
         char x;
         std::cin >> x;
+        //x = byte++;
         input += x;
     }
 

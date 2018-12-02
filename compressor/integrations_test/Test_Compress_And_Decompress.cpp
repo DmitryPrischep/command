@@ -9,7 +9,7 @@
 template <typename T>
 void print(const std::vector<T>& vect) {
 	for ( auto v : vect) {
-		std::cout << v << "";
+		std::cout << (char) v << "";
 	}
 	std::cout << std::endl;
 }
@@ -38,13 +38,12 @@ int main() {
 
     		std::vector<char> compressed_data = coder->compress(buffer);
             total_size += compressed_data.size();
-            rw.TakeBody(compressed_data);
+            rw.TakeBody(&compressed_data); // зачем там понадобился уазатель на вектор?
     	}
     	selector.next_file();
     }
     rw.EndWriting();
     std::cout << "total_size: " << total_size << std::endl;	
-// Теоретически можно обратиться к Архиватору и фзять у него внутренний счетчик кол-во байтов для проверки. Там на нем своя проверка есть, на коректность считывания.
 
     rw.TakeFileIn(outfile);
     std::cout << outfile << std::endl;
@@ -52,17 +51,16 @@ int main() {
     if (rw.HaveInFile()) {
         rw.ReadHeader();        
         std::cout << "rw.ReadHeader()" << std::endl;
-        // не заходит в цикл
-        for (auto i = 0; rw.File_header()->IsAmountFull(); i++) {
+
+        for (auto i = 0; rw.File_header().IsAmountFull(); i++) {
             std::cout << "loop - " << i << std::endl;
             rw.ReadFileHead();
-            // file_info - где инициализация?
-	    // Внутри rw в RW_Interface - там он один создается на запись и чтение и постепенно юзается. 
-            for ( file_info.IsFileFull() )  {
-                std::vector<char> uncompressed_data(rw.File_info()->FileSize());
-                std::vector<char> decompressed_data = coder->decompress(uncompressed_data);
+            std::vector<char> uncompressed_data(rw.File_info().FileSize());
+            for ( ;rw.File_info().IsFileFull(); )  {
+                std::vector<char> decompressed_data = coder->decompress(rw.ReadBodyPath());
                 std::cout << "decompressed: " << decompressed_data.size() << std::endl;
-		// Для декомпресинга юзай RecoveryWrite(decompressed_data) // Доделаю функционал через пару часов
+                print(decompressed_data);
+                //rw.RecoveryWrite(&decompressed_data);
             }
         }
     }

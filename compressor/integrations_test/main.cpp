@@ -50,7 +50,7 @@ struct Kilobyte {
 };
 void GenData(vector<char> &data, int cupasity){
     for (int i = 0; i < cupasity; ++i) {
-        data.push_back(static_cast<char &&>(rand() % 100));
+        data[i] = rand() % 100;
     }
 }
 void LPrint(vector<char> &data){
@@ -65,13 +65,14 @@ vector<char> UnCompressor(vector<char> input){
 int main() {
     RW_Interface inter;
     // Настройка количества тестовых данных
-    const int Num_test_files = 4;
+    const int Num_test_files = 1;
     // Задаем тестовую информацию
-    vector<vector<char>> rubish(1);
+//    vector<vector<char>> rubish(1);
+    vector<char> rubish[Num_test_files];
     string file("out.txt");
     string ifile("in.txt");
     vector<FileInfo> Test_files;
-    string Test_paths[Num_test_files] = {    // В стринге для удобства редактирования
+    string Test_paths[4] = {    // В стринге для удобства редактирования
             "/tmp/files/readme.txt",
             "/tmp/files/round/rou.txt",
             "/tmp/stream/str_ew.txt",
@@ -84,40 +85,44 @@ int main() {
     for (int l = 0; l < Num_test_files; ++l) {
         FileInfo tmp;
         tmp.AddPath(Test_paths[l]);
-        tmp.AddSizeFile( (rand()% (1024*1024*4)) + 1024*1024 );
+        tmp.AddSizeFile( (16)  );
         Test_files.emplace_back( tmp );
     }
     // Генерим информацию в файл
-
+    for (int m = 0; m < Num_test_files; ++m) {
+        rubish[m].resize(Test_files[m].FileSize());
+    }
     for (int j = 0; j < Num_test_files; j++) {
         GenData(rubish[j], static_cast<int>(Test_files[j].FileSize()));
     }
 
     std:: cout << std::endl;    // Для тестирования теста
-    for (auto &k : rubish) {
+    /*for (auto &k : rubish) {
         Print(k); cout << "\n";
-    }
+    }*/
 
     inter.TakeFileOut(file);
     inter.BeginWrite();
     if (inter.HaveOutFile()){
         for (int z = 0; z < Num_test_files; z++){
             inter.TakeHeader(Test_files[z]);
-            inter.TakeBody(rubish[z]); // убери второй элемент
+            inter.TakeBody(&rubish[z]);
         }
     } else {
         std::cerr << "Нет файла для записи" << "\n";
     }
-    inter.EndWriting();
+    inter.EndWriting(); // Намудрил с булями - они не логичны
 
-    inter.TakeFileIn(ifile);
+    inter.TakeFileIn(file);
     if (inter.HaveInFile()){
         inter.ReadHeader();
-        for ( auto i = 0; inter.File_header()->IsAmountFull(); i++ ){
+        for ( auto i = 0; inter.File_header().IsAmountFull(); i++ ){
             inter.ReadFileHead();
-            vector<char> Readed_rubish(inter.File_info()->FileSize());
-            for ( ;inter.File_info()->IsFileFull(); ){
-                UnCompressor(inter.ReadBodyPath());
+            vector<char> Readed_rubish;
+            Readed_rubish.reserve(inter.File_info().FileSize());
+            for ( ;inter.File_info().IsFileFull(); ){
+                vector<char> tmp_vec = UnCompressor(inter.ReadBodyPath());
+                inter.RecoveryWrite(tmp_vec);
             }
         }
     } else {
