@@ -13,9 +13,9 @@ public:
     File_Header(): size(0), amount(0), settings(0) {
 
     }
-    unsigned long int size;
-    unsigned long int amount;
-    unsigned int settings;
+    unsigned long size;
+    unsigned long amount;
+    unsigned long settings;
 
     void AddSize(int size);
     void AddFile();

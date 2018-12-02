@@ -16,18 +16,19 @@ using std::ifstream;
 using std::vector;
 class RW_Interface{
 public:
-    ~RW_Interface();
+    ~RW_Interface() noexcept;
 
     bool BeginWrite();
-    bool Write_File(ofstream& File, vector<char>& array);   // Пишет в конец файла
+    bool Write_File(ofstream& File, vector<char>* array);   // Пишет в конец файла
+    bool Write_File(ofstream& File, vector<char>* array, unsigned long len_stream);   // Пишет в конец файла
     bool TakeHeader(FileInfo file_header);  // запихивает подаваемы хэдер в массив header
     void TakeFileOut(std::string &file);   // устанавливает out_file значением входного файла. Задаем вывод для класса
     bool HaveOutFile();
-    bool TakeBody(vector<char> array); // передаем массив в write. По умолчанию сразу пишет и смотрит был ли задан хэдер. Если был, то пишет сначала его
-    bool Take_Dictionary(vector<char>& array); // На вход ожидает словарь от Компрессора. Сохраняет его в dictionary
+    bool TakeBody(vector<char>* array); // передаем массив в write. По умолчанию сразу пишет и смотрит был ли задан хэдер. Если был, то пишет сначала его
+    bool Take_Dictionary(vector<char>* array); // На вход ожидает словарь от Компрессора. Сохраняет его в dictionary
     // !!! На отработну завершения проги + надо добавить в хэдер смещение от конца файла
-    virtual bool Write(vector<char>& array, int len_stream);    // Реализуется потомками, но задан по умолчанию трубой без буфера прям в файл.
-    bool EndWriting();
+    virtual bool Write(vector<char>* array, unsigned long len_stream);    // Реализуется потомками, но задан по умолчанию трубой без буфера прям в файл.
+    bool EndWriting() noexcept;
 
 
     bool TakeFileIn(std::string &file);
@@ -42,8 +43,8 @@ public:
 
 
 
-    File_Header* File_header();
-    FileInfo* File_info();
+    File_Header File_header();
+    FileInfo File_info();
 protected:
     vector<char> header;
     vector<char> dictionary;
