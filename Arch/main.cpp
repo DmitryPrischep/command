@@ -122,7 +122,7 @@ int main() {
             Readed_rubish.reserve(inter.File_info().FileSize());
             for ( ;inter.File_info().IsFileFull(); ){
                 vector<char> tmp_vec = UnCompressor(inter.ReadBodyPath());
-                inter.RecoveryWrite(tmp_vec);
+                inter.RecoveryWrite(&tmp_vec);
             }
         }
     } else {

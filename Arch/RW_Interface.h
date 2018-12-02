@@ -38,7 +38,7 @@ public:
     vector<char> ReadBodyPath();    // Будет прыгать по файлу и читать кусочек файла. Далее передать в Разжатие, а после в FileRecoveryWrite
 //    bool EndReading();
 
-    bool RecoveryWrite(vector<char>& input);
+    bool RecoveryWrite(vector<char>* input);
     bool RecoveryPathDir(std::string path);  // Во
 
 

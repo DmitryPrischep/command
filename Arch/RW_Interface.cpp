@@ -201,30 +201,28 @@ FileInfo RW_Interface::File_info(){
 
 bool RW_Interface::RecoveryPathDir(std::string path) {
     auto i = path.size();
-    if ( path[i-1] == '/' ) {
+
+    if ( path[i] == '/' ) {
         if ( fs::exists(path) ) {
             return true; // Создана директория
         } else {
-            fs::create_directory(path);
+            fs::create_directories(path);
             return true;
         }
     }
-    i = path.size() - 2;
-    for (; i > 0 && path[i] != '/'; ++i) {}
+    i = path.size() - 1;
+    for (; i > 0 && path[i] != '/'; --i) {}
     if ( i != 0 ){
-        std::string tmp_path;
-        for (int j = 0; j < i; ++j) {
-            tmp_path[j] = path[j];
-        }
-        fs::create_directory(tmp_path);
-        return false;
-    } else {
-        return false;
+        std::string tmp_path = path.substr(0,i);
+        fs::create_directories(path.substr(0,i));
+//        bool havethisdir = fs::exists(path.substr(0,i));
+//        fs::path root = fs::current_path();
     }
+    return false;
 
 }
 
-bool RW_Interface::RecoveryWrite(vector<char>& input) {
+bool RW_Interface::RecoveryWrite(vector<char>* input) {
     if ( state_header_was_read ){
         if ( state_header_was_read_firstly ){
             state_header_was_read_IsDir = RecoveryPathDir(file_info.StrPath());
@@ -237,10 +235,11 @@ bool RW_Interface::RecoveryWrite(vector<char>& input) {
         if ( state_header_was_read_IsDir ){
             return true;
         } else {
-            for (int i = 0; i < input.size(); ++i) {
-                out_file.write((char*)&input[i], sizeof(input[0]));
+            for (int i = 0; i < input->size(); ++i) {
+                out_file.write((char*)&(*input)[i], sizeof((*input)[0]));
             }
         }
+        Main_header.SubtractFile();
     }
 }
 
