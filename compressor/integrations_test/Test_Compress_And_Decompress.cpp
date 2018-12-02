@@ -62,6 +62,7 @@ int main() {
                 std::vector<char> uncompressed_data(rw.File_info()->FileSize());
                 std::vector<char> decompressed_data = coder->decompress(uncompressed_data);
                 std::cout << "decompressed: " << decompressed_data.size() << std::endl;
+		// Для декомпресинга юзай RecoveryWrite(decompressed_data) // Доделаю функционал через пару часов
             }
         }
     }
