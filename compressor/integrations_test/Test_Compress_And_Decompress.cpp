@@ -43,7 +43,8 @@ int main() {
     	selector.next_file();
     }
     rw.EndWriting();
-    std::cout << "total_size: " << total_size << std::endl;
+    std::cout << "total_size: " << total_size << std::endl;	
+// Теоретически можно обратиться к Архиватору и фзять у него внутренний счетчик кол-во байтов для проверки. Там на нем своя проверка есть, на коректность считывания.
 
     rw.TakeFileIn(outfile);
     std::cout << outfile << std::endl;
@@ -56,6 +57,7 @@ int main() {
             std::cout << "loop - " << i << std::endl;
             rw.ReadFileHead();
             // file_info - где инициализация?
+	    // Внутри rw в RW_Interface - там он один создается на запись и чтение и постепенно юзается. 
             for ( file_info.IsFileFull() )  {
                 std::vector<char> uncompressed_data(rw.File_info()->FileSize());
                 std::vector<char> decompressed_data = coder->decompress(uncompressed_data);
