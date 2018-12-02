@@ -16,6 +16,8 @@ using std::ifstream;
 using std::vector;
 class RW_Interface{
 public:
+    ~RW_Interface();
+
     bool BeginWrite();
     bool Write_File(ofstream& File, vector<char>& array);   // Пишет в конец файла
     bool TakeHeader(FileInfo file_header);  // запихивает подаваемы хэдер в массив header
@@ -35,7 +37,7 @@ public:
     vector<char> ReadBodyPath();    // Будет прыгать по файлу и читать кусочек файла. Далее передать в Разжатие, а после в FileRecoveryWrite
 //    bool EndReading();
 
-    virtual bool RecoveryWrite();
+    bool RecoveryWrite(vector<char>& input);
     bool RecoveryPathDir(std::string path);  // Во
 
 
@@ -58,8 +60,10 @@ protected:
     bool state_have_in_file = false; // -\\- входной поток
     bool state_have_dictionary = false;  // был ли передан словарь?
     // Флаги на чтение
-    bool state_Mainheader_was_read = false;
-    bool state_header_was_read = false;
+    bool state_Mainheader_was_read = false; // Загловок заархивированного файла был прочитан
+    bool state_header_was_read = false; // Загловок одного файла был прочитан
+    bool state_header_was_read_firstly  = false;    // Загловок одного файла был прочитан впервый раз для текущего файла
+    bool state_header_was_read_IsDir;   // текущий файл директория
 
     bool Write_File(ofstream& File, vector<char>& array, int len_stream);   // Пишет в конец файла
     bool Insert_Header();

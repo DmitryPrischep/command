@@ -4,6 +4,7 @@
 
 #include "RW_Interface.h"
 #include "string.h"
+
 bool RW_Interface::BeginWrite() {
     Main_header.AddSize(sizeof(Main_header));
     vector<char> EmptyVec(sizeof(Main_header));
@@ -123,6 +124,9 @@ bool RW_Interface::ReadHeader() {
     return false;
 }
 bool RW_Interface::ReadFileHead() {
+    if ( state_header_was_read ){
+        state_header_was_read = !state_header_was_read;
+    }
     if (!state_Mainheader_was_read){
         std::cerr << "Заголовок еще не был прочитан!" << "\n";
     }
@@ -134,6 +138,8 @@ bool RW_Interface::ReadFileHead() {
         in_file.read((char*)&path, pathSize);
         file_info.AddSizeFile(size);
         file_info.AddPath(path);
+        state_header_was_read = true;
+        state_header_was_read_firstly =true;
         delete path;
         return true;
     }
@@ -192,8 +198,29 @@ bool RW_Interface::RecoveryPathDir(std::string path) {
 
 }
 
-bool RW_Interface::RecoveryWrite() {
-    return false;
+bool RW_Interface::RecoveryWrite(vector<char>& input) {
+    if ( state_header_was_read ){
+        if ( state_header_was_read_firstly ){
+            state_header_was_read_IsDir = RecoveryPathDir(file_info.StrPath());
+            state_header_was_read_firstly = !state_header_was_read_firstly;
+            if ( !state_header_was_read_IsDir ){
+                out_file.close();
+                out_file.open(file_info.StrPath());
+            }
+        }
+        if ( state_header_was_read_IsDir ){
+            return true;
+        } else {
+            for (int i = 0; i < input.size(); ++i) {
+                out_file.write((char*)&input[i], sizeof(input[0]));
+            }
+        }
+    }
+}
+
+RW_Interface::~RW_Interface() {
+    out_file.close();
+    in_file.close();
 }
 
 

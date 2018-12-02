@@ -117,7 +117,8 @@ int main() {
             inter.ReadFileHead();
             vector<char> Readed_rubish(inter.File_info()->FileSize());
             for ( ;inter.File_info()->IsFileFull(); ){
-                UnCompressor(inter.ReadBodyPath());
+                vector<char> tmp_vec = UnCompressor(inter.ReadBodyPath());
+                inter.RecoveryWrite(tmp_vec);
             }
         }
     } else {

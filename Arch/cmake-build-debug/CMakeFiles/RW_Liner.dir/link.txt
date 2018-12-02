@@ -1,0 +1,2 @@
+/Library/Developer/CommandLineTools/usr/bin/ar qc libRW_Liner.a  CMakeFiles/RW_Liner.dir/FileInfo.cpp.o CMakeFiles/RW_Liner.dir/RW_Interface.cpp.o CMakeFiles/RW_Liner.dir/RW_Liner.cpp.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libRW_Liner.a

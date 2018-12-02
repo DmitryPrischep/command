@@ -60,6 +60,10 @@ void FileInfo::AddPath(char *str) {
     path = tmp;
 }
 
+std::string FileInfo::StrPath() {
+    return path;
+}
+
 void File_Header::AddSize(int size) {
     this->size += size;
 }

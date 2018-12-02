@@ -1,0 +1,2 @@
+/Library/Developer/CommandLineTools/usr/bin/ar qc libFileInfo.a  CMakeFiles/FileInfo.dir/FileInfo.cpp.o CMakeFiles/FileInfo.dir/RW_Interface.cpp.o CMakeFiles/FileInfo.dir/RW_Liner.cpp.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libFileInfo.a

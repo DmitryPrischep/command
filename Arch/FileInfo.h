@@ -44,6 +44,7 @@ public:
     bool IsPathFull();
     unsigned long FileSize();
     unsigned long PathSize();
+    std::string StrPath();
     char* Path();
 
 private:

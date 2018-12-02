@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Arch"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Arch">
+				<Option output="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Arch" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/10.0.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 Arch"/>
+					<CompileFile command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Arch/fast">
+				<Option output="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Arch" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/10.0.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 Arch/fast"/>
+					<CompileFile command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Union">
+				<Option output="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/libUnion.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/10.0.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 Union"/>
+					<CompileFile command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Union/fast">
+				<Option output="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/libUnion.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/10.0.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 Union/fast"/>
+					<CompileFile command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="RW_Liner">
+				<Option output="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/libRW_Liner.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/10.0.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 RW_Liner"/>
+					<CompileFile command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="RW_Liner/fast">
+				<Option output="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/libRW_Liner.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/10.0.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 RW_Liner/fast"/>
+					<CompileFile command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="RW_Interface">
+				<Option output="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/libRW_Interface.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/10.0.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 RW_Interface"/>
+					<CompileFile command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="RW_Interface/fast">
+				<Option output="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/libRW_Interface.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/10.0.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 RW_Interface/fast"/>
+					<CompileFile command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="FileInfo">
+				<Option output="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/libFileInfo.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/10.0.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 FileInfo"/>
+					<CompileFile command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="FileInfo/fast">
+				<Option output="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/libFileInfo.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/10.0.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 FileInfo/fast"/>
+					<CompileFile command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -j4 -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/FileInfo.cpp">
+			<Option target="Union"/>
+			<Option target="RW_Liner"/>
+			<Option target="RW_Interface"/>
+			<Option target="FileInfo"/>
+		</Unit>
+		<Unit filename="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/FileInfo.h">
+			<Option target="Union"/>
+			<Option target="RW_Liner"/>
+			<Option target="RW_Interface"/>
+			<Option target="FileInfo"/>
+		</Unit>
+		<Unit filename="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/RW_Interface.cpp">
+			<Option target="Union"/>
+			<Option target="RW_Liner"/>
+			<Option target="RW_Interface"/>
+			<Option target="FileInfo"/>
+		</Unit>
+		<Unit filename="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/RW_Interface.h">
+			<Option target="Union"/>
+			<Option target="RW_Liner"/>
+			<Option target="RW_Interface"/>
+			<Option target="FileInfo"/>
+		</Unit>
+		<Unit filename="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/RW_Liner.cpp">
+			<Option target="Union"/>
+			<Option target="RW_Liner"/>
+			<Option target="RW_Interface"/>
+			<Option target="FileInfo"/>
+		</Unit>
+		<Unit filename="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/RW_Liner.h">
+			<Option target="Union"/>
+			<Option target="RW_Liner"/>
+			<Option target="RW_Interface"/>
+			<Option target="FileInfo"/>
+		</Unit>
+		<Unit filename="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/main.cpp">
+			<Option target="Arch"/>
+		</Unit>
+		<Unit filename="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
