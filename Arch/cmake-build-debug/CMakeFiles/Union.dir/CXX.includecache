@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/FileInfo.h
+iostream
+-
+
+/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/RW_Interface.cpp
+RW_Interface.h
+/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/RW_Interface.h
+string.h
+/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/string.h
+
+/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/RW_Interface.h
+FileInfo.h
+/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/FileInfo.h
+iostream
+-
+vector
+-
+boost/filesystem.hpp
+-
+fstream
+-
+

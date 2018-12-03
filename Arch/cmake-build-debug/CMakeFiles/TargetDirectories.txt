@@ -1,0 +1,7 @@
+/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/CMakeFiles/Arch.dir
+/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/CMakeFiles/Union.dir
+/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/CMakeFiles/RW_Liner.dir
+/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/CMakeFiles/RW_Interface.dir
+/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/howle/prog/Cpp/WTexn/C/Project_2.0/command/Arch/cmake-build-debug/CMakeFiles/FileInfo.dir

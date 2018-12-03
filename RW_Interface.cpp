@@ -1,0 +1,238 @@
+//
+// Created by Howle on 12/11/2018.
+//
+
+#include "RW_Interface.h"
+#include "string.h"
+
+bool RW_Interface::BeginWrite() {
+    Main_header.AddSize(sizeof(Main_header));
+    vector<char> EmptyVec(sizeof(Main_header));
+    if (HaveOutFile()) {
+        Write_File(out_file, &EmptyVec);
+        return true;
+    }
+    return false;
+}
+bool RW_Interface::TakeHeader(FileInfo file_header){
+    Main_header.AddFile();
+    Main_header.AddSize(sizeof(file_header));
+    unsigned long filesize = file_header.FileSize(),
+    file_pathsize = file_header.PathSize();
+    out_file.write((char*)&filesize, sizeof(filesize));
+    out_file.write((char*)&file_pathsize, sizeof(file_pathsize));
+    char* str = file_header.Path();
+    for (int i = 0; i < file_header.PathSize(); ++i) {
+        out_file.write((char*)&str[i], sizeof(str[0]));
+    }
+    delete []str;
+    state_header_was_wrote = true;
+    return true;
+}
+bool RW_Interface::Take_Dictionary(vector<char>* array) {
+    std::copy(array->begin(), array->end(), dictionary.begin());
+    state_have_dictionary = true;
+}
+bool RW_Interface::TakeBody(vector<char>* array){
+    Main_header.AddSize(array->size() + sizeof(unsigned long));
+    bool state_writing = Write(array, array->size());
+    state_header_was_wrote = false;
+    if (!state_body_was_wrote){ // Считает писали ли мы тело
+        state_body_was_wrote = true;
+    }
+    return state_writing;
+}
+bool RW_Interface::Write(vector<char>* array, unsigned long len_stream){
+    if (!state_header_was_wrote){
+        std::cerr << "Не был записан заголовок для этого файла!\n";
+    }
+    if ( HaveOutFile() ) {
+        Write_File(out_file, array, len_stream);
+        return true;
+    }
+    std::cerr << "Нет выходного файла" << "\n";
+    return false;
+}
+bool RW_Interface::Write_File(ofstream& File, vector<char>* array, unsigned long len_stream){
+    File.seekp(0, std::ios::end);
+    File.write((char *) &len_stream, sizeof(len_stream));
+    for (int i = 0; i < array->size(); i++){
+        File.write((char *) &(*array)[i], sizeof((*array)[0]));
+    }
+
+}
+bool RW_Interface::Write_File(ofstream& File, vector<char>* array){
+    File.seekp(0, std::ios::end);
+    for (int i = 0; i < array->size(); i++){
+        File.write((char *) &(*array)[i], sizeof((*array)[0]));
+    }
+    return true;
+}
+bool RW_Interface::Insert_Header() {
+    if (HaveOutFile()){
+        out_file.seekp(0, std::ios::beg);
+        out_file.write((char *)&Main_header.size, sizeof(Main_header.size));
+        out_file.write((char *)&Main_header.amount, sizeof(Main_header.amount));
+        out_file.write((char *)&Main_header.settings, sizeof(Main_header.settings));
+        return true;
+    }
+    std::cerr << "Нет выходного файла" << "\n";
+    return false;
+}
+bool RW_Interface::EndWriting() {
+    if ( state_have_dictionary ) {
+        if (HaveOutFile()) {
+            Write_File(out_file, &dictionary);
+            Insert_Header();
+        }
+    }
+    Insert_Header();
+    if ( out_file.is_open() ){
+        out_file.close();
+    }
+    return false;
+}
+void RW_Interface::TakeFileOut(std::string &file) {
+    out_file.open(file);
+    if (!out_file){
+        std::cout << "ERR\n";
+    }
+    state_have_out_file = true;
+}
+bool RW_Interface::TakeFileIn(std::string &file){
+    in_file.open(file);
+    if (!in_file){
+        std::cout << "ERR\n";
+    }
+    state_have_in_file = true;
+}
+bool RW_Interface::HaveOutFile() {
+    return state_have_out_file && out_file.is_open();
+}
+bool RW_Interface::HaveInFile() {
+    return state_have_in_file && in_file.is_open();
+}
+
+bool RW_Interface::ReadHeader() {
+    if (state_Mainheader_was_read){
+        std::cerr << "Заголовок уже был прочитан!" << "\n";
+    }
+    if ( HaveInFile() ){
+        in_file.seekg(0, std::ios::beg);
+        in_file.read((char*)&Main_header.size, sizeof(Main_header.size));
+        in_file.read((char*)&Main_header.amount, sizeof(Main_header.amount));
+        in_file.read((char*)&Main_header.settings, sizeof(Main_header.settings));
+        state_Mainheader_was_read = true;
+        return true;
+    }
+    std::cerr << "\nОтсутствует файл для считывания!\n";
+    return false;
+}
+bool RW_Interface::ReadFileHead() {
+    if ( state_header_was_read ){
+        state_header_was_read = !state_header_was_read;
+    }
+    if (!state_Mainheader_was_read){
+        std::cerr << "Заголовок еще не был прочитан!" << "\n";
+    }
+    if ( HaveInFile() ){
+        unsigned long size, pathSize;
+        in_file.read((char*)&size, sizeof(size));
+        in_file.read((char*)&pathSize, sizeof(pathSize));
+        char* path = new char[pathSize+1];
+        for (int i = 0; i < pathSize; ++i) {
+            in_file.read((char*)&path[i], sizeof(char));
+        }
+        path[pathSize] = '\0';
+        file_info.AddSizeFile(size);
+        file_info.AddPath(path);
+        state_header_was_read = true;
+        state_header_was_read_firstly =true;
+        delete path;
+        return true;
+    }
+    std::cerr << "\nОтсутствует файл для считывания!\n";
+    return false;
+}
+
+vector<char> RW_Interface::ReadBodyPath() {  // Данное архитектура плохая, но необходима для красивой и быстрой передачи данных
+    if (!state_Mainheader_was_read){
+        std::cerr << "Заголовок еще не был прочитан!" << "\n";
+        return vector<char>(0);
+    }
+    vector<char> out;
+    if ( HaveInFile() ){
+        unsigned long Len_of_str;
+        in_file.read((char*)&Len_of_str, sizeof(Len_of_str));
+        out.resize(Len_of_str);
+        for (int i = 0; i < Len_of_str; i++){
+            in_file.read((char*)&out[i], sizeof(char));
+        }
+        file_info.SubstractSizeFile(Len_of_str);
+        return out;
+    }
+    std::cerr << "\nОтсутствует файл для считывания!\n";
+    return vector<char>(0);
+}
+File_Header* RW_Interface::File_header(){
+    return &Main_header;
+}
+FileInfo RW_Interface::File_info(){
+    return file_info;
+}
+
+bool RW_Interface::RecoveryPathDir(std::string path) {
+    auto i = path.size();
+
+    if ( path[i] == '/' ) {
+        if ( fs::exists(path) ) {
+            return true; // Создана директория
+        } else {
+            fs::create_directories(path);
+            return true;
+        }
+    }
+    i = path.size() - 1;
+    for (; i > 0 && path[i] != '/'; --i) {}
+    if ( i != 0 ){
+        std::string tmp_path = path.substr(0,i);
+        fs::create_directories(path.substr(0,i));
+//        bool havethisdir = fs::exists(path.substr(0,i));
+//        fs::path root = fs::current_path();
+    }
+    return false;
+
+}
+
+bool RW_Interface::RecoveryWrite(vector<char>* input) {
+    if ( state_header_was_read ){
+        if ( state_header_was_read_firstly ){
+            state_header_was_read_IsDir = RecoveryPathDir(file_info.StrPath());
+            state_header_was_read_firstly = !state_header_was_read_firstly;
+            if ( !state_header_was_read_IsDir ){
+                out_file.close();
+                out_file.open(file_info.StrPath());
+            }
+        }
+        if ( state_header_was_read_IsDir ){
+            return true;
+        } else {
+            for (int i = 0; i < input->size(); ++i) {
+                out_file.write((char*)&(*input)[i], sizeof((*input)[0]));
+            }
+        }
+        Main_header.SubtractFile();
+    }
+}
+
+RW_Interface::~RW_Interface() {
+    if ( out_file.is_open() ){
+        out_file.close();
+    }
+    if ( in_file.is_open() ){
+        in_file.close();
+    }
+}
+
+
+
