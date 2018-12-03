@@ -5,7 +5,7 @@
 #ifndef ARCH_FILEINFO_H
 #define ARCH_FILEINFO_H
 #include <iostream>
-#include <cstring>
+
 using std::copy;
 
 class File_Header{

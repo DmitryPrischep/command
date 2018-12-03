@@ -16,7 +16,7 @@ using std::ifstream;
 using std::vector;
 class RW_Interface{
 public:
-    ~RW_Interface() noexcept;
+    ~RW_Interface();
 
     bool BeginWrite();
     bool Write_File(ofstream& File, vector<char>* array);   // Пишет в конец файла
@@ -28,7 +28,7 @@ public:
     bool Take_Dictionary(vector<char>* array); // На вход ожидает словарь от Компрессора. Сохраняет его в dictionary
     // !!! На отработну завершения проги + надо добавить в хэдер смещение от конца файла
     virtual bool Write(vector<char>* array, unsigned long len_stream);    // Реализуется потомками, но задан по умолчанию трубой без буфера прям в файл.
-    bool EndWriting() noexcept;
+    bool EndWriting();
 
 
     bool TakeFileIn(std::string &file);
@@ -43,7 +43,7 @@ public:
 
 
 
-    File_Header File_header();
+    File_Header* File_header();
     FileInfo File_info();
 protected:
     vector<char> header;

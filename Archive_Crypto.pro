@@ -34,7 +34,9 @@ SOURCES += \
     compressor/integrations_test/FileInfo.cpp \
     compressor/integrations_test/RW_Interface.cpp \
     compressor/integrations_test/RW_Liner.cpp \
-    compressor/integrations_test/Test_Compress_And_Decompress.cpp
+    compressor/integrations_test/Test_Compress_And_Decompress.cpp \
+   # crypto/key.cpp \
+   # crypto/aes.cpp
 
 
 HEADERS += \
@@ -47,7 +49,9 @@ HEADERS += \
     compressor/integrations_test/FileInfo.h \
     compressor/integrations_test/RW_Interface.h \
     compressor/integrations_test/RW_Liner.h \
-    compressor/integrations_test/Test_Compress_And_Decompress.h
+    compressor/integrations_test/Test_Compress_And_Decompress.h \
+  #  crypto/key.h \
+  # crypto/aes.h
 
 FORMS += \
         main_form.ui
@@ -61,6 +65,6 @@ RESOURCES += \
     res.qrc
 
 BOOST_ROOT = /usr/local/boost-1.68.0
-INCLUDEPATH += $${BOOST_ROOT}/include
-LIBS += $${BOOST_ROOT}/lib -lboost_filesystem -lboost_system
+INCLUDEPATH += -I $${BOOST_ROOT}/include
+LIBS += -L $${BOOST_ROOT}/lib -lboost_system -lboost_filesystem
 

@@ -19,27 +19,13 @@ bool RW_Interface::TakeHeader(FileInfo file_header){
     Main_header.AddSize(sizeof(file_header));
     unsigned long filesize = file_header.FileSize(),
     file_pathsize = file_header.PathSize();
-//    out_file.seekp(0, std::ios::end);
     out_file.write((char*)&filesize, sizeof(filesize));
-//    out_file.seekp(0, std::ios::end);
     out_file.write((char*)&file_pathsize, sizeof(file_pathsize));
     char* str = file_header.Path();
     for (int i = 0; i < file_header.PathSize(); ++i) {
         out_file.write((char*)&str[i], sizeof(str[0]));
-//        out_file.seekp(0, std::ios::end);
     }
     delete []str;
-//    for (int i = 0; i < sizeof(unsigned long); i++){
-//        header.emplace_back(file_header.FileSize() >> 8*i);
-//    }
-//    for (int i = 0; i < sizeof(unsigned long); i++){
-//        header.emplace_back(file_header.PathSize() >> 8*i);
-//    }
-//    char* str = file_header.Path();
-//    for ( int i = 0; i < file_header.PathSize(); i++){
-//        header.emplace_back(str[i]);
-//    }
-//    delete str;
     state_header_was_wrote = true;
     return true;
 }
@@ -57,8 +43,7 @@ bool RW_Interface::TakeBody(vector<char>* array){
     return state_writing;
 }
 bool RW_Interface::Write(vector<char>* array, unsigned long len_stream){
-    if (!state_header_was_wrote){    // Хэдер ли это?
-//        Write_File(out_file, &header);
+    if (!state_header_was_wrote){
         std::cerr << "Не был записан заголовок для этого файла!\n";
     }
     if ( HaveOutFile() ) {
@@ -94,7 +79,7 @@ bool RW_Interface::Insert_Header() {
     std::cerr << "Нет выходного файла" << "\n";
     return false;
 }
-bool RW_Interface::EndWriting() noexcept {
+bool RW_Interface::EndWriting() {
     if ( state_have_dictionary ) {
         if (HaveOutFile()) {
             Write_File(out_file, &dictionary);
@@ -152,9 +137,6 @@ bool RW_Interface::ReadFileHead() {
     }
     if ( HaveInFile() ){
         unsigned long size, pathSize;
-        int tmp_s1 = sizeof(size);
-        bool open = in_file.is_open();
-//        in_file >> size;
         in_file.read((char*)&size, sizeof(size));
         in_file.read((char*)&pathSize, sizeof(pathSize));
         char* path = new char[pathSize+1];
@@ -166,7 +148,7 @@ bool RW_Interface::ReadFileHead() {
         file_info.AddPath(path);
         state_header_was_read = true;
         state_header_was_read_firstly =true;
-        delete []path;
+        delete path;
         return true;
     }
     std::cerr << "\nОтсутствует файл для считывания!\n";
@@ -192,8 +174,8 @@ vector<char> RW_Interface::ReadBodyPath() {  // Данное архитекту�
     std::cerr << "\nОтсутствует файл для считывания!\n";
     return vector<char>(0);
 }
-File_Header RW_Interface::File_header(){
-    return Main_header;
+File_Header* RW_Interface::File_header(){
+    return &Main_header;
 }
 FileInfo RW_Interface::File_info(){
     return file_info;
@@ -239,12 +221,11 @@ bool RW_Interface::RecoveryWrite(vector<char>* input) {
                 out_file.write((char*)&(*input)[i], sizeof((*input)[0]));
             }
         }
-        
         Main_header.SubtractFile();
     }
 }
 
-RW_Interface::~RW_Interface() noexcept {
+RW_Interface::~RW_Interface() {
     if ( out_file.is_open() ){
         out_file.close();
     }
@@ -252,4 +233,6 @@ RW_Interface::~RW_Interface() noexcept {
         in_file.close();
     }
 }
+
+
 
