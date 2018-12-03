@@ -28,11 +28,26 @@ CONFIG += c++1z
 SOURCES += \
         main.cpp \
         main_form.cpp \
-    dir_controller.cpp
+    dir_controller.cpp \
+    compressor/LZW.cpp \
+    compressor/Selector.cpp \
+    compressor/integrations_test/FileInfo.cpp \
+    compressor/integrations_test/RW_Interface.cpp \
+    compressor/integrations_test/RW_Liner.cpp \
+    compressor/integrations_test/Test_Compress_And_Decompress.cpp
+
 
 HEADERS += \
         main_form.h \
-    dir_controller.h
+    dir_controller.h \
+    compressor/Coder.hpp \
+    compressor/LZW.hpp \
+    compressor/Node.hpp \
+    compressor/Selector.hpp \
+    compressor/integrations_test/FileInfo.h \
+    compressor/integrations_test/RW_Interface.h \
+    compressor/integrations_test/RW_Liner.h \
+    compressor/integrations_test/Test_Compress_And_Decompress.h
 
 FORMS += \
         main_form.ui
@@ -44,3 +59,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     res.qrc
+
+BOOST_ROOT = /usr/local/boost-1.68.0
+INCLUDEPATH += $${BOOST_ROOT}/include
+LIBS += $${BOOST_ROOT}/lib -lboost_filesystem -lboost_system
+

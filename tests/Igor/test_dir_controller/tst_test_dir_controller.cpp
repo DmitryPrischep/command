@@ -12,10 +12,9 @@ class Test_Dir_Controller : public QObject
 {
     Q_OBJECT
     Dir_Controller dir_controller;
-    static void create_File_in_FileSystem(string path);
-    static void create_File_in_LogicView(string path);
-    void (*mode[2])(string); //Функция для создания нового пустого файла
-    void (*create_File)(string);
+    set<string> list_of_files;
+    void create_File_in_FileSystem(string path);
+    void create_File_in_LogicView(string path);
 public:
     Test_Dir_Controller();
     ~Test_Dir_Controller();
@@ -40,8 +39,7 @@ void Test_Dir_Controller::create_File_in_LogicView(string path)
 
 Test_Dir_Controller::Test_Dir_Controller()
 {
-    mode[Mode::FILE_MODE] = create_File_in_FileSystem;
-    mode[Mode::LOGIC_MODE] = create_File_in_LogicView;
+
 }
 
 Test_Dir_Controller::~Test_Dir_Controller()
@@ -56,6 +54,12 @@ set<string>& operator << (set<string>& list, const string &path) {
 
 void Test_Dir_Controller::test_sendList()
 {
+    void (Test_Dir_Controller::*mode[2])(string) = {
+            &Test_Dir_Controller::create_File_in_FileSystem,
+            &Test_Dir_Controller::create_File_in_LogicView
+    };
+ //Функция для создания нового пустого файла
+    void (Test_Dir_Controller::*create_File)(string);
     //Функция для создания нового пустого файла
     //Устанавливаем режим для работы с файлами
     int MODE_TEST = Mode::FILE_MODE;
@@ -68,19 +72,19 @@ void Test_Dir_Controller::test_sendList()
         create_File = mode[MODE_TEST];
         //#### Создание файлов и директорий ########
         //Создаем первый файл
-        create_File("example1.txt");
+        (this->*create_File)("example1.txt");
         //Создаем второй файл
-        create_File("example2.txt");
+        (this->*create_File)("example2.txt");
         //Создаем директорию
         create_Folder("Folder1");
         //И в ней создаем файлы
-        create_File("Folder1/example3.txt");
-        create_File("Folder1/example4.txt");
-        create_File("Folder1/example5.txt");
+        (this->*create_File)("Folder1/example3.txt");
+        (this->*create_File)("Folder1/example4.txt");
+        (this->*create_File)("Folder1/example5.txt");
         //Создаем вложенную директорию
         create_Folder("Folder1/Folder2");
         //И в ней создаем файл
-        create_File("Folder1/Folder2/example6.txt");
+        (this->*create_File)("Folder1/Folder2/example6.txt");
         /* Затем создаем еще одну директорию,
         * в которой не будет ни одного файла
         * (архиватор не будет добавлять папку,

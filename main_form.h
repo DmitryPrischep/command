@@ -12,6 +12,8 @@
 #include <QToolBar>
 #include <QIcon>
 #include <assert.h>
+#include "compressor/integrations_test/Test_Compress_And_Decompress.h"
+
 namespace Ui {
 class Main_Form;
 }

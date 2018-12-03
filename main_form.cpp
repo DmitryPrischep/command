@@ -72,9 +72,10 @@ void Main_Form::on_pushButton_clicked()
             getFiles(file); //Получаем все пути из директории / путь до данного файла
     }
 
-   set<string> temp = dir_controller.sendList(); //Временный накопитель директорий текущей операции
-    foreach (string str, temp) {
-       qDebug() << QString::fromStdString(str);
-    }
+  // set<string> temp = dir_controller.sendList(); //Временный накопитель директорий текущей операции
+  create_archive(dir_controller.sendList());
+  //  foreach (string str, temp) {
+  //     qDebug() << QString::fromStdString(str);
+  //  }
 
 }

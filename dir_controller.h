@@ -37,7 +37,7 @@ signals:
 
 public slots:
     //Отправка списка файлов на архивацию и сжатие
-    set<string> sendList() const;
+    set<string> sendList();
     Options sendOptions() const;
 };
 

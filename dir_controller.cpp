@@ -31,7 +31,7 @@ void Dir_Controller::clearAll()
     list_of_files.clear();
 }
 
-set<string> Dir_Controller::sendList() const
+set<string> Dir_Controller::sendList()
 {
     return list_of_files;
 }
