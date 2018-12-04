@@ -11,7 +11,7 @@ public:
 	LZW& operator=(LZW&&) = delete;
 	~LZW() {};
 
-	std::vector<char> compress(const std::vector<char>& data) noexcept;
+	std::vector<char> compress(const std::vector<char>& data) noexcept; // hfp,bn yf gjlrkfccs
 	std::vector<char> decompress(const std::vector<char>& data) noexcept;
 
 private:

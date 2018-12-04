@@ -5,7 +5,7 @@
 
 class Coder {
 public:
-	Coder(const int _data_size = DATA_SIZE) : data_size_(_data_size) {};
+	Coder(const int _data_size = DATA_SIZE) : data_size_(_data_size) {}; /// deleted!!!
 	Coder(const Coder&) = delete;
 	Coder(Coder&&) = delete;
 	Coder& operator=(const Coder&) = delete;

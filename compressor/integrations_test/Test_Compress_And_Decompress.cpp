@@ -43,24 +43,24 @@ int main() {
     	selector.next_file();
     }
     rw.EndWriting();
-    std::cout << "total_size: " << total_size << std::endl;	
+    //std::cout << "total_size: " << total_size << std::endl;	
 
     rw.TakeFileIn(outfile);
-    std::cout << outfile << std::endl;
-    std::cout << rw.HaveInFile() << std::endl;
+    //std::cout << outfile << std::endl;
+    //std::cout << rw.HaveInFile() << std::endl;
     if (rw.HaveInFile()) {
         rw.ReadHeader();        
-        std::cout << "rw.ReadHeader()" << std::endl;
+        //std::cout << "rw.ReadHeader()" << std::endl;
 
         for (auto i = 0; rw.File_header().IsAmountFull(); i++) {
-            std::cout << "loop - " << i << std::endl;
+            //std::cout << "loop - " << i << std::endl;
             rw.ReadFileHead();
             std::vector<char> uncompressed_data(rw.File_info().FileSize());
             for ( ;rw.File_info().IsFileFull(); )  {
                 std::vector<char> decompressed_data = coder->decompress(rw.ReadBodyPath());
-                std::cout << "decompressed: " << decompressed_data.size() << std::endl;
+                //std::cout << "decompressed: " << decompressed_data.size() << std::endl;
                 print(decompressed_data);
-                //rw.RecoveryWrite(&decompressed_data);
+                rw.RecoveryWrite(&decompressed_data);
             }
         }
     }

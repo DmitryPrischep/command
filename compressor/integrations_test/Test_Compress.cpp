@@ -16,7 +16,7 @@ void print(const std::vector<T>& vect) {
 
 int main() {
     std::string outfile = "out.tartar";
-    std::set<std::string> data = {"A.mp3"};
+    std::set<std::string> data = {"test_data/in1.txt", "test_data/in2.txt", "test_data/in3.txt"};
 
     Selector selector;    
     selector.set_filesnames(data);
@@ -26,7 +26,7 @@ int main() {
     rw.TakeFileOut(outfile);
     rw.BeginWrite();
 
-    Coder* coder = new LZW();
+    Coder* coder = new LZW(); /// умный указатель
     while (selector.has_file()) {
     	selector.read_file();
 

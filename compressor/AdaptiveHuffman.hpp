@@ -3,7 +3,7 @@
 #include "Coder.hpp"
 #include "Node.hpp"
 
-#define NODES_SIZE 2 * DATA_SIZE + 1
+#define NODES_SIZE 2 * DATA_SIZE + 1 // const
 
 class AdaptiveHuffman : public Coder {
 public:
