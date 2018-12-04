@@ -17,9 +17,7 @@ LZW::LZW() : dictionary_size_(256) {
 
 std::vector<char> LZW::compress(const std::vector<char>& data) noexcept {
 
-    std::string str_data(data.begin(), data.end());
-    std::vector<int> encoded = encode(str_data);
-
+    std::vector<int> encoded = encode(data);
     // разбиваем кодированную последовательность на биты, это необходимо, тк символы кодируются интами
     std::vector<uint8_t> bits;
     for (auto byte : encoded) {
@@ -75,6 +73,45 @@ std::vector<char> LZW::decompress(const std::vector<char>& data) noexcept {
     return result;
 }
 
+std::vector<int> LZW::encode(const std::vector<char>& data) noexcept {
+
+    int dict_size = dictionary_size_;  
+    std::map<std::vector<char>, int> dict;
+
+    std::vector<int> result;
+    auto result_iter = std::back_inserter(result);
+
+    // иницилизируем словарь стандартными (ascii) символами
+    for (int i = 0; i < dict_size; i++) {
+        dict[std::vector<char>(1, i)] = i;
+    }
+
+    // процесс кодировки
+    // если подстрока есть в словаре, вставляем её код
+    // если её там нет, то добавляем её в словарь и записываем код
+    std::vector<char> temp;
+    for (auto it = data.begin(); it != data.end(); ++it) {
+        char symbol = *it;
+        std::vector<char> loc_temp(temp);
+        loc_temp.push_back(symbol);
+        if (dict.find(loc_temp) != dict.end()) {
+            temp = loc_temp;
+        }
+        else {
+            *result_iter++ = dict[temp];
+            dict[loc_temp] = dict_size++;
+            temp = std::vector<char>(1, symbol);
+        }
+    }
+
+    if (!temp.empty()) {
+        *result_iter++ = dict[temp];
+    }
+
+    return result;
+}
+
+/*
 std::vector<int> LZW::encode(const std::string& data) noexcept {
 
     int dict_size = dictionary_size_;  
@@ -111,6 +148,7 @@ std::vector<int> LZW::encode(const std::string& data) noexcept {
 
     return result;
 }
+*/
 
 std::string LZW::decode(const std::vector<int>& data) noexcept {
 

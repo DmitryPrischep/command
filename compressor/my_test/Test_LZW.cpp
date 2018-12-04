@@ -16,7 +16,7 @@ int main() {
     //assert(input.size() == 256);
     //char byte = 1;
     std::string input;
-    for (int i = 0; i < 255; i++) {
+    for (int i = 0; i < 256; i++) {
         char x;
         std::cin >> x;
         //x = byte++;

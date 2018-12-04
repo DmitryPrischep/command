@@ -17,6 +17,6 @@ public:
 private:
 	const int dictionary_size_;
 	int bit_resolution_;
-	std::vector<int> encode(const std::string& data) noexcept;
+	std::vector<int> encode(const std::vector<char>& data) noexcept;
 	std::string decode(const std::vector<int>& data) noexcept;	
 };

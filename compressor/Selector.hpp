@@ -5,6 +5,7 @@
 #include <vector>
 #include <iterator>
 #include <set>
+#define FIX_SIZE 256
 
 class Selector {
 public:

@@ -42,7 +42,7 @@ int Selector::file_size() {
 void Selector::read_file() {
 	if (has_file()) {
 		filename_ = *it_;
-		file_.open(filename_);
+		file_.open(filename_, std::ios::binary);
 		file_size_ = file_size();
     	file_.seekg(0, std::ios::beg);
 	}
@@ -50,7 +50,7 @@ void Selector::read_file() {
 
 std::vector<char> Selector::read_data() {
 	std::vector<char> data;
-	for(int i = data_index_; (i < data_index_ + 256) && (i < file_size_) ; i++) {
+	for(int i = data_index_; (i < data_index_ + FIX_SIZE) && (i < file_size_) ; i++) {
 		char byte = 0;
 		file_.read( (char*)& byte, sizeof(char));
 		data.push_back(byte);
@@ -67,7 +67,7 @@ void Selector::next_file() {
 }
 
 void Selector::next_data() {
-	data_index_ += 256;
+	data_index_ += FIX_SIZE;
 }
 
 void Selector::close_file() {
