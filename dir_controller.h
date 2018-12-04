@@ -6,6 +6,8 @@
 #include <set>
 #include <experimental/vector>
 #include <iostream>
+#include "passworddialog.h"
+
 using namespace std;
 
 /*

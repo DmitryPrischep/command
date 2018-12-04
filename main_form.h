@@ -10,6 +10,7 @@
 #include "dir_controller.h"
 #include <QMenu>
 #include <QToolBar>
+#include <QMessageBox>
 #include <QIcon>
 #include <assert.h>
 #include "compressor/integrations_test/Test_Compress_And_Decompress.h"
@@ -31,6 +32,8 @@ public:
 private slots:
 
     void on_pushButton_clicked();
+
+    void on_action_11_triggered();
 
 private:
     Ui::Main_Form *ui;

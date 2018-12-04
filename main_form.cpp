@@ -79,3 +79,17 @@ void Main_Form::on_pushButton_clicked()
   //  }
 
 }
+
+void Main_Form::on_action_11_triggered()
+{
+    PasswordDialog *set_password_dialog = new PasswordDialog;
+    if (set_password_dialog->exec() == QDialog::Accepted) {
+        if (auto password = set_password_dialog->getPassword()) {
+            qDebug() << *password;
+        }
+        else {
+            QMessageBox::warning(nullptr, "Несоответствие", "Введенные пароли не совпадают!");
+        }
+    }
+    delete set_password_dialog;
+}

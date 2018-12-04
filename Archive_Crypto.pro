@@ -37,6 +37,7 @@ SOURCES += \
     compressor/integrations_test/Test_Compress_And_Decompress.cpp \
    # crypto/key.cpp \
    # crypto/aes.cpp
+    passworddialog.cpp
 
 
 HEADERS += \
@@ -52,6 +53,7 @@ HEADERS += \
     compressor/integrations_test/Test_Compress_And_Decompress.h \
   #  crypto/key.h \
   # crypto/aes.h
+    passworddialog.h
 
 FORMS += \
         main_form.ui
