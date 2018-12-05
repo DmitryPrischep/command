@@ -13,10 +13,11 @@ void print(const std::vector<T>& vect) {
 }
 
 int main() {
+
     const int data_size = DATA_SIZE;
 
-    std::set<std::string> data = {"in3.txt"};
-    //std::set<std::string> data = {"A.png"};
+    //std::set<std::string> data = {"in1.txt"};
+    std::set<std::string> data = {"B.mp3"};
     //std::set<std::string> data = {"T.docx"};
 
     Selector selector(data_size);    
@@ -41,7 +42,7 @@ int main() {
 
     		std::vector<char> compressed_data = coder->compress(buffer);
     		std::cout << "compressed size: " << compressed_data.size() << std::endl;
-            print(compressed_data);
+            //print(compressed_data);
             total_size += compressed_data.size();
 
     		std::vector<char> decompressed_data = coder->decompress(compressed_data);

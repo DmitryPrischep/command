@@ -12,7 +12,8 @@ void print(const std::vector<T>& vect) {
 int main() {
 
     std::string input;
-    for (int i = 0; i < 256; i++) {
+    char byte = 0;
+    for (int i = 0; i < DATA_SIZE; i++) {
         char x;
         std::cin >> x;
         //x = byte++;
@@ -25,9 +26,9 @@ int main() {
     Coder* coder = new Huffman();
 
     std::vector<char> compress_result = coder->compress(data);
-    print(compress_result);
+    //print(compress_result);
     std::vector<char> decompress_result = coder->decompress(compress_result);
-    print(decompress_result);
+    //print(decompress_result);
 
     std::cout << "Input size: " << input.size() << std::endl;
     std::cout << "Compressed size: " << compress_result.size() << std::endl;

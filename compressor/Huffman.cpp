@@ -9,6 +9,7 @@ std::vector<char> Huffman::compress(const std::vector<char>& data) noexcept {
     std::string res_str = encode(data);
     std::vector<char> encoded(res_str.begin(), res_str.end()); 
     std::vector<char> compressed = make_bytes(encoded);
+    std::cout << "only compressed data" << compressed.size() << std::endl;
     std::vector<char> dict = save_dict();
     std::vector<char> result(dict);
     std::copy(compressed.begin(), compressed.end(), std::back_inserter(result));
@@ -144,18 +145,22 @@ std::vector<char> Huffman::make_bits(const std::vector<char>& data) noexcept {
 
 std::vector<char> Huffman::save_dict() noexcept {
     /*
-    1 байт - кол-во записей в словаре (N)
     1 байт - кол-во пустых битов
-    N*(1 байт - символ + 1 байт - кол-во бит в коде символа)
+    256 байт - число бит на каждый символ
     дальше коды символов слепленные в байты
     */
-    std::vector<char> result;
+
+    std::vector<char> result;    
     std::vector<char> dict_bits;
-    result.push_back((char)haf_dict_.size());
+
     result.push_back(empty_bits_);
-    for(auto node : haf_dict_) {
-        result.push_back(node.first);
-        result.push_back(node.second.size());
+    for(int i = 0; i < 256; i++) {
+        char symbol = (char) i;
+        char code_size = 0;
+        if (haf_dict_.find(symbol) != haf_dict_.end()) {
+            code_size = (char) haf_dict_[symbol].size();  
+        }
+        result.push_back(code_size);
     } 
     std::vector<char> bits;  
     for(auto node : haf_dict_) { 
@@ -164,10 +169,6 @@ std::vector<char> Huffman::save_dict() noexcept {
     }
     std::vector<char> bytes = make_bytes(bits);
     std::copy(bytes.begin(), bytes.end(), std::back_inserter(result));
-    for ( auto v : result) {
-        std::cout << (int) v << "  ";
-    }
-    std::cout << std::endl;
     return result;
 }
 
@@ -178,10 +179,48 @@ int Huffman::recover_dict(const std::vector<char>& data) noexcept {
     N*(1 байт - символ + 1 байт - кол-во бит в коде символа)
     дальше коды символов слепленные в байты
     */
+    empty_bits_ = data[0];
+
+    int codes_size = 0;
+    for (int i = 1; i < 257; i++) {
+        char code_size = data[i];      
+        codes_size += code_size;
+    } 
+    int byte_codes_size = (codes_size % 8 == 0) ? codes_size / 8 : codes_size / 8 + 1;
+    std::vector<char> bytes;
+    for (int i = 257; i < 257 + byte_codes_size; i++) {
+        bytes.push_back(data[i]);
+    }
+
+    std::cout << "bsize " << bytes.size() << std::endl;
+
+    std::vector<char> bits = make_bits(bytes);
+    int pos = 0;
+    for (int i = 0; i < 256; i++) {
+        char symbol = (char) i;
+        std::string code;
+        for (int j = 0; j < data[i+1]; j++) {
+            code += bits[pos];
+            pos++;
+        } 
+        //haf_dict_[symbol] = code;
+        rev_haf_dict_[code] = symbol;       
+    }
+
+    for ( auto d : rev_haf_dict_) {
+        std::cout << (int) d.second << ": (size) " << d.first.size() << std::endl;
+    }
+    std::cout << "Dict size: " << 257 + byte_codes_size << std::endl;
+    return 257 + byte_codes_size ;
+}
+
+/*
+int Huffman::recover_dict(const std::vector<char>& data) noexcept {
+
     int dict_size = 2*data[0] + 2;
-    std::cout << "dict_size" << dict_size << std::endl;
+    std::cout << "dict_size: " << dict_size << std::endl;
     empty_bits_ = data[1];
-    std::cout << "empty_bits" << (int) empty_bits_ << std::endl;
+    std::cout << "empty_bits: " << (int) empty_bits_ << std::endl;
     int codes_size = 0;
     for (int i = 2; i < dict_size; i+=2) {
         char code_size = data[i+1];      
@@ -221,3 +260,4 @@ int Huffman::recover_dict(const std::vector<char>& data) noexcept {
     std::cout << dict_size + byte_codes_size << std::endl;
     return dict_size + byte_codes_size;
 }
+*/
