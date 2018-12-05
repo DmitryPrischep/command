@@ -9,7 +9,7 @@ std::vector<char> Huffman::compress(const std::vector<char>& data) noexcept {
     std::string res_str = encode(data);
     std::vector<char> encoded(res_str.begin(), res_str.end()); 
     std::vector<char> compressed = make_bytes(encoded);
-    std::cout << "only compressed data" << compressed.size() << std::endl;
+    std::cout << "only compressed data: " << compressed.size() << std::endl;
     std::vector<char> dict = save_dict();
     std::vector<char> result(dict);
     std::copy(compressed.begin(), compressed.end(), std::back_inserter(result));
@@ -98,6 +98,7 @@ std::vector<char> Huffman::decode(const std::string& data) noexcept {
         while (true) {
             //std::cout << "loop" << std::endl;
             std::string temp = data.substr(pos, ofset);
+            std::cout << "Temp size: " << temp.size() << std::endl;
             if (rev_haf_dict_.find(temp) != rev_haf_dict_.end()) {
                 pos += temp.size();
                 result_str += rev_haf_dict_[temp];

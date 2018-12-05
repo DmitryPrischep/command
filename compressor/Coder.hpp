@@ -2,7 +2,7 @@
 
 #include <string>
 #include <vector>
-#define DATA_SIZE 1048576
+#define DATA_SIZE 256 //1048576
 
 class Coder {
 public:

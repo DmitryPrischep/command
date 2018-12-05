@@ -16,8 +16,8 @@ int main() {
 
     const int data_size = DATA_SIZE;
 
-    //std::set<std::string> data = {"in1.txt"};
-    std::set<std::string> data = {"B.mp3"};
+    std::set<std::string> data = {"A:\\DATA\\CODE\\CPP\\command\\compressor\\my_test\\A.bmp"};
+    //std::set<std::string> data = {"A.bmp"};
     //std::set<std::string> data = {"T.docx"};
 
     Selector selector(data_size);    
