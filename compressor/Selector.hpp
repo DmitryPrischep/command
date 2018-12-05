@@ -5,11 +5,10 @@
 #include <vector>
 #include <iterator>
 #include <set>
-#define FIX_SIZE 256
 
 class Selector {
 public:
-	Selector();
+	Selector(const int _data_size);
 	Selector(const Selector&) = delete;
 	Selector(Selector&&) = delete;
 	Selector& operator=(const Selector&) = delete;
@@ -29,6 +28,7 @@ public:
 	
 private:
 	std::string filename_;
+	const int data_size_;
 	int data_index_;
 	int file_size_;
 	std::set<std::string> input_files_;

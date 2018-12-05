@@ -2,6 +2,7 @@
 #include <cassert>
 #include "../Selector.hpp"
 #include "../LZW.hpp"
+#include "../Huffman.hpp"
 
 template <typename T>
 void print(const std::vector<T>& vect) {
@@ -12,16 +13,18 @@ void print(const std::vector<T>& vect) {
 }
 
 int main() {
+    const int data_size = DATA_SIZE;
 
-    //std::set<std::string> data = {"in1.txt"};
-    //std::set<std::string> data = {"im1.png"};
-    std::set<std::string> data = {"Jefferson Airplane - White Rabbit.mp3"};
+    std::set<std::string> data = {"in3.txt"};
+    //std::set<std::string> data = {"A.png"};
+    //std::set<std::string> data = {"T.docx"};
 
-    Selector selector;    
+    Selector selector(data_size);    
     selector.set_filesnames(data);
     long total_size = 0;
 
-    Coder* coder = new LZW();
+    Coder* coder = new Huffman();
+    //Coder* coder = new AdaptiveHuffman();
     while (selector.has_file()) {
         selector.read_file();
 
@@ -38,6 +41,7 @@ int main() {
 
     		std::vector<char> compressed_data = coder->compress(buffer);
     		std::cout << "compressed size: " << compressed_data.size() << std::endl;
+            print(compressed_data);
             total_size += compressed_data.size();
 
     		std::vector<char> decompressed_data = coder->decompress(compressed_data);
@@ -54,5 +58,7 @@ int main() {
     }
 
     std::cout << "total_size: " << total_size << std::endl;
+
+    delete coder;
     return 0;
 }

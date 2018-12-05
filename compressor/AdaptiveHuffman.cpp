@@ -1,6 +1,7 @@
 #include "AdaptiveHuffman.hpp"
 #include <algorithm>
 #include <iterator>
+#include <iostream>
 
 AdaptiveHuffman::AdaptiveHuffman() : escape_(new Node(0, NODES_SIZE - 1)) , root_(escape_) {
     std::fill(std::begin(leaves_), std::end(leaves_), nullptr);
@@ -8,7 +9,7 @@ AdaptiveHuffman::AdaptiveHuffman() : escape_(new Node(0, NODES_SIZE - 1)) , root
     nodes_[root_->number] = root_;
 }
 
-std::vector<char> AdaptiveHuffman::compress(const std::vector<char>& data) {
+std::vector<char> AdaptiveHuffman::compress(const std::vector<char>& data) noexcept {
 	std::vector<uint8_t> bits;
 
 	for (int i = 0; i < data.size(); i++) {
@@ -35,7 +36,7 @@ std::vector<char> AdaptiveHuffman::compress(const std::vector<char>& data) {
 	return result;
 }
 
-std::vector<char> AdaptiveHuffman::decompress(const std::vector<char>& data) {
+std::vector<char> AdaptiveHuffman::decompress(const std::vector<char>& data) noexcept {
 	std::vector<uint8_t> bits;
 	for (auto byte : data) {
 		for (int i = 0; i < 8; i++) {
@@ -79,7 +80,7 @@ std::vector<char> AdaptiveHuffman::decode(const std::vector<uint8_t>& code) noex
     for (auto bit : code) {
     	// записываем в байт последовательнойть бит, пока не встретим escape 
 		if (decoder == escape_) {
-			std::cout << "see escape" << std::endl;
+			//std::cout << "see escape" << std::endl;
 		    temp.push_back(bit);
 
 		    if (temp.size() == 8 * sizeof(char)) {

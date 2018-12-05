@@ -1,6 +1,11 @@
 #include "Selector.hpp"
 
-Selector::Selector() : filename_(""), data_index_(0), file_size_(0) {}
+Selector::Selector(const int _data_size) : 
+	data_size_(_data_size),
+	filename_(""), 
+	data_index_(0), 
+	file_size_(0) 
+{}
 
 // входные данные - имена файлов, которые надо обработать
 void Selector::set_filesnames(const std::set<std::string>& filesnames) {
@@ -50,7 +55,7 @@ void Selector::read_file() {
 
 std::vector<char> Selector::read_data() {
 	std::vector<char> data;
-	for(int i = data_index_; (i < data_index_ + FIX_SIZE) && (i < file_size_) ; i++) {
+	for(int i = data_index_; (i < data_index_ + data_size_) && (i < file_size_) ; i++) {
 		char byte = 0;
 		file_.read( (char*)& byte, sizeof(char));
 		data.push_back(byte);
@@ -67,7 +72,7 @@ void Selector::next_file() {
 }
 
 void Selector::next_data() {
-	data_index_ += FIX_SIZE;
+	data_index_ += data_size_;
 }
 
 void Selector::close_file() {

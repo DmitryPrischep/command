@@ -1,11 +1,12 @@
+#pragma once
+
 #include <string>
 #include <vector>
-
 #define DATA_SIZE 256
 
 class Coder {
 public:
-	Coder(const int _data_size = DATA_SIZE) : data_size_(_data_size) {}; /// deleted!!!
+	Coder() : data_size_(DATA_SIZE) {}; /// deleted!!!
 	Coder(const Coder&) = delete;
 	Coder(Coder&&) = delete;
 	Coder& operator=(const Coder&) = delete;

@@ -2,13 +2,17 @@
 #include <map>
 #include <cmath>
 #include <iterator>
+#include <limits>
+#include <iostream>
 
-LZW::LZW() : dictionary_size_(256) {
+LZW::LZW() : data_size_(DATA_SIZE) {
+    std::cout << data_size_ << std::endl;
     // определяем количество бит под код подстроки из словаря
     // пример, для входной последовательности длиной 256 байт, нужно 9 бит 
     // так как, размер ascii + размер входной строки = 256 + 256 = 512 = 2^9
+    int initial_dict_size = std::numeric_limits<unsigned char>::max();
+    int dict_power = initial_dict_size + data_size_;
     int i = 0;
-    int dict_power = dictionary_size_ + sizeof(char);
     while ( (dict_power) >> i ) {
         i++;
     }
@@ -75,7 +79,7 @@ std::vector<char> LZW::decompress(const std::vector<char>& data) noexcept {
 
 std::vector<int> LZW::encode(const std::vector<char>& data) noexcept {
 
-    int dict_size = dictionary_size_;  
+    int dict_size = std::numeric_limits<char>::max();  
     std::map<std::vector<char>, int> dict;
 
     std::vector<int> result;
@@ -114,7 +118,7 @@ std::vector<int> LZW::encode(const std::vector<char>& data) noexcept {
 /*
 std::vector<int> LZW::encode(const std::string& data) noexcept {
 
-    int dict_size = dictionary_size_;  
+    int dict_size = std::numeric_limits<char>::max();  
     std::map<std::string, int> dict;
 
     std::vector<int> result;
@@ -152,7 +156,7 @@ std::vector<int> LZW::encode(const std::string& data) noexcept {
 
 std::string LZW::decode(const std::vector<int>& data) noexcept {
 
-    int dict_size = dictionary_size_;  
+    int dict_size = std::numeric_limits<char>::max();  
     std::map<int, std::string> dict;
 
     auto data_it = data.begin();
@@ -187,3 +191,16 @@ std::string LZW::decode(const std::vector<int>& data) noexcept {
 
     return result;
 }
+
+/*
+int calculate_bit_resolution(const int data_size) {
+    int initial_dict_size = std::numeric_limits<unsigned char>::max();
+    int dict_power = initial_dict_size + data_size;
+    int i = 0;
+    while ( (dict_power) >> i ) {
+        i++;
+    }
+    bit_resolution_ = i; 
+    return i;  
+}
+*/

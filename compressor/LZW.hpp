@@ -15,7 +15,7 @@ public:
 	std::vector<char> decompress(const std::vector<char>& data) noexcept;
 
 private:
-	const int dictionary_size_;
+	const int data_size_;
 	int bit_resolution_;
 	std::vector<int> encode(const std::vector<char>& data) noexcept;
 	std::string decode(const std::vector<int>& data) noexcept;	
