@@ -1,25 +1,22 @@
 #include "key.h"
-#include <aes.h>
-#include <iostream>
+#include "aes.h"
 
-Key::Key(const std::string& pass, const size_t key_size, size_t nb, size_t nk, size_t nr):
+Key::Key(const std::string& pass_string, const size_t key_size):
     key_size(key_size),
-    length_word(nb),
-    count_word(nk),
-    count_round(nr)
+    length_word(4)
 {
-    set_key(pass, 16);
-}
-
-void Key::set_key(const std::string& pass_string, size_t key_size = 16)
-{
+    check_key(key_size);
     std::vector<byte> password(key_size);
-    std::cout << pass_string.size() << std::endl;
     for(size_t i = 0; i < key_size; i++){
         if(i < pass_string.size())
             password[i] = pass_string[i];
     }
     data_key = get_encrypt_key(password);
+}
+
+byte AES::get_r_con(size_t x, size_t y)
+{
+    return r_con[x][y];
 }
 
 ByteArray Key::get_matrix_key(size_t index)
@@ -82,4 +79,29 @@ ByteArray Key::get_encrypt_key(std::vector<byte> pass)
         words[i] = word;
     }
     return words;
+}
+
+bool Key::check_key(const size_t key)
+{
+    switch (key) {
+        case 128: {
+            this->count_word = AES128::count_word;
+            this->count_round = AES128::count_round;
+            return true;
+        }
+        case 192: {
+            this->count_word = AES192::count_word;
+            this->count_round = AES192::count_round;
+            return true;
+        }
+        case 256: {
+            this->count_word = AES256::count_word;
+            this->count_round = AES256::count_round;
+            return true;
+        }
+        default: {
+            throw "Password lenght is incorrect: only 128\\192\\256 keylength avaible";
+            return false;
+        }
+    }
 }

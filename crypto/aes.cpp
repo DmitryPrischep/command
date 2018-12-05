@@ -68,17 +68,15 @@ const ByteArray AES::r_con = {
     { 0x36, 0x00, 0x00, 0x00 }
 };
 
-AES::AES(const size_t size_key, const std::string& pass)
+AES::AES(const Key *key):
+    length_word(key->get_length_word()),
+    count_word(key->get_count_word()),
+    count_round(key->get_count_round())
 {
-    key = new Key(pass, size_key, length_word, count_word, count_round);
+
 }
 
-AES::~AES()
-{
-    delete key;
-}
-
-unsigned char AES::xor_byte(byte first, byte second)
+byte AES::xor_byte(byte first, byte second)
 {
     return first ^ second;
 }
@@ -154,7 +152,6 @@ void AES::mix_columns(ByteArray& block, bool direction)
 byte AES::mul_galois(byte a, byte b)
 {
     byte result = 0;
-    //Convert to int32
     byte n = 128;
     while(b != 0){
         if((b & 1) != 0)
@@ -185,8 +182,63 @@ byte AES::get_c_element(size_t x, size_t y, bool direction)
         return inv_c_box[x][y];
 }
 
-byte AES::get_r_con(size_t x, size_t y)
+const std::vector<byte> AES::encrypt(const std::vector<byte>& buffer)
 {
-    return r_con[x][y];
+    ByteArray block(4, std::vector<byte>(4));
+    for(size_t i = 0; i < block.size(); i++){
+        for(size_t j = 0; j < block[0].size(); j++){
+            block[i][j] = buffer[i];
+        }
+    }
+    encrypt_block(block);
+    std::vector<byte> result;
+    for(auto && value : block){
+      result.insert(result.end(), value.begin(), value.end());
+    }
+    return result;
+}
+
+const std::vector<byte> AES::decrypt(const std::vector<byte>& buffer)
+{
+    ByteArray block(4, std::vector<byte>(4));
+    for(size_t i = 0; i < block.size(); i++){
+        for(size_t j = 0; j < block[0].size(); j++){
+            block[i][j] = buffer[i];
+        }
+    }
+    decrypt_block(block);
+    std::vector<byte> result;
+    for(auto && value : block){
+      result.insert(result.end(), value.begin(), value.end());
+    }
+    return result;
+}
+
+void AES::encrypt_block(ByteArray& block)
+{
+    ByteArray roundkey = key->get_matrix_key(0);
+    xor_byte_block(block, roundkey);
+    for(size_t i = 0; i < count_round; i++){
+        sub_bytes(block, true);
+        shift_rows(block, true);
+        if(i != count_round)
+            mix_columns(block, true);
+        roundkey = key->get_matrix_key(i);
+        xor_byte_block(block, roundkey);
+    }
+}
+
+void AES::decrypt_block(ByteArray& block)
+{
+    ByteArray roundkey = key->get_matrix_key(count_round);
+    xor_byte_block(block, roundkey);
+    for(int i = count_round - 1; i >= 0; i--){
+        shift_rows(block, false);
+        sub_bytes(block, false);
+        roundkey = key->get_matrix_key(i);
+        xor_byte_block(block, roundkey);
+        if(i != 0)
+            mix_columns(block, false);
+    }
 }
 
