@@ -14,21 +14,21 @@ void print(const std::vector<T>& vect) {
 
 int main() {
 
-    const int data_size = DATA_SIZE;
+    const int data_size = 1048576; // 1 Mb
 
-    std::set<std::string> data = {"A:\\DATA\\CODE\\CPP\\command\\compressor\\my_test\\A.bmp"};
-    //std::set<std::string> data = {"A.bmp"};
-    //std::set<std::string> data = {"T.docx"};
+    std::set<std::string> data = {"A.png"};
 
     Selector selector(data_size);    
     selector.set_filesnames(data);
     long total_size = 0;
+    long init_size = 1;
 
     Coder* coder = new Huffman();
-    //Coder* coder = new AdaptiveHuffman();
     while (selector.has_file()) {
         selector.read_file();
+        init_size = selector.file_size();
 
+        // для записи
         std::ofstream fout;
         std::string foutname = "res_";
         foutname += selector.get_filename();
@@ -36,18 +36,17 @@ int main() {
 
     	while (selector.has_data()) {
     		std::vector<char> buffer = selector.read_data();
-            //print(buffer);
             std::cout << "buffer size: " << buffer.size() << std::endl;
     		selector.next_data();
 
     		std::vector<char> compressed_data = coder->compress(buffer);
     		std::cout << "compressed size: " << compressed_data.size() << std::endl;
-            //print(compressed_data);
             total_size += compressed_data.size();
 
     		std::vector<char> decompressed_data = coder->decompress(compressed_data);
     		std::cout << "decompressed size: " << decompressed_data.size() << std::endl;
-    		//print(decompressed_data);
+
+            // запись
             for (auto code : decompressed_data) {
                 fout << code;
             }
@@ -59,7 +58,10 @@ int main() {
     }
 
     std::cout << "total_size: " << total_size << std::endl;
+    std::cout << "init_size: "  << init_size << std::endl;
+    std::cout << "Compression: "  << 100 - 100*total_size/init_size << " %" << std::endl;
 
     delete coder;
     return 0;
 }
+

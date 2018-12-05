@@ -17,6 +17,7 @@ public:
 	std::vector<char> decompress(const std::vector<char>& data) noexcept;
 
 private:
+	int dict_size_;
 	char empty_bits_;
     std::map <char, std::string> haf_dict_;
     std::map <std::string, char> rev_haf_dict_;

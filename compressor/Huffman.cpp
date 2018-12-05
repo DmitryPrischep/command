@@ -1,15 +1,18 @@
 #include "Huffman.hpp"
 #include <queue>
 #include <iterator>
-#include <iostream>
+#include <limits>
+//#include <iostream>
 
-Huffman::Huffman() {}
+Huffman::Huffman() : empty_bits_(0) {
+   dict_size_ = std::numeric_limits<unsigned char>::max() + 1;
+}
 
 std::vector<char> Huffman::compress(const std::vector<char>& data) noexcept {
     std::string res_str = encode(data);
     std::vector<char> encoded(res_str.begin(), res_str.end()); 
     std::vector<char> compressed = make_bytes(encoded);
-    std::cout << "only compressed data: " << compressed.size() << std::endl;
+    //std::cout << "Only compressed data: " << compressed.size() << std::endl;
     std::vector<char> dict = save_dict();
     std::vector<char> result(dict);
     std::copy(compressed.begin(), compressed.end(), std::back_inserter(result));
@@ -96,9 +99,14 @@ std::vector<char> Huffman::decode(const std::string& data) noexcept {
     while ( pos < data.size() ) {
         int ofset = 1;
         while (true) {
+            //if (pos + ofset >= data.size()) {
+            //    std::cout << "ERROR" << std::endl;
+            //    return std::vector<char>();
+            //}
+
             //std::cout << "loop" << std::endl;
             std::string temp = data.substr(pos, ofset);
-            std::cout << "Temp size: " << temp.size() << std::endl;
+            //std::cout << "Temp size: " << temp.size() << std::endl;
             if (rev_haf_dict_.find(temp) != rev_haf_dict_.end()) {
                 pos += temp.size();
                 result_str += rev_haf_dict_[temp];
@@ -155,7 +163,7 @@ std::vector<char> Huffman::save_dict() noexcept {
     std::vector<char> dict_bits;
 
     result.push_back(empty_bits_);
-    for(int i = 0; i < 256; i++) {
+    for(int i = 0; i < dict_size_; i++) {
         char symbol = (char) i;
         char code_size = 0;
         if (haf_dict_.find(symbol) != haf_dict_.end()) {
@@ -163,10 +171,12 @@ std::vector<char> Huffman::save_dict() noexcept {
         }
         result.push_back(code_size);
     } 
-    std::vector<char> bits;  
-    for(auto node : haf_dict_) { 
-        std::vector<char> temp(node.second.begin(), node.second.end());
-        std::copy(temp.begin(), temp.end(), std::back_inserter(bits)); 
+    std::vector<char> bits;
+    for (int i = 0; i < dict_size_; i++) {
+        char symbol = (char) i;
+        std::string code = haf_dict_[symbol];
+        std::vector<char> temp(code.begin(), code.end());
+        std::copy(temp.begin(), temp.end(), std::back_inserter(bits));
     }
     std::vector<char> bytes = make_bytes(bits);
     std::copy(bytes.begin(), bytes.end(), std::back_inserter(result));
@@ -181,38 +191,38 @@ int Huffman::recover_dict(const std::vector<char>& data) noexcept {
     дальше коды символов слепленные в байты
     */
     empty_bits_ = data[0];
+    int ofset = 1;
 
     int codes_size = 0;
-    for (int i = 1; i < 257; i++) {
+    for (int i = ofset; i < dict_size_ + ofset; i++) {
         char code_size = data[i];      
         codes_size += code_size;
     } 
     int byte_codes_size = (codes_size % 8 == 0) ? codes_size / 8 : codes_size / 8 + 1;
     std::vector<char> bytes;
-    for (int i = 257; i < 257 + byte_codes_size; i++) {
+    for (int i = dict_size_ + ofset; i < dict_size_ + ofset + byte_codes_size ; i++) {
         bytes.push_back(data[i]);
     }
 
-    std::cout << "bsize " << bytes.size() << std::endl;
-
     std::vector<char> bits = make_bits(bytes);
     int pos = 0;
-    for (int i = 0; i < 256; i++) {
+    for (int i = 0; i < dict_size_; i++) {
         char symbol = (char) i;
         std::string code;
         for (int j = 0; j < data[i+1]; j++) {
             code += bits[pos];
             pos++;
         } 
-        //haf_dict_[symbol] = code;
         rev_haf_dict_[code] = symbol;       
     }
 
+    /*
     for ( auto d : rev_haf_dict_) {
         std::cout << (int) d.second << ": (size) " << d.first.size() << std::endl;
     }
     std::cout << "Dict size: " << 257 + byte_codes_size << std::endl;
-    return 257 + byte_codes_size ;
+    */
+    return dict_size_ + ofset + byte_codes_size ;
 }
 
 /*
