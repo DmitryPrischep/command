@@ -14,7 +14,7 @@ int main() {
 
     const int data_size = 1048576; // 1 Mb
 
-    std::set<std::string> data = {"A.bmp"};
+    std::set<std::string> data = {"in5.txt"};
 
     Selector selector(data_size);    
     selector.set_filesnames(data);

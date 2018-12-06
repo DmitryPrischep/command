@@ -3,7 +3,6 @@
 #include <cmath>
 #include <iterator>
 #include <limits>
-//#include <iostream>
 
 LZW::LZW() {
 
@@ -40,7 +39,7 @@ std::vector<char> LZW::compress(const std::vector<char>& data) noexcept {
 
 std::vector<char> LZW::decompress(const std::vector<char>& data) noexcept {
 
-    bit_resolution_ = data[data.size()];
+    bit_resolution_ = data[data.size() - 1];
     std::vector<char> cp_data(data);
     cp_data.resize(data.size() - 1);
 
@@ -197,7 +196,7 @@ int LZW::calculate_bit_resolution(const int data_size) noexcept {
     int initial_dict_size = std::numeric_limits<unsigned char>::max();
     int dict_power = initial_dict_size + data_size;
     int i = 0;
-    while ( (dict_power) >> i ) {
+    while ( dict_power >> i ) {
         i++;
     }
     bit_resolution_ = i; 

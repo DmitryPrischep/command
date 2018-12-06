@@ -3,7 +3,6 @@
 #include <string>
 #include <vector>
 #include "Coder.hpp"
-#define DATA_SIZE 256
 
 class LZW : public Coder {
 public:

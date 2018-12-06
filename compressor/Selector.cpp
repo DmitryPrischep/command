@@ -86,7 +86,7 @@ char Selector::get_algorithm() {
 	if (read_data_size_ == 0) {
 		algorithm = '0';
 	}
-	else if (read_data_size_ < 262144) {
+	else if (read_data_size_ < 65536) {
 		algorithm = 'l';
 	} else {
 		algorithm = 'h';
