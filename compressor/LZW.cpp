@@ -3,23 +3,15 @@
 #include <cmath>
 #include <iterator>
 #include <limits>
-#include <iostream>
+//#include <iostream>
 
-LZW::LZW() : data_size_(DATA_SIZE) {
-    std::cout << data_size_ << std::endl;
-    // определяем количество бит под код подстроки из словаря
-    // пример, для входной последовательности длиной 256 байт, нужно 9 бит 
-    // так как, размер ascii + размер входной строки = 256 + 256 = 512 = 2^9
-    int initial_dict_size = std::numeric_limits<unsigned char>::max();
-    int dict_power = initial_dict_size + data_size_;
-    int i = 0;
-    while ( (dict_power) >> i ) {
-        i++;
-    }
-    bit_resolution_ = i;
+LZW::LZW() {
+
 }
 
 std::vector<char> LZW::compress(const std::vector<char>& data) noexcept {
+
+    bit_resolution_ = calculate_bit_resolution(data.size());
 
     std::vector<int> encoded = encode(data);
     // разбиваем кодированную последовательность на биты, это необходимо, тк символы кодируются интами
@@ -40,15 +32,21 @@ std::vector<char> LZW::compress(const std::vector<char>& data) noexcept {
         }
         result.push_back(temp);
     }
+
+    result.push_back(bit_resolution_);
     return result;
 }
 
 
 std::vector<char> LZW::decompress(const std::vector<char>& data) noexcept {
 
+    bit_resolution_ = data[data.size()];
+    std::vector<char> cp_data(data);
+    cp_data.resize(data.size() - 1);
+
     // разбиваем входную последовательность на биты
     std::vector<uint8_t> bits;
-    for (auto byte : data) {
+    for (auto byte : cp_data) {
         for (int i = 0; i < 8; i++) {
             char bit = ( 1 & (byte >> (7 - i)) ) ? 1 : 0;
             bits.push_back(bit);
@@ -192,8 +190,10 @@ std::string LZW::decode(const std::vector<int>& data) noexcept {
     return result;
 }
 
-/*
-int calculate_bit_resolution(const int data_size) {
+int LZW::calculate_bit_resolution(const int data_size) noexcept {    
+    // определяем количество бит под код подстроки из словаря
+    // пример, для входной последовательности длиной 256 байт, нужно 9 бит 
+    // так как, размер ascii + размер входной строки = 256 + 256 = 512 = 2^9
     int initial_dict_size = std::numeric_limits<unsigned char>::max();
     int dict_power = initial_dict_size + data_size;
     int i = 0;
@@ -203,4 +203,3 @@ int calculate_bit_resolution(const int data_size) {
     bit_resolution_ = i; 
     return i;  
 }
-*/

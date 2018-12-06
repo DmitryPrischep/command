@@ -5,6 +5,8 @@
 #include <vector>
 #include <iterator>
 #include <set>
+#include "LZW.hpp"
+#include "Huffman.hpp"
 
 class Selector {
 public:
@@ -25,10 +27,14 @@ public:
 	void next_file();
 	void next_data();
 	void close_file();
+
+	char get_algorithm();
+	Coder* recomended_coder(char algorithm);
 	
 private:
 	std::string filename_;
 	const int data_size_;
+	int read_data_size_;
 	int data_index_;
 	int file_size_;
 	std::set<std::string> input_files_;

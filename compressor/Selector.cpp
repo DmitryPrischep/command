@@ -4,7 +4,8 @@ Selector::Selector(const int _data_size) :
 	data_size_(_data_size),
 	filename_(""), 
 	data_index_(0), 
-	file_size_(0) 
+	file_size_(0),
+	read_data_size_(0)
 {}
 
 // входные данные - имена файлов, которые надо обработать
@@ -60,6 +61,7 @@ std::vector<char> Selector::read_data() {
 		file_.read( (char*)& byte, sizeof(char));
 		data.push_back(byte);
 	}
+	read_data_size_ = data.size();
 	return data;
 }
 
@@ -77,4 +79,29 @@ void Selector::next_data() {
 
 void Selector::close_file() {
 	file_.close();;
+}
+
+char Selector::get_algorithm() {
+	char algorithm;
+	if (read_data_size_ == 0) {
+		algorithm = '0';
+	}
+	else if (read_data_size_ < 262144) {
+		algorithm = 'l';
+	} else {
+		algorithm = 'h';
+	}
+	return algorithm; 
+}
+
+Coder* Selector::recomended_coder(char algorithm) {
+	if (algorithm == 'h') {
+		return new Huffman;
+	} 
+	else if (algorithm == 'l'){
+		return new LZW;
+	} 
+	else {
+		return nullptr;
+	}
 }
