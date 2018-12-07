@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Recovery_Arch.cpp
+utility
+-
+utility
+-
+Recovery_Arch.h
+/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Recovery_Arch.h
+
+/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Recovery_Arch.h
+iostream
+-
+boost/filesystem.hpp
+-
+

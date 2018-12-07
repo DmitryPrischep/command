@@ -1,0 +1,2 @@
+/Library/Developer/CommandLineTools/usr/bin/ar qc libTest_Interface.a  CMakeFiles/Test_Interface.dir/FileInfo.cpp.o CMakeFiles/Test_Interface.dir/Write_Liner.cpp.o CMakeFiles/Test_Interface.dir/Read_Arch.cpp.o CMakeFiles/Test_Interface.dir/Test_Interface.cpp.o CMakeFiles/Test_Interface.dir/Recovery_Arch.cpp.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libTest_Interface.a

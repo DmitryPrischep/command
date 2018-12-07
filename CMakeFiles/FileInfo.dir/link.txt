@@ -1,0 +1,2 @@
+/Library/Developer/CommandLineTools/usr/bin/ar qc libFileInfo.a  CMakeFiles/FileInfo.dir/FileInfo.cpp.o CMakeFiles/FileInfo.dir/Write_Liner.cpp.o CMakeFiles/FileInfo.dir/Read_Arch.cpp.o CMakeFiles/FileInfo.dir/Test_Interface.cpp.o CMakeFiles/FileInfo.dir/Recovery_Arch.cpp.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libFileInfo.a

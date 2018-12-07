@@ -1,0 +1,2 @@
+/Library/Developer/CommandLineTools/usr/bin/ar qc libRecovery_Arch.a  CMakeFiles/Recovery_Arch.dir/FileInfo.cpp.o CMakeFiles/Recovery_Arch.dir/Write_Liner.cpp.o CMakeFiles/Recovery_Arch.dir/Read_Arch.cpp.o CMakeFiles/Recovery_Arch.dir/Test_Interface.cpp.o CMakeFiles/Recovery_Arch.dir/Recovery_Arch.cpp.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libRecovery_Arch.a

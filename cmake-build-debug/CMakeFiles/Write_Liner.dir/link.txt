@@ -1,0 +1,2 @@
+/Library/Developer/CommandLineTools/usr/bin/ar qc libWrite_Liner.a  CMakeFiles/Write_Liner.dir/FileInfo.cpp.o CMakeFiles/Write_Liner.dir/Write_Liner.cpp.o CMakeFiles/Write_Liner.dir/Read_Arch.cpp.o CMakeFiles/Write_Liner.dir/Test_Interface.cpp.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libWrite_Liner.a
