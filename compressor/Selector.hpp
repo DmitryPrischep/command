@@ -8,6 +8,14 @@
 #include "LZW.hpp"
 #include "Huffman.hpp"
 
+//#define HUFFMAN_CODE 'h'
+//#define LZW_CODE 'l'
+//#define DO_NOT_COMPRESS '0' 
+
+const char HUFFMAN_CODE = 'h';
+const char LZW_CODE = 'l';
+const char DO_NOT_COMPRESS = '0';
+
 class Selector {
 public:
 	Selector(const int _data_size);
@@ -28,10 +36,13 @@ public:
 	void next_data();
 	void close_file();
 
-	char get_algorithm();
+	char get_algorithm(bool compress);
 	Coder* recomended_coder(char algorithm);
+	std::vector<char> get_compressed_data(bool compress, char& algorithm);
+	std::vector<char> get_decompressed_data(const std::vector<char>& data, char algorithm);
 	
 private:
+	char algorithm_;
 	std::string filename_;
 	const int data_size_;
 	int read_data_size_;

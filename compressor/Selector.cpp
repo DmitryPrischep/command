@@ -81,27 +81,60 @@ void Selector::close_file() {
 	file_.close();;
 }
 
-char Selector::get_algorithm() {
-	char algorithm;
-	if (read_data_size_ == 0) {
-		algorithm = '0';
+char Selector::get_algorithm(bool compress = true) {
+
+	if (!compress) {
+		algorithm_ = DO_NOT_COMPRESS;
+		return algorithm_;
 	}
-	else if (read_data_size_ < 65536) {
-		algorithm = 'l';
+
+	if (read_data_size_ >= 65536) {
+		algorithm_ = HUFFMAN_CODE;
+	}
+	else if (read_data_size_ < 65536 && read_data_size_ > 0) {
+		algorithm_ = LZW_CODE;
 	} else {
-		algorithm = 'h';
+		algorithm_ = DO_NOT_COMPRESS;
 	}
-	return algorithm; 
+	return algorithm_; 
 }
 
 Coder* Selector::recomended_coder(char algorithm) {
-	if (algorithm == 'h') {
-		return new Huffman;
+	if (algorithm == HUFFMAN_CODE) {
+		return new Huffman();
 	} 
-	else if (algorithm == 'l'){
-		return new LZW;
+	else if (algorithm == LZW_CODE){
+		return new LZW();
 	} 
 	else {
 		return nullptr;
 	}
+}
+
+std::vector<char> Selector::get_compressed_data(bool compress, char& algorithm) {
+	std::vector<char> data = read_data();
+	algorithm = get_algorithm(compress);
+
+	Coder* coder = recomended_coder(algorithm);
+	if (coder == nullptr) {
+		return data;
+	}
+	std::vector<char> compressed_data = coder->compress(data);
+	delete coder;
+	return compressed_data;
+}
+
+std::vector<char> Selector::get_decompressed_data(const std::vector<char>& data, char algorithm) {
+
+	if (algorithm == DO_NOT_COMPRESS) {
+		return data;
+	}
+
+	Coder* coder = recomended_coder(algorithm);
+	if (coder == nullptr) {
+		return data;
+	}
+	std::vector<char> decompressed_data = coder->decompress(data);
+	delete coder;
+	return decompressed_data;
 }
