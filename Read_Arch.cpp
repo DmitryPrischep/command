@@ -66,7 +66,7 @@ bool Read_Arch::ReadFileHead() {
     return false;
 }
 
-std::vector<char> Read_Arch::ReadBodyPath() {  // Данное архитектура плохая, но необходима для красивой и быстрой передачи данных
+std::vector<char> Read_Arch::ReadBodyPath(char& Mode) {  // Данное архитектура плохая, но необходима для красивой и быстрой передачи данных
     if (!state_Mainheader_was_read){
         std::cerr << "Заголовок еще не был прочитан!" << "\n";
         return std::vector<char>(0);
@@ -74,6 +74,8 @@ std::vector<char> Read_Arch::ReadBodyPath() {  // Данное архитект�
     std::vector<char> out;
     if ( HaveInFile() ){
         unsigned long Len_of_str;
+        in_file.read((char*)&mode, sizeof(mode));
+        Mode = mode;
         in_file.read((char*)&Len_of_str, sizeof(Len_of_str));
         out.resize(Len_of_str);
         for (int i = 0; i < Len_of_str; i++){

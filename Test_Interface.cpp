@@ -60,12 +60,13 @@ bool Test_RW_Interface() {
     }*/
 
     Write_Liner wr;
+    char Mode = true;
     wr.TakeFileOut(file);
     wr.BeginWrite();
     if (wr.HaveOutFile()){
         for (int z = 0; z < Num_test_files; z++){
             wr.TakeHeader(Test_files[z]);
-            wr.TakeBody(&rubish[z]);
+            wr.TakeBody(&rubish[z], Mode);
         }
     } else {
         std::cerr << "Нет файла для записи" << "\n";
@@ -74,6 +75,7 @@ bool Test_RW_Interface() {
     vector<char> outTest[Num_test_files];
 
     Read_Arch read_arch;
+    char RMode = true;
     read_arch.TakeFileIn(file);
     if (read_arch.HaveInFile()){
         read_arch.ReadHeader();
@@ -81,7 +83,7 @@ bool Test_RW_Interface() {
             read_arch.ReadFileHead();
             outTest[i].resize(read_arch.Size_of_one_path());
             for ( ;read_arch.Is_File_Info_Full();){
-                outTest[i] = UnCompressor(read_arch.ReadBodyPath());
+                outTest[i] = UnCompressor(read_arch.ReadBodyPath(RMode));
             }
             read_arch.SubtractFile(); // Вместо Recovery
         }
@@ -135,12 +137,13 @@ bool Test_Recovery() {
     }*/
 
     Write_Liner wr;
+    char Mode = true;
     wr.TakeFileOut(file);
     wr.BeginWrite();
     if (wr.HaveOutFile()){
         for (int z = 0; z < Num_test_files; z++){
             wr.TakeHeader(Test_files[z]);
-            wr.TakeBody(&rubish[z]);
+            wr.TakeBody(&rubish[z], Mode);
         }
     } else {
         std::cerr << "Нет файла для записи" << "\n";
@@ -150,6 +153,7 @@ bool Test_Recovery() {
 
     Read_Arch read_arch;
     Recovery_Arch recover;
+    char RMode;
     read_arch.TakeFileIn(file);
     if (read_arch.HaveInFile()){
         read_arch.ReadHeader();
@@ -159,7 +163,7 @@ bool Test_Recovery() {
             recover.RecoveryTakePath(header);
             outTest[i].resize(read_arch.Size_of_one_path());
             for ( ;read_arch.Is_File_Info_Full();){
-                outTest[i] = UnCompressor(read_arch.ReadBodyPath());
+                outTest[i] = UnCompressor(read_arch.ReadBodyPath(RMode));
                 recover.RecoveryWrite(&outTest[i]);
             }
             read_arch.SubtractFile(); // Вместо Recovery

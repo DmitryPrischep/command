@@ -28,6 +28,7 @@ int main() {
 
 //    create_directories("tmp/files");
 //    cout << current_path() << "\t" << exists("tmp/files") << endl;
+    Test_RW_Interface();
     Test_Recovery();
 
     /*

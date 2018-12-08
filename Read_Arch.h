@@ -23,7 +23,7 @@ public:
 //    File_Header* File_header();
 //    FileInfo File_info();
     bool ReadFileHead();    // Считать заголовок 1 файла в file_info
-    std::vector<char> ReadBodyPath();    // Будет прыгать по файлу и читать кусочек файла. Далее передать в Разжатие, а после в FileRecoveryWrite
+    std::vector<char> ReadBodyPath(char&);    // Будет прыгать по файлу и читать кусочек файла. Далее передать в Разжатие, а после в FileRecoveryWrite
 
     bool Is_Have_a_file();
     void SubtractFile();
@@ -36,6 +36,8 @@ protected:
 
     std::filebuf Initial_file;
     std::istream in_file;
+
+    char mode;
     // Флаги на чтение
     bool state_Mainheader_was_read = false; // Загловок заархивированного файла был прочитан
     bool state_header_was_read = false; // Загловок одного файла был прочитан
