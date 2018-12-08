@@ -8,12 +8,13 @@
 #include <QModelIndexList>
 #include <QModelIndex>
 #include "dir_controller.h"
+#include "archive.h"
 #include <QMenu>
 #include <QToolBar>
 #include <QMessageBox>
 #include <QIcon>
 #include <assert.h>
-#include "compressor/integrations_test/Test_Compress_And_Decompress.h"
+#include <QFileDialog>
 
 namespace Ui {
 class Main_Form;
@@ -35,8 +36,15 @@ private slots:
 
     void on_action_11_triggered();
 
+    void on_pushButton_2_clicked();
+
+    void on_pushButton_3_clicked();
+
+    void on_pushButton_4_clicked();
+
 private:
     Ui::Main_Form *ui;
+    std::string path_to_archive;
 };
 
 #endif // MAIN_FORM_H

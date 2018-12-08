@@ -2,9 +2,7 @@
 #include "ui_main_form.h"
 #include <QDebug>
 #include <QFileInfo>
-extern "C" {
-
-}
+#
 Main_Form::Main_Form(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Main_Form)
@@ -28,7 +26,7 @@ Main_Form::Main_Form(QWidget *parent) :
     bar->addAction(ui->action_2);
     addToolBar(bar);
     //#############################################################################################
-
+    path_to_archive = "";
     //При нажатиях на файловом менеджере (или раскрытии/скрытии директорий) растягиваем поле под содержимое
     connect(ui->tree, &QTreeView::clicked, [this](){ui->tree->resizeColumnToContents(0);});
     connect(ui->tree, &QTreeView::collapsed, [this](){ui->tree->resizeColumnToContents(0);});
@@ -73,7 +71,7 @@ void Main_Form::on_pushButton_clicked()
     }
 
   // set<string> temp = dir_controller.sendList(); //Временный накопитель директорий текущей операции
-  create_archive(dir_controller.sendList());
+    create_archive(dir_controller.sendList(), true, path_to_archive);
   //  foreach (string str, temp) {
   //     qDebug() << QString::fromStdString(str);
   //  }
@@ -92,4 +90,30 @@ void Main_Form::on_action_11_triggered()
         }
     }
     delete set_password_dialog;
+}
+
+void Main_Form::on_pushButton_2_clicked()
+{
+  QString checked_string = QFileDialog::getSaveFileName(nullptr, "Выбор места для сохранения архива",
+                                                            "/", "*.tartar");
+  if (!checked_string.isEmpty()) {
+      ui->label_with_path->setText("Путь до архива: " + checked_string);
+      path_to_archive = checked_string.toStdString();
+  }
+}
+
+void Main_Form::on_pushButton_3_clicked()
+{
+    dearchive(path_to_archive);
+    QMessageBox::information(nullptr, "Распакова", "Распакова успешно завершена!");
+}
+
+void Main_Form::on_pushButton_4_clicked()
+{
+    QString checked_string = QFileDialog::getOpenFileName(nullptr, "Выберите архив для распаковки",
+                                                              "/", "*.tartar");
+    if (!checked_string.isEmpty()) {
+        ui->label_to_archive->setText("Путь до архива: " + checked_string);
+        path_to_archive = checked_string.toStdString();
+    }
 }

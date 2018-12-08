@@ -31,13 +31,13 @@ SOURCES += \
     dir_controller.cpp \
     compressor/LZW.cpp \
     compressor/Selector.cpp \
-    compressor/integrations_test/FileInfo.cpp \
-    compressor/integrations_test/RW_Interface.cpp \
-    compressor/integrations_test/RW_Liner.cpp \
-    compressor/integrations_test/Test_Compress_And_Decompress.cpp \
-   # crypto/key.cpp \
-   # crypto/aes.cpp
-    passworddialog.cpp
+    compressor/Huffman.cpp \
+    archive/FileInfo.cpp \
+    archive/Read_Arch.cpp \
+    archive/Recovery_Arch.cpp \
+    archive/Write_Liner.cpp \
+    passworddialog.cpp \
+    archive.cpp
 
 
 HEADERS += \
@@ -45,15 +45,14 @@ HEADERS += \
     dir_controller.h \
     compressor/Coder.hpp \
     compressor/LZW.hpp \
-    compressor/Node.hpp \
     compressor/Selector.hpp \
-    compressor/integrations_test/FileInfo.h \
-    compressor/integrations_test/RW_Interface.h \
-    compressor/integrations_test/RW_Liner.h \
-    compressor/integrations_test/Test_Compress_And_Decompress.h \
-  #  crypto/key.h \
-  # crypto/aes.h
-    passworddialog.h
+    compressor/Huffman.hpp \
+    archive/FileInfo.h \
+    archive/Read_Arch.h \
+    archive/Recovery_Arch.h \
+    archive/Write_Liner.h \
+    passworddialog.h \
+    archive.h
 
 FORMS += \
         main_form.ui
