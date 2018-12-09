@@ -19,7 +19,6 @@ using std::vector;
 class Write_Liner{
 public:
     Write_Liner();
-    virtual ~Write_Liner(){}
     bool BeginWrite();
     // ostream
     bool Write_File(std::ostream& File, vector<char>* array);   // Пишет в конец файла
@@ -28,14 +27,14 @@ public:
     void TakeFileOut(std::string &file);   // устанавливает out_file значением входного файла. Задаем вывод для класса
     void TakeFileOut(std::ostream& out);
     bool HaveOutFile();
-    bool TakeBody(vector<char>* array, char mode); // передаем массив в write. По умолчанию сразу пишет и смотрит был ли задан хэдер. Если был, то пишет сначала его
+    bool TakeBody(vector<char>* array, char mode, bool is_it_ending); // передаем массив в write. По умолчанию сразу пишет и смотрит был ли задан хэдер. Если был, то пишет сначала его
     bool Take_Dictionary(vector<char>* array); // На вход ожидает словарь от Компрессора. Сохраняет его в dictionary
     // !!! На отработну завершения проги + надо добавить в хэдер смещение от конца файла
     bool EndWriting();
 
 //    bool TakeBody(vector<char>* array, char mode);
-    bool Write(vector<char>* array, unsigned long len_stream, char mode);
-    bool Write_File(std::ostream& File, vector<char>* array, unsigned long len_stream, char mode);
+    bool Write(vector<char>* array, unsigned long len_stream, char mode, bool is_it_ending);
+    bool Write_File(std::ostream& File, vector<char>* array, unsigned long len_stream, char mode, bool is_it_ending);
 protected:
     std::vector<char> header;
     std::vector<char> dictionary;

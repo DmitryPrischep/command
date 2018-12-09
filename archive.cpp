@@ -25,10 +25,8 @@ void create_archive(std::set<std::string> &&data, bool flag_compress,
             while (selector.has_data()) {
                 char algorithm;
                 std::vector<char> compressed_data = selector.get_compressed_data(flag_compress, algorithm);
-
-                wr.TakeBody(&compressed_data, algorithm);
                 selector.next_data();
-
+                wr.TakeBody(&compressed_data, algorithm, selector.has_data());
                 total_size += compressed_data.size();
             }
             selector.next_file();

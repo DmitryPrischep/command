@@ -17,7 +17,6 @@ bool Recovery_Arch::RecoveryWrite(vector<char> *input) {
                 out_file.write((char*)&(*input)[i], sizeof((*input)[0]));
             }
         }
-
 //        Main_header.SubtractFile();
 }
 

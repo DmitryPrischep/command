@@ -34,9 +34,9 @@ bool Write_Liner::Take_Dictionary(vector<char>* array) {
     std::copy(array->begin(), array->end(), dictionary.begin());
     state_have_dictionary = true;
 }
-bool Write_Liner::TakeBody(vector<char>* array, char mode){
-    Main_header.AddSize(array->size() + sizeof(unsigned long) + sizeof(mode));
-    bool state_writing = Write(array, array->size(), mode);
+bool Write_Liner::TakeBody(vector<char>* array, char mode, bool is_it_ending){
+    Main_header.AddSize(array->size() + sizeof(unsigned long) + sizeof(mode) + sizeof(is_it_ending));
+    bool state_writing = Write(array, array->size(), mode, is_it_ending);
     state_header_was_wrote = false;
     if (!state_body_was_wrote){ // Считает писали ли мы тело
         state_body_was_wrote = true;
@@ -54,12 +54,9 @@ bool Write_Liner::Write(vector<char>* array, unsigned long len_stream){
     std::cerr << "Нет выходного файла" << "\n";
     return false;
 }
-bool Write_Liner::Write(vector<char>* array, unsigned long len_stream, char mode){
-    if (!state_header_was_wrote){
-        std::cerr << "Не был записан заголовок для этого файла!\n";
-    }
+bool Write_Liner::Write(vector<char>* array, unsigned long len_stream, char mode, bool is_it_ending){
     if ( HaveOutFile() ) {
-        Write_File(out_file, array, len_stream, mode);
+        Write_File(out_file, array, len_stream, mode, is_it_ending);
         return true;
     }
     std::cerr << "Нет выходного файла" << "\n";
@@ -73,14 +70,14 @@ bool Write_Liner::Write_File(std::ostream& File, vector<char>* array, unsigned l
     }
 
 }
-bool Write_Liner::Write_File(std::ostream& File, vector<char>* array, unsigned long len_stream, char mode){
+bool Write_Liner::Write_File(std::ostream& File, vector<char>* array, unsigned long len_stream, char mode, bool is_it_ending){
     File.seekp(0, std::ios::end);
     File.write((char*)&mode, sizeof(mode));
     File.write((char *) &len_stream, sizeof(len_stream));
     for (int i = 0; i < array->size(); i++){
         File.write((char *) &(*array)[i], sizeof((*array)[0]));
     }
-
+    File.write((char*)&is_it_ending, sizeof(is_it_ending));
 }
 bool Write_Liner::Write_File(std::ostream& File, vector<char>* array){
     File.seekp(0, std::ios::end);

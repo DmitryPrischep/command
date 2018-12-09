@@ -72,6 +72,7 @@ void Main_Form::on_pushButton_clicked()
 
   // set<string> temp = dir_controller.sendList(); //Временный накопитель директорий текущей операции
     create_archive(dir_controller.sendList(), true, path_to_archive);
+    QMessageBox::information(nullptr, "Архивация", "Архив создан!");
   //  foreach (string str, temp) {
   //     qDebug() << QString::fromStdString(str);
   //  }
@@ -105,7 +106,7 @@ void Main_Form::on_pushButton_2_clicked()
 void Main_Form::on_pushButton_3_clicked()
 {
     dearchive(path_to_archive);
-    QMessageBox::information(nullptr, "Распакова", "Распакова успешно завершена!");
+    QMessageBox::information(nullptr, "Распаковка", "Распаковка успешно завершена!");
 }
 
 void Main_Form::on_pushButton_4_clicked()
