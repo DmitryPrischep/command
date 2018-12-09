@@ -121,7 +121,14 @@ std::vector<char> Selector::get_compressed_data(bool compress, char& algorithm) 
 	}
 	std::vector<char> compressed_data = coder->compress(data);
 	delete coder;
-	return compressed_data;
+
+	if (compressed_data.size() < data.size()) {
+		return compressed_data;
+	}
+	else {
+		algorithm = DO_NOT_COMPRESS;
+		return data;
+	}
 }
 
 std::vector<char> Selector::get_decompressed_data(const std::vector<char>& data, char algorithm) {

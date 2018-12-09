@@ -14,7 +14,7 @@ int main() {
 
     const int data_size = 1048576; // 1 Mb
 
-    std::set<std::string> data = {"in1.txt"};
+    std::set<std::string> data = {"A.mp4"};
     //std::set<std::string> data = {"A.mp3"};
     bool flag_compress = true; // надо сжимать или нет
 
