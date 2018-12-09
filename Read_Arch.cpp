@@ -40,6 +40,7 @@ bool Read_Arch::ReadHeader() {
     return false;
 }
 bool Read_Arch::ReadFileHead() {
+    is_it_ending = true;
     if ( state_header_was_read ){
         state_header_was_read = !state_header_was_read;
     }
@@ -81,6 +82,7 @@ std::vector<char> Read_Arch::ReadBodyPath(char& Mode) {  // Данное арх�
         for (int i = 0; i < Len_of_str; i++){
             in_file.read((char*)&out[i], sizeof(char));
         }
+        in_file.read((char*)&is_it_ending, sizeof(is_it_ending));
         file_info.SubstractSizeFile(Len_of_str);
         return out;
     }
@@ -90,13 +92,6 @@ std::vector<char> Read_Arch::ReadBodyPath(char& Mode) {  // Данное арх�
 
 Read_Arch::Read_Arch(): in_file(&Initial_file) {
 }
-
-//File_Header* Read_Arch::File_header(){
-//    return &Main_header;
-//}
-//FileInfo Read_Arch::File_info(){
-//    return file_info;
-//}
 
 bool Read_Arch::Is_Have_a_file() {
     return Main_header.IsAmountFull();
@@ -109,7 +104,7 @@ unsigned long Read_Arch::Size_of_one_path(){
     return file_info.FileSize();
 }
 bool Read_Arch::Is_File_Info_Full(){
-    return file_info.IsFileFull();
+    return is_it_ending;
 }
 
 string Read_Arch::Give_Readed_File_Path() {

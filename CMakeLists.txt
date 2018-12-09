@@ -27,5 +27,5 @@ add_library(Test_Interface STATIC ${SOURCE_LIB})
 add_library(Recovery_Arch STATIC ${SOURCE_LIB})
 
 add_executable(command main.cpp
-        FileInfo Write_Liner Read_Arch Test_Interface
-        Recovery_Arch)
+        FileInfo Write_Liner Read_Arch Test_Interface Recovery_Arch
+        )

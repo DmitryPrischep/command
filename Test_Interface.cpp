@@ -66,7 +66,7 @@ bool Test_RW_Interface() {
     if (wr.HaveOutFile()){
         for (int z = 0; z < Num_test_files; z++){
             wr.TakeHeader(Test_files[z]);
-            wr.TakeBody(&rubish[z], Mode);
+            wr.TakeBody(&rubish[z], Mode, false);
         }
     } else {
         std::cerr << "Нет файла для записи" << "\n";
@@ -143,7 +143,7 @@ bool Test_Recovery() {
     if (wr.HaveOutFile()){
         for (int z = 0; z < Num_test_files; z++){
             wr.TakeHeader(Test_files[z]);
-            wr.TakeBody(&rubish[z], Mode);
+            wr.TakeBody(&rubish[z], Mode, false);
         }
     } else {
         std::cerr << "Нет файла для записи" << "\n";
@@ -163,7 +163,7 @@ bool Test_Recovery() {
             recover.RecoveryTakePath(header);
             outTest[i].resize(read_arch.Size_of_one_path());
             for ( ;read_arch.Is_File_Info_Full();){
-                outTest[i] = UnCompressor(read_arch.ReadBodyPath(RMode));
+                outTest[i] = UnCompressor(read_arch.ReadBodyPath(RMode ));
                 recover.RecoveryWrite(&outTest[i]);
             }
             read_arch.SubtractFile(); // Вместо Recovery

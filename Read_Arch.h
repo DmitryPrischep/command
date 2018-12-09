@@ -38,6 +38,7 @@ protected:
     std::istream in_file;
 
     char mode;
+    bool is_it_ending;
     // Флаги на чтение
     bool state_Mainheader_was_read = false; // Загловок заархивированного файла был прочитан
     bool state_header_was_read = false; // Загловок одного файла был прочитан
