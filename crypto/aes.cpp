@@ -54,36 +54,26 @@ const ByteArray AES::s_box = {
     { 0x8c, 0xa1, 0x89, 0x0d, 0xbf, 0xe6, 0x42, 0x68, 0x41, 0x99, 0x2d, 0x0f, 0xb0, 0x54, 0xbb, 0x16 }
 };
 
-const ByteArray AES::r_con = {
-    { 0x00, 0x00, 0x00, 0x00 },
-    { 0x01, 0x00, 0x00, 0x00 },
-    { 0x02, 0x00, 0x00, 0x00 },
-    { 0x04, 0x00, 0x00, 0x00 },
-    { 0x08, 0x00, 0x00, 0x00 },
-    { 0x10, 0x00, 0x00, 0x00 },
-    { 0x20, 0x00, 0x00, 0x00 },
-    { 0x40, 0x00, 0x00, 0x00 },
-    { 0x80, 0x00, 0x00, 0x00 },
-    { 0x1b, 0x00, 0x00, 0x00 },
-    { 0x36, 0x00, 0x00, 0x00 }
+const ByteArray AES::r_con = {    
+    {0x8D, 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x1B, 0x36, 0x6C, 0xD8, 0xAB, 0x4D},
+    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},
+    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},
+    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}
 };
 
 AES::AES(const Key *key):
     length_word(key->get_length_word()),
     count_word(key->get_count_word()),
-    count_round(key->get_count_round())
+    count_round(key->get_count_round()),
+    key(key)
 {
-
 }
 
-AES::~AES()
+byte AES::xor_byte(byte first, byte second)
 {
-    delete key;
-}
-
-unsigned char AES::xor_byte(byte first, byte second)
-{
-    return first ^ second;
+    byte res = first ^ second;
+    return res;
+//    return first ^ second;
 }
 
 void AES::xor_byte_block(ByteArray& block, ByteArray key)
@@ -187,23 +177,24 @@ byte AES::get_c_element(size_t x, size_t y, bool direction)
         return inv_c_box[x][y];
 }
 
-byte AES::get_r_con(size_t x, size_t y)
-{
-    return r_con[x][y];
-}
-
 const std::vector<byte> AES::encrypt(const std::vector<byte>& buffer)
 {
     ByteArray block(4, std::vector<byte>(4));
     for(size_t i = 0; i < block.size(); i++){
         for(size_t j = 0; j < block[0].size(); j++){
-            block[i][j] = buffer[i];
+            if(i*block.size() + j < buffer.size())
+                block[j][i] = buffer[i*block.size() + j];
+            else
+                block[j][i] = 0;
         }
     }
     encrypt_block(block);
     std::vector<byte> result;
-    for(auto && value : block){
-      result.insert(result.end(), value.begin(), value.end());
+
+    for(size_t i = 0; i < block.size(); i++){
+        for(size_t j = 0; j < block[0].size(); j++){
+            result.push_back(block[j][i]);
+        }
     }
     return result;
 }
@@ -213,27 +204,28 @@ const std::vector<byte> AES::decrypt(const std::vector<byte>& buffer)
     ByteArray block(4, std::vector<byte>(4));
     for(size_t i = 0; i < block.size(); i++){
         for(size_t j = 0; j < block[0].size(); j++){
-            block[i][j] = buffer[i];
+            if(i*block.size() + j < buffer.size())
+                block[j][i] = buffer[i*block.size() + j];
+            else
+                block[j][i] = 0;
         }
     }
     decrypt_block(block);
     std::vector<byte> result;
-    for(auto && value : block){
-      result.insert(result.end(), value.begin(), value.end());
+
+    for(size_t i = 0; i < block.size(); i++){
+        for(size_t j = 0; j < block[0].size(); j++){
+            result.push_back(block[j][i]);
+        }
     }
     return result;
-}
-
-const std::vector<byte> AES::generate_key(const size_t size_key, const std::string password)
-{
-    key = new Key(password, size_key, length_word, count_word, count_round);
 }
 
 void AES::encrypt_block(ByteArray& block)
 {
     ByteArray roundkey = key->get_matrix_key(0);
     xor_byte_block(block, roundkey);
-    for(size_t i = 0; i < count_round; i++){
+    for(size_t i = 1; i <= count_round; i++){
         sub_bytes(block, true);
         shift_rows(block, true);
         if(i != count_round)

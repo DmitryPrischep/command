@@ -32,7 +32,7 @@ public:
     Key& operator =(const Key&& key) = delete;
     ~Key() = default;
 
-    ByteArray get_matrix_key(size_t index);
+    ByteArray get_matrix_key(size_t index) const;
     size_t get_count_word() const {return this->count_word;}
     size_t get_length_word() const {return this->length_word;}
     size_t get_count_round() const {return this->count_round;}

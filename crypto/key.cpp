@@ -6,11 +6,13 @@ Key::Key(const std::string& pass_string, const size_t key_size):
     length_word(4)
 {
     check_key(key_size);
-    std::vector<byte> password(key_size);
-    for(size_t i = 0; i < key_size; i++){
-        if(i < pass_string.size())
-            password[i] = pass_string[i];
-    }
+    std::vector<byte> password = {0x1F, 0x45, 0xFD, 0xEA, 0x2E, 0x8C, 0x10, 0x02,
+                                  0x13, 0x8B, 0xC9, 0x61, 0xA9, 0x9F, 0x35, 0x0A};
+//    std::vector<byte> password(key_size);
+//    for(size_t i = 0; i < key_size; i++){
+//        if(i < pass_string.size())
+//            password[i] = pass_string[i];
+//    }
     data_key = get_encrypt_key(password);
 }
 
@@ -19,7 +21,7 @@ byte AES::get_r_con(size_t x, size_t y)
     return r_con[x][y];
 }
 
-ByteArray Key::get_matrix_key(size_t index)
+ByteArray Key::get_matrix_key(size_t index) const
 {
     index *= 4;
     ByteArray result(4);
