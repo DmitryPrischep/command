@@ -76,7 +76,12 @@ AES::AES(const Key *key):
 
 }
 
-byte AES::xor_byte(byte first, byte second)
+AES::~AES()
+{
+    delete key;
+}
+
+unsigned char AES::xor_byte(byte first, byte second)
 {
     return first ^ second;
 }
@@ -182,6 +187,11 @@ byte AES::get_c_element(size_t x, size_t y, bool direction)
         return inv_c_box[x][y];
 }
 
+byte AES::get_r_con(size_t x, size_t y)
+{
+    return r_con[x][y];
+}
+
 const std::vector<byte> AES::encrypt(const std::vector<byte>& buffer)
 {
     ByteArray block(4, std::vector<byte>(4));
@@ -212,6 +222,11 @@ const std::vector<byte> AES::decrypt(const std::vector<byte>& buffer)
       result.insert(result.end(), value.begin(), value.end());
     }
     return result;
+}
+
+const std::vector<byte> AES::generate_key(const size_t size_key, const std::string password)
+{
+    key = new Key(password, size_key, length_word, count_word, count_round);
 }
 
 void AES::encrypt_block(ByteArray& block)
