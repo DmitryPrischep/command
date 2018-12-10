@@ -1,3 +1,0 @@
-A:/DATA/CODE/CPP/command/compressor/cmake-build-debug/CMakeFiles/compressor.dir
-A:/DATA/CODE/CPP/command/compressor/cmake-build-debug/CMakeFiles/edit_cache.dir
-A:/DATA/CODE/CPP/command/compressor/cmake-build-debug/CMakeFiles/rebuild_cache.dir
