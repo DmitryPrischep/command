@@ -23,7 +23,7 @@ private:
 	char empty_bits_;
     std::map <char, std::string> haf_dict_;
     std::map <std::string, char> rev_haf_dict_;
-	std::string encode(const std::vector<char>& data) noexcept;
+	std::vector<char> encode(const std::vector<char>& data) noexcept;
 	std::vector<char> decode(const std::string& data) noexcept;
 	std::vector<char> make_bytes(std::vector<char>& data) noexcept;
 	std::vector<char> make_bits(const std::vector<char>& data) noexcept;

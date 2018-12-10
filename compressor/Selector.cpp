@@ -78,7 +78,7 @@ void Selector::next_data() {
 }
 
 void Selector::close_file() {
-	file_.close();;
+	file_.close();
 }
 
 char Selector::get_algorithm(bool compress = true) {
@@ -144,4 +144,47 @@ std::vector<char> Selector::get_decompressed_data(const std::vector<char>& data,
 	std::vector<char> decompressed_data = coder->decompress(data);
 	delete coder;
 	return decompressed_data;
+}
+
+// эксперимент с комбинированием алгоритмов
+// вряд ли это будет использоваться
+std::vector<char> Selector::get_maximum_compressed_data(char& algorithm) {
+	std::vector<char> data = read_data();
+	Coder* coder_1 = recomended_coder(HUFFMAN_CODE);
+	Coder* coder_2 = recomended_coder(LZW_CODE);
+
+	std::vector<char> compressed_data_1 = coder_1->compress(data);
+	std::vector<char> compressed_data_2 = coder_2->compress(data);
+	std::vector<char> compressed_data_3 = coder_1->compress(compressed_data_2);
+	std::vector<char> compressed_data_4 = coder_2->compress(compressed_data_1);
+
+	delete coder_1;
+	delete coder_2;
+
+	std::set<size_t> mins = {data.size(), compressed_data_1.size(), compressed_data_2.size(),
+			compressed_data_3.size(), compressed_data_4.size()};
+	auto min_size = *mins.begin();
+
+	if (min_size == data.size()) {
+		algorithm = DO_NOT_COMPRESS;
+		return data;
+	}
+	if (min_size == compressed_data_1.size()) {
+		algorithm = HUFFMAN_CODE;
+		return compressed_data_1;
+	}
+	if (min_size == compressed_data_2.size()) {
+		algorithm = LZW_CODE;
+		return compressed_data_2;
+	}
+	if (min_size == compressed_data_3.size()) {
+		algorithm = LZW_HUF_CODE;
+		return compressed_data_3;
+	}
+	if (min_size == compressed_data_4.size()) {
+		algorithm = HUF_LZW_CODE;
+		return compressed_data_4;
+	}
+	algorithm = DO_NOT_COMPRESS;
+	return data;
 }

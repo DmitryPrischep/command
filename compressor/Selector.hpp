@@ -8,12 +8,10 @@
 #include "LZW.hpp"
 #include "Huffman.hpp"
 
-//#define HUFFMAN_CODE 'h'
-//#define LZW_CODE 'l'
-//#define DO_NOT_COMPRESS '0' 
-
 const char HUFFMAN_CODE = 'h';
 const char LZW_CODE = 'l';
+const char HUF_LZW_CODE = 'H';
+const char LZW_HUF_CODE = 'L';
 const char DO_NOT_COMPRESS = '0';
 
 class Selector {
@@ -40,6 +38,8 @@ public:
 	Coder* recomended_coder(char algorithm);
 	std::vector<char> get_compressed_data(bool compress, char& algorithm);
 	std::vector<char> get_decompressed_data(const std::vector<char>& data, char algorithm);
+
+	std::vector<char> get_maximum_compressed_data(char& algorithm);
 	
 private:
 	char algorithm_;

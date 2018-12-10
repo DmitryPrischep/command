@@ -8,15 +8,17 @@ Huffman::Huffman() : empty_bits_(0) {
    dict_size_ = std::numeric_limits<unsigned char>::max() + 1;
 }
 
-std::vector<char> Huffman::compress(const std::vector<char>& data) noexcept {
-    std::string res_str = encode(data);
-    std::vector<char> encoded(res_str.begin(), res_str.end()); 
+std::vector<char> Huffman::compress(const std::vector<char>& data) noexcept { 
+    std::vector<char> encoded = encode(data); 
     std::vector<char> compressed = make_bytes(encoded);
-    //std::cout << "Only compressed data: " << compressed.size() << std::endl;
+
+    // записываем словарь в начало сжатых данных
     std::vector<char> dict = save_dict();
-    std::vector<char> result(dict);
+    std::vector<char> result;
+    std::copy(dict.begin(), dict.end(), std::back_inserter(result));
     std::copy(compressed.begin(), compressed.end(), std::back_inserter(result));
     haf_dict_.clear();
+
     return result;
 }
 
@@ -35,12 +37,11 @@ std::vector<char> Huffman::decompress(const std::vector<char>& data) noexcept {
     return result;
 }
 
-std::string Huffman::encode(const std::vector<char>& data) noexcept {
+std::vector<char> Huffman::encode(const std::vector<char>& data) noexcept {
     char left = 0;
     char right = 1;
 
     // считаем частоту повотрения для каждого символа
-    //std::map<std::string, int> haf_freq;
     std::map<std::string, int> haf_freq;
     for (auto byte : data) {
         std::string str(1, byte);
@@ -51,7 +52,6 @@ std::string Huffman::encode(const std::vector<char>& data) noexcept {
            haf_freq[str] = 1; 
         }
     }
-    int k = haf_freq.size();
 
     // кладем узлы в очередь с приоритетом
     auto cmp = [] ( std::pair<std::string, int> A, std::pair<std::string, int> B) { return A.second > B.second; };
@@ -60,9 +60,8 @@ std::string Huffman::encode(const std::vector<char>& data) noexcept {
         q.push(byte);    
     }
 
-    // заполняем словарь Хаффмана
-    //std::map <char, std::string> haf_dict_;    
-    if ( k == 1) {
+    // заполняем словарь Хаффмана  
+    if ( haf_freq.size() == 1) {
         haf_dict_[data[0]] = left;
     } 
     else {  
@@ -85,9 +84,11 @@ std::string Huffman::encode(const std::vector<char>& data) noexcept {
         }
     }
 
-    std::string result;
-    for ( auto byte : data ) {
-        result += haf_dict_[byte];
+    std::vector<char> result;
+    for (auto symbol : data) {
+        for (auto byte : haf_dict_[symbol]) {
+            result.push_back(byte);
+        }
     }
 
     return result;  
@@ -99,14 +100,7 @@ std::vector<char> Huffman::decode(const std::string& data) noexcept {
     while ( pos < data.size() ) {
         int ofset = 1;
         while (true) {
-            //if (pos + ofset >= data.size()) {
-            //    std::cout << "ERROR" << std::endl;
-            //    return std::vector<char>();
-            //}
-
-            //std::cout << "loop" << std::endl;
             std::string temp = data.substr(pos, ofset);
-            //std::cout << "Temp size: " << temp.size() << std::endl;
             if (rev_haf_dict_.find(temp) != rev_haf_dict_.end()) {
                 pos += temp.size();
                 result_str += rev_haf_dict_[temp];

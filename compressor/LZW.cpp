@@ -40,8 +40,7 @@ std::vector<char> LZW::compress(const std::vector<char>& data) noexcept {
 std::vector<char> LZW::decompress(const std::vector<char>& data) noexcept {
 
     bit_resolution_ = data[data.size() - 1];
-    std::vector<char> cp_data(data);
-    cp_data.resize(data.size() - 1);
+    std::vector<char> cp_data(data.begin(), data.end() - 1);
 
     // разбиваем входную последовательность на биты
     std::vector<uint8_t> bits;

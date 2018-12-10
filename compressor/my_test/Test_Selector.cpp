@@ -12,10 +12,10 @@ void print(const std::vector<T>& vect) {
 
 int main() {
 
-    const int data_size = 1048576; // 1 Mb
+    const int data_size = 1024*1024; // 1 Mb
 
-    std::set<std::string> data = {"A.mp4"};
-    //std::set<std::string> data = {"A.mp3"};
+    //std::set<std::string> data = {"A.docx"};
+    std::set<std::string> data = {"in5.txt"};
     bool flag_compress = true; // надо сжимать или нет
 
     Selector selector(data_size);    
@@ -38,6 +38,7 @@ int main() {
 
             char algorithm;
     		std::vector<char> compressed_data = selector.get_compressed_data(flag_compress, algorithm);
+            //std::vector<char> compressed_data = selector.get_maximum_compressed_data(algorithm);
             selector.next_data();
 
             // отладочный вывод
@@ -68,7 +69,8 @@ int main() {
     // отладочный вывод
     std::cout << "total_size: " << total_size << std::endl;
     std::cout << "init_size: "  << init_size << std::endl;
-    std::cout << "Compression: "  << 100 - 100*total_size/init_size << " %" << std::endl;
+    std::cout << "Economy is: "  << init_size - total_size << " bytes" << std::endl;
+    std::cout << "Compression: "  << 100.0 - 100.0*((double)total_size/init_size) << " %" << std::endl;
     //
 
     return 0;
