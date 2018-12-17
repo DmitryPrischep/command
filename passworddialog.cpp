@@ -24,8 +24,11 @@ PasswordDialog::PasswordDialog(QWidget *pwrt) : QDialog (pwrt, Qt::WindowTitleHi
     setLayout(layout);
 }
 
-std::optional<QString> PasswordDialog::getPassword() const
+std::string PasswordDialog::getPassword() const
 {
+    /*
     return password->text() == repeat_password->text() ?
                 std::optional<QString>{password->text()} : std::nullopt;
+                */
+    return password->text().toStdString();
 }

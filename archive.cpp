@@ -63,3 +63,48 @@ void dearchive(std::string path_to_archive)
             std::cerr << "Нет файла для чтения" << "\n";
         }
 }
+
+
+
+
+void encrypt_archive(const std::string &path, const std::string &pass)
+{
+    Key *key = new Key(pass, 128);
+    AES algorithm(key);
+    size_t size = 16;
+    char buffer[size];
+    ifstream input_stream(path, std::ios::in | std::ios::binary);
+    ofstream output_stream(path + "en", std::ios::out | std::ios::binary);
+    while(!input_stream.eof()){
+        input_stream.read(buffer, size);
+        std::vector<unsigned char> input(buffer, buffer + input_stream.gcount());
+        std::vector<unsigned char> output = algorithm.encrypt(input);
+        output_stream.write(reinterpret_cast<char*>(output.data()), size);
+    }
+
+    input_stream.close();
+    output_stream.close();
+}
+
+void decrypt_archive(const std::string &path, const std::string &pass)
+{
+    Key* key = new Key(pass, 128);
+       AES algorithm(key);
+    ifstream input_stream(path, std::ios::in | std::ios::binary);
+        std::string out_path;
+        for (int i = 0; i < path.length() - 2; ++i) {
+            out_path += path[i];
+        }
+        ofstream output_stream(out_path, std::ios::out | std::ios::binary);
+        size_t size = 16;
+        char buffer[size];
+        while(!input_stream.eof()){
+            input_stream.read(buffer, size);
+            std::vector<unsigned char> input(buffer, buffer + size);
+            std::vector<unsigned char> output = algorithm.decrypt(input);
+            output_stream.write(reinterpret_cast<char*>(output.data()), input_stream.gcount());
+        }
+
+        input_stream.close();
+        output_stream.close();
+}

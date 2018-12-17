@@ -92,8 +92,17 @@ void Main_Form::on_pushButton_clicked()
     }
 
   // set<string> temp = dir_controller.sendList(); //Временный накопитель директорий текущей операции
-    create_archive(dir_controller.sendList(), true, path_to_archive);
-    QMessageBox::information(nullptr, "Архивация", "Архив создан!");
+   std::string password = ui->password->text().toStdString();
+            create_archive(dir_controller.sendList(), true, path_to_archive);
+           encrypt_archive(path_to_archive, password);
+           QMessageBox::information(nullptr, "Архивация", "Архив создан!");
+        /*
+        else {
+            delete set_password_dialog;
+            QMessageBox::warning(nullptr, "Несоответствие", "Введенные пароли не совпадают!");
+            return; //Исправить повторный ввод пароля
+        }
+        */
   //  foreach (string str, temp) {
   //     qDebug() << QString::fromStdString(str);
   //  }
@@ -102,6 +111,7 @@ void Main_Form::on_pushButton_clicked()
 
 void Main_Form::on_action_11_triggered()
 {
+    /*
     PasswordDialog *set_password_dialog = new PasswordDialog;
     if (set_password_dialog->exec() == QDialog::Accepted) {
         if (auto password = set_password_dialog->getPassword()) {
@@ -112,6 +122,7 @@ void Main_Form::on_action_11_triggered()
         }
     }
     delete set_password_dialog;
+    */
 }
 
 void Main_Form::on_pushButton_2_clicked()
@@ -126,14 +137,20 @@ void Main_Form::on_pushButton_2_clicked()
 
 void Main_Form::on_pushButton_3_clicked()
 {
-    dearchive(path_to_archive);
+    QString password = ui->password->text(); /*ui->password->text().toStdString();*/
+    decrypt_archive(path_to_archive, password.toStdString());
+    QString another_path;
+    for (int i = 0; i < path_to_archive.length() - 2 ; ++i) {
+        another_path += path_to_archive[i];
+    }
+    dearchive(another_path.toStdString());
     QMessageBox::information(nullptr, "Распаковка", "Распаковка успешно завершена!");
 }
 
 void Main_Form::on_pushButton_4_clicked()
 {
     QString checked_string = QFileDialog::getOpenFileName(nullptr, "Выберите архив для распаковки",
-                                                              "/", "*.tartar");
+                                                              "/", "*.tartaren");
     if (!checked_string.isEmpty()) {
         ui->label_to_archive->setText("Путь до архива: " + checked_string);
         path_to_archive = checked_string.toStdString();

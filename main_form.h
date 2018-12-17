@@ -9,6 +9,7 @@
 #include <QModelIndex>
 #include "dir_controller.h"
 #include "archive.h"
+#include "passworddialog.h"
 #include <QMenu>
 #include <QToolBar>
 #include <QMessageBox>

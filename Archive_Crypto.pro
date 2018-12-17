@@ -36,6 +36,8 @@ SOURCES += \
     archive/Read_Arch.cpp \
     archive/Recovery_Arch.cpp \
     archive/Write_Liner.cpp \
+    crypto/aes.cpp \
+    crypto/key.cpp \
     passworddialog.cpp \
     archive.cpp
 
@@ -51,6 +53,8 @@ HEADERS += \
     archive/Read_Arch.h \
     archive/Recovery_Arch.h \
     archive/Write_Liner.h \
+    crypto/aes.h \
+    crypto/key.h \
     passworddialog.h \
     archive.h
 

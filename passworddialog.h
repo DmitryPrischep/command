@@ -15,7 +15,7 @@ class PasswordDialog : public QDialog
     QLineEdit *repeat_password;
 public:
     explicit PasswordDialog(QWidget *pwrt = nullptr);
-    std::optional<QString> getPassword() const;
+    std::string getPassword() const; //Срочно переделать!
 };
 
 #endif // PASSWORDDIALOG_H
