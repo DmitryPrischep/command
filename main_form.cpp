@@ -8,6 +8,7 @@ Main_Form::Main_Form(QWidget *parent) :
     ui(new Ui::Main_Form)
 {
     ui->setupUi(this);
+    setAcceptDrops(true);
     QFileSystemModel *model = new QFileSystemModel;
     model->setRootPath(QDir::currentPath());
     ui->tree->setModel(model);
@@ -31,12 +32,32 @@ Main_Form::Main_Form(QWidget *parent) :
     connect(ui->tree, &QTreeView::clicked, [this](){ui->tree->resizeColumnToContents(0);});
     connect(ui->tree, &QTreeView::collapsed, [this](){ui->tree->resizeColumnToContents(0);});
     connect(ui->tree, &QTreeView::expanded, [this](){ui->tree->resizeColumnToContents(0);});
-
 }
 
 Main_Form::~Main_Form()
 {
     delete ui;
+}
+
+void Main_Form::dragEnterEvent(QDragEnterEvent *event)
+{
+        event->acceptProposedAction();
+
+}
+
+void Main_Form::dragMoveEvent(QDragMoveEvent *event)
+{
+  event->acceptProposedAction();
+}
+
+void Main_Form::dropEvent(QDropEvent *event)
+{
+    QList<QUrl> urls = event->mimeData()->urls();
+        foreach(QUrl url, urls)
+        {
+            //здесь вызываем вашу функцию добавления в список, а пока строкой ниже выводим названия файлов в консоль
+            qDebug()<<url.toString();
+        }
 }
 
 void Main_Form::on_pushButton_clicked()

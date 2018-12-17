@@ -91,7 +91,7 @@
           <item>
            <widget class="QPushButton" name="pushButton">
             <property name="text">
-             <string>Вывод списка директорий</string>
+             <string>Создать архив</string>
             </property>
            </widget>
           </item>

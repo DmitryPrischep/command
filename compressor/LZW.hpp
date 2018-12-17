@@ -13,11 +13,10 @@ public:
 	LZW& operator=(LZW&&) = delete;
 	~LZW() {};
 
-	std::vector<char> compress(const std::vector<char>& data) noexcept; // hfp,bn yf gjlrkfccs
-	std::vector<char> decompress(const std::vector<char>& data) noexcept;
+	std::vector<char> compress(const std::vector<char>& data) noexcept override;
+	std::vector<char> decompress(const std::vector<char>& data) noexcept override;
 
 private:
-	int bit_resolution_;
 	std::vector<int> encode(const std::vector<char>& data) noexcept;
 	std::string decode(const std::vector<int>& data) noexcept;	
 	int calculate_bit_resolution(const int data_size) noexcept;

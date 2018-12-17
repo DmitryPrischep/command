@@ -15,6 +15,12 @@
 #include <QIcon>
 #include <assert.h>
 #include <QFileDialog>
+#include <QDragEnterEvent>
+#include <QDragMoveEvent>
+#include <QDropEvent>
+#include <QMimeData>
+#include <QUrl>
+#include <QList>
 
 namespace Ui {
 class Main_Form;
@@ -29,6 +35,11 @@ QFileSystemModel *model;
 public:
     explicit Main_Form(QWidget *parent = nullptr);
     ~Main_Form();
+
+protected:
+  void dragEnterEvent(QDragEnterEvent *event);
+  void dragMoveEvent(QDragMoveEvent *event);
+  void dropEvent(QDropEvent *event);
 
 private slots:
 

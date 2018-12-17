@@ -33,11 +33,6 @@ void create_archive(std::set<std::string> &&data, bool flag_compress,
 
         }
         wr.EndWriting();
-
-        // отладочный вывод
-        qDebug() << "total_size: " << total_size;
-        qDebug() << "init_size: "  << init_size;
-        qDebug() << "Compression: "  << 100 - 100*total_size/init_size << " %";
 }
 
 // ########## Деархивация ##########

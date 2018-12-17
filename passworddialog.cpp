@@ -13,7 +13,7 @@ PasswordDialog::PasswordDialog(QWidget *pwrt) : QDialog (pwrt, Qt::WindowTitleHi
     QPushButton *btn_ok = new QPushButton("&OK");
     QPushButton *btn_cancel = new QPushButton("&Cancel");
     connect(btn_ok, SIGNAL(clicked()), SLOT(accept()));
-    connect(btn_cancel, SIGNAL(clicked()), SLOT(accept()));
+    connect(btn_cancel, SIGNAL(clicked()), SLOT(reject()));
     QGridLayout *layout = new QGridLayout;
     layout->addWidget(lbl_pas, 0, 0);
     layout->addWidget(password, 0, 1);

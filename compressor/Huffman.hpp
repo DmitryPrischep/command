@@ -15,15 +15,15 @@ public:
 	Huffman& operator=(Huffman&&) = delete;
 	~Huffman() {};
 
-	std::vector<char> compress(const std::vector<char>& data) noexcept;
-	std::vector<char> decompress(const std::vector<char>& data) noexcept;
+	std::vector<char> compress(const std::vector<char>& data) noexcept override;
+	std::vector<char> decompress(const std::vector<char>& data) noexcept override;
 
 private:
 	int dict_size_;
 	char empty_bits_;
     std::map <char, std::string> haf_dict_;
     std::map <std::string, char> rev_haf_dict_;
-	std::string encode(const std::vector<char>& data) noexcept;
+	std::vector<char> encode(const std::vector<char>& data) noexcept;
 	std::vector<char> decode(const std::string& data) noexcept;
 	std::vector<char> make_bytes(std::vector<char>& data) noexcept;
 	std::vector<char> make_bits(const std::vector<char>& data) noexcept;
