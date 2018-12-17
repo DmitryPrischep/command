@@ -1,0 +1,9 @@
+*.exe
+*.out
+.o
+compressor/googletest/
+compressor/.idea
+compressor/cmake-build-debug
+*.bmp
+*.jpg
+*.mp3
