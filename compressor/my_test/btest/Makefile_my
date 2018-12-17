@@ -1,2 +1,0 @@
-all:
-	g++ main.cpp -I C:/boost-prefix/include/boost-1_68 C:/boost-prefix/lib/libboost_system-mgw81-mt-x64-1_68.a C:/boost-prefix/lib/libboost_filesystem-mgw81-mt-x64-1_68.a  -o test

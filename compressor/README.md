@@ -1,2 +1,0 @@
-# command
-Project of Technopark
