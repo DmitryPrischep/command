@@ -15,8 +15,8 @@ public:
 	Huffman& operator=(Huffman&&) = delete;
 	~Huffman() {};
 
-	std::vector<char> compress(const std::vector<char>& data) noexcept;
-	std::vector<char> decompress(const std::vector<char>& data) noexcept;
+	std::vector<char> compress(const std::vector<char>& data) noexcept override;
+	std::vector<char> decompress(const std::vector<char>& data) noexcept override;
 
 private:
 	int dict_size_;

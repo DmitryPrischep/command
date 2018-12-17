@@ -5,7 +5,8 @@ Selector::Selector(const int _data_size) :
 	filename_(""), 
 	data_index_(0), 
 	file_size_(0),
-	read_data_size_(0)
+	read_data_size_(0),
+	algorithm_(DO_NOT_COMPRESS)
 {}
 
 // входные данные - имена файлов, которые надо обработать

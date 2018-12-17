@@ -2,7 +2,6 @@
 #include <queue>
 #include <iterator>
 #include <limits>
-#include <iostream>
 
 Huffman::Huffman() : empty_bits_(0) {
    dict_size_ = std::numeric_limits<unsigned char>::max() + 1;
@@ -148,8 +147,6 @@ std::vector<char> Huffman::save_dict() noexcept {
     */
 
     std::vector<char> result;    
-    std::vector<char> dict_bits;
-
     result.push_back(empty_bits_);
     for(int i = 0; i < dict_size_; i++) {
         char symbol = (char) i;
