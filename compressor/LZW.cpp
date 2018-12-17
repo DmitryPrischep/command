@@ -4,19 +4,17 @@
 #include <iterator>
 #include <limits>
 
-LZW::LZW() {
-
-}
+LZW::LZW() {}
 
 std::vector<char> LZW::compress(const std::vector<char>& data) noexcept {
 
-    bit_resolution_ = calculate_bit_resolution(data.size());
-
+    char bit_resolution = calculate_bit_resolution(data.size());
     std::vector<int> encoded = encode(data);
+
     // разбиваем кодированную последовательность на биты, это необходимо, тк символы кодируются интами
     std::vector<uint8_t> bits;
     for (auto byte : encoded) {
-        for (int i = 16 - bit_resolution_; i < 16; i++) {
+        for (int i = 16 - bit_resolution; i < 16; i++) {
             char bit = ( 1 & (byte >> (15 - i)) ) ? 1 : 0;
             bits.push_back(bit);
         }
@@ -32,14 +30,14 @@ std::vector<char> LZW::compress(const std::vector<char>& data) noexcept {
         result.push_back(temp);
     }
 
-    result.push_back(bit_resolution_);
+    result.push_back(bit_resolution);
     return result;
 }
 
 
 std::vector<char> LZW::decompress(const std::vector<char>& data) noexcept {
 
-    bit_resolution_ = data[data.size() - 1];
+    char bit_resolution = data[data.size() - 1];
     std::vector<char> cp_data(data.begin(), data.end() - 1);
 
     // разбиваем входную последовательность на биты
@@ -53,21 +51,20 @@ std::vector<char> LZW::decompress(const std::vector<char>& data) noexcept {
 
     // определяем размер кодированной последовательности без избыточных бит
     // избыточные биты - биты, которыми заполнили младшие разряды байта, когда информационные биты закончились
-    int real_bits_size = bits.size() / bit_resolution_;
-    real_bits_size *= bit_resolution_;
+    int real_bits_size = bits.size() / bit_resolution;
+    real_bits_size *= bit_resolution;
 
     // собираем из битов, последовательность для декодировки
-    std::vector<int> data2;
-    for (int i = 0; i < real_bits_size; i += bit_resolution_) {
+    std::vector<int> codes;
+    for (int i = 0; i < real_bits_size; i += bit_resolution) {
         int temp = 0;
-        for (int j = 0; j < bit_resolution_; j++) {
-            temp |= bits[i+j] << (bit_resolution_ - 1 - j);
+        for (int j = 0; j < bit_resolution; j++) {
+            temp |= bits[i+j] << (bit_resolution - 1 - j);
         }
-        data2.push_back(temp);
+        codes.push_back(temp);
     }
 
-    std::string decoded = decode(data2);
-
+    std::string decoded = decode(codes);
     std::vector<char> result(decoded.begin(), decoded.end());
 
     return result;
@@ -75,7 +72,7 @@ std::vector<char> LZW::decompress(const std::vector<char>& data) noexcept {
 
 std::vector<int> LZW::encode(const std::vector<char>& data) noexcept {
 
-    int dict_size = std::numeric_limits<char>::max();  
+    int dict_size = std::numeric_limits<char>::max() + 1;  
     std::map<std::vector<char>, int> dict;
 
     std::vector<int> result;
@@ -111,48 +108,9 @@ std::vector<int> LZW::encode(const std::vector<char>& data) noexcept {
     return result;
 }
 
-/*
-std::vector<int> LZW::encode(const std::string& data) noexcept {
-
-    int dict_size = std::numeric_limits<char>::max();  
-    std::map<std::string, int> dict;
-
-    std::vector<int> result;
-    auto result_iter = std::back_inserter(result);
-
-    // иницилизируем словарь стандартными (ascii) символами
-    for (int i = 0; i < dict_size; i++) {
-        dict[std::string(1, i)] = i;
-    }
-
-    // процесс кодировки
-    // если подстрока есть в словаре, вставляем её код
-    // если её там нет, то добавляем её в словарь и записываем код
-    std::string temp;
-    for (auto it = data.begin(); it != data.end(); ++it) {
-        char symbol = *it;
-        std::string loc_temp = temp + symbol;
-        if (dict.find(loc_temp) != dict.end()) {
-            temp = loc_temp;
-        }
-        else {
-            *result_iter++ = dict[temp];
-            dict[loc_temp] = dict_size++;
-            temp = std::string(1, symbol);
-        }
-    }
-
-    if (!temp.empty()) {
-        *result_iter++ = dict[temp];
-    }
-
-    return result;
-}
-*/
-
 std::string LZW::decode(const std::vector<int>& data) noexcept {
 
-    int dict_size = std::numeric_limits<char>::max();  
+    int dict_size = std::numeric_limits<char>::max() + 1;  
     std::map<int, std::string> dict;
 
     auto data_it = data.begin();
@@ -198,6 +156,5 @@ int LZW::calculate_bit_resolution(const int data_size) noexcept {
     while ( dict_power >> i ) {
         i++;
     }
-    bit_resolution_ = i; 
     return i;  
 }

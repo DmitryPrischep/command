@@ -17,7 +17,6 @@ public:
 	std::vector<char> decompress(const std::vector<char>& data) noexcept;
 
 private:
-	int bit_resolution_;
 	std::vector<int> encode(const std::vector<char>& data) noexcept;
 	std::string decode(const std::vector<int>& data) noexcept;	
 	int calculate_bit_resolution(const int data_size) noexcept;

@@ -2,7 +2,7 @@
 #include <queue>
 #include <iterator>
 #include <limits>
-//#include <iostream>
+#include <iostream>
 
 Huffman::Huffman() : empty_bits_(0) {
    dict_size_ = std::numeric_limits<unsigned char>::max() + 1;
@@ -25,10 +25,7 @@ std::vector<char> Huffman::compress(const std::vector<char>& data) noexcept {
 
 std::vector<char> Huffman::decompress(const std::vector<char>& data) noexcept {
     int pos = recover_dict(data);
-    std::vector<char> compressed;
-    for(int i = pos; i < data.size(); i++) {
-        compressed.push_back(data[i]);
-    }
+    std::vector<char> compressed(data.begin() + pos, data.end());
     std::vector<char> encoded = make_bits(compressed);
     encoded.resize(encoded.size() - empty_bits_);
     std::string encoded_str(encoded.begin(), encoded.end());
@@ -49,7 +46,7 @@ std::vector<char> Huffman::encode(const std::vector<char>& data) noexcept {
             haf_freq[str]++;
         }
         else {
-           haf_freq[str] = 1; 
+            haf_freq[str] = 1; 
         }
     }
 
@@ -86,9 +83,8 @@ std::vector<char> Huffman::encode(const std::vector<char>& data) noexcept {
 
     std::vector<char> result;
     for (auto symbol : data) {
-        for (auto byte : haf_dict_[symbol]) {
-            result.push_back(byte);
-        }
+        std::string code = haf_dict_[symbol];
+        std::copy(code.begin(), code.end(), std::back_inserter(result));
     }
 
     return result;  
@@ -112,7 +108,6 @@ std::vector<char> Huffman::decode(const std::string& data) noexcept {
         }
     }
     std::vector<char> result(result_str.begin(), result_str.end());
-
     return result;
 }
 
@@ -141,7 +136,6 @@ std::vector<char> Huffman::make_bits(const std::vector<char>& data) noexcept {
             result.push_back(bit);
         }
     }
-
     return result;
 }
 
@@ -210,59 +204,5 @@ int Huffman::recover_dict(const std::vector<char>& data) noexcept {
         rev_haf_dict_[code] = symbol;       
     }
 
-    /*
-    for ( auto d : rev_haf_dict_) {
-        std::cout << (int) d.second << ": (size) " << d.first.size() << std::endl;
-    }
-    std::cout << "Dict size: " << 257 + byte_codes_size << std::endl;
-    */
     return dict_size_ + ofset + byte_codes_size ;
 }
-
-/*
-int Huffman::recover_dict(const std::vector<char>& data) noexcept {
-
-    int dict_size = 2*data[0] + 2;
-    std::cout << "dict_size: " << dict_size << std::endl;
-    empty_bits_ = data[1];
-    std::cout << "empty_bits: " << (int) empty_bits_ << std::endl;
-    int codes_size = 0;
-    for (int i = 2; i < dict_size; i+=2) {
-        char code_size = data[i+1];      
-        codes_size += code_size;
-    } 
-    std::cout << "codes_size" << (int) codes_size << std::endl;  
-    int byte_codes_size = (codes_size % 8 == 0) ? codes_size / 8 : codes_size / 8 + 1;
-    std::vector<char> bytes;
-    for (int i = dict_size; i < dict_size + byte_codes_size; i++) {
-        bytes.push_back(data[i]);
-    }
-    std::cout << "bsize " << bytes.size() << std::endl;
-    std::vector<char> bits = make_bits(bytes);
-    for ( auto v : bits) {
-        std::cout << (int) v << "";
-    }
-    std::cout << std::endl;
-    int pos = 0;
-    for (int i = 2; i < dict_size; i+=2) {
-        char symbol = data[i];
-        std::string code;
-        for (int j = 0; j < data[i+1]; j++) {
-            code += bits[pos];
-            pos++;
-        }    
-        for ( auto v : code) {
-            std::cout << (int) v << "";
-        }
-        std::cout << std::endl;
-        //haf_dict_[symbol] = code;
-        rev_haf_dict_[code] = symbol;
-    } 
-
-    for ( auto d : rev_haf_dict_) {
-        std::cout << d.second << ": " << d.first << std::endl;
-    }
-    std::cout << dict_size + byte_codes_size << std::endl;
-    return dict_size + byte_codes_size;
-}
-*/

@@ -58,7 +58,7 @@ std::vector<char> Selector::read_data() {
 	std::vector<char> data;
 	for(int i = data_index_; (i < data_index_ + data_size_) && (i < file_size_) ; i++) {
 		char byte = 0;
-		file_.read( (char*)& byte, sizeof(char));
+		file_.read((char*)& byte, sizeof(char));
 		data.push_back(byte);
 	}
 	read_data_size_ = data.size();
@@ -88,7 +88,7 @@ char Selector::get_algorithm(bool compress = true) {
 		return algorithm_;
 	}
 
-	if (read_data_size_ >= 65536) {
+	if (read_data_size_ >= 0) {
 		algorithm_ = HUFFMAN_CODE;
 	}
 	else if (read_data_size_ < 65536 && read_data_size_ > 0) {
