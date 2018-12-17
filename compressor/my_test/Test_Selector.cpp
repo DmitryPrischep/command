@@ -14,8 +14,8 @@ int main() {
 
     const int data_size = 1024*1024; // 1 Mb
 
-    std::set<std::string> data = {"A.mp3"};
-    //std::set<std::string> data = {"in5.txt"};
+    //std::set<std::string> data = {"A.mp3"};
+    std::set<std::string> data = {"in5.txt"};
     bool flag_compress = true; // надо сжимать или нет
 
     Selector selector(data_size);    

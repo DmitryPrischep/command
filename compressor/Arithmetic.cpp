@@ -1,6 +1,8 @@
 #include "Arithmetic.hpp"
 #include <limits>
 
+// реализация алгоритма арифметического сжатия будет готова к защите
+// возможно
 Arithmetic::Arithmetic() {
 
 }

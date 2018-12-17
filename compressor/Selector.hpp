@@ -1,5 +1,7 @@
 // Читает фиксированные отрезки байт 
 // из входных файлов и сжимает их
+#pragma once
+
 #include <fstream>
 #include <string>
 #include <vector>
@@ -10,8 +12,9 @@
 
 const char HUFFMAN_CODE = 'h';
 const char LZW_CODE = 'l';
-const char HUF_LZW_CODE = 'H';
-const char LZW_HUF_CODE = 'L';
+const char ADA_HUF_CODE = 'a';
+const char RLE_CODE = 'r';
+const char ARTH_CODE = 'A';
 const char DO_NOT_COMPRESS = '0';
 
 class Selector {
@@ -39,8 +42,6 @@ public:
 	std::vector<char> get_compressed_data(bool compress, char& algorithm);
 	std::vector<char> get_decompressed_data(const std::vector<char>& data, char algorithm);
 
-	std::vector<char> get_maximum_compressed_data(char& algorithm);
-	
 private:
 	char algorithm_;
 	std::string filename_;
