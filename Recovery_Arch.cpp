@@ -24,6 +24,7 @@ bool Recovery_Arch::RecoveryPathDir(std::string path) {
     auto i = path.size() - 1;
 
     if ( path[i] == '/' ) {
+        path = path_revery_dir + "/" + path;
         if ( fs::exists(path) ) {
             return true; // Создана директория
         } else {
@@ -49,7 +50,7 @@ void Recovery_Arch::RecoveryTakePath(string path) {
         state_header_was_read_firstly = !state_header_was_read_firstly;
         if ( !state_header_was_read_IsDir ){
             Initialization_file.close();
-            Initialization_file.open(Path, std::ios::binary|std::ios::out );
+            Initialization_file.open(path_revery_dir + "/" + Path, std::ios::binary|std::ios::out );
         }
     }
 }
@@ -57,4 +58,8 @@ void Recovery_Arch::RecoveryTakePath(string path) {
 Recovery_Arch::Recovery_Arch(): out_file(&Initialization_file) {
 }
 Recovery_Arch::Recovery_Arch(filebuf stream): out_file(&stream) {
+}
+
+void Recovery_Arch::RecoveryTakeArchivePath(string &path) {
+    path_revery_dir = path;
 }

@@ -15,13 +15,13 @@ class Recovery_Arch{
 public:
     Recovery_Arch();
     Recovery_Arch(filebuf stream);
-
+    void RecoveryTakeArchivePath(string& path);
     void RecoveryTakePath(string path);     // Получить путь который будем обрабатывать
     bool RecoveryWrite(vector<char>* input);    // записывает в файл input
     bool RecoveryPathDir(std::string path);     // определить является ли путь путем к папке или путем к файлу
 protected:
     string Path;
-
+    string path_revery_dir;
     filebuf Initialization_file;
     ostream out_file;
 

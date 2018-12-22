@@ -89,9 +89,9 @@ bool Write_Liner::Write_File(std::ostream& File, vector<char>* array){
 bool Write_Liner::Insert_Header() {
     if (HaveOutFile()){
         out_file.seekp(0, std::ios::beg);
+        out_file.write((char *)&Main_header.settings, sizeof(Main_header.settings));
         out_file.write((char *)&Main_header.size, sizeof(Main_header.size));
         out_file.write((char *)&Main_header.amount, sizeof(Main_header.amount));
-        out_file.write((char *)&Main_header.settings, sizeof(Main_header.settings));
         return true;
     }
     std::cerr << "Нет выходного файла" << "\n";

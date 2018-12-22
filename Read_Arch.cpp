@@ -12,14 +12,6 @@ bool Read_Arch::TakeFileIn(std::string &file){
     state_have_in_file = true;
 }
 
-//bool Read_Arch::TakeFileIn(std::ostream &file) {
-//    in_file = file;
-//    if (!in_file){
-//        std::cout << "Ошибка инизиализации потока! ostream задан не верно!\n";
-//    }
-//    state_have_in_file = true;
-//}
-
 bool Read_Arch::HaveInFile() {
     return state_have_in_file && in_file;
 }
@@ -30,9 +22,9 @@ bool Read_Arch::ReadHeader() {
     }
     if ( HaveInFile() ){
         in_file.seekg(0, std::ios::beg);
+        in_file.read((char*)&Main_header.settings, sizeof(Main_header.settings));
         in_file.read((char*)&Main_header.size, sizeof(Main_header.size));
         in_file.read((char*)&Main_header.amount, sizeof(Main_header.amount));
-        in_file.read((char*)&Main_header.settings, sizeof(Main_header.settings));
         state_Mainheader_was_read = true;
         return true;
     }
