@@ -2,6 +2,8 @@
 #define PASSWORDFORM_H
 
 #include <QDialog>
+#include <QPushButton>
+#include <QString>
 
 namespace Ui {
 class PasswordForm;
@@ -14,6 +16,7 @@ class PasswordForm : public QDialog
 public:
     explicit PasswordForm(QWidget *parent = nullptr);
     ~PasswordForm();
+    QString getPassword() const;
 
 private:
     Ui::PasswordForm *ui;

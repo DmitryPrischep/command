@@ -84,6 +84,7 @@ void encrypt_archive(const std::string &path, const std::string &pass)
 
     input_stream.close();
     output_stream.close();
+    QFile(QString::fromStdString(path)).remove(); // Удаление промежуточного (незашифрованного архива)
 }
 
 void decrypt_archive(const std::string &path, const std::string &pass)

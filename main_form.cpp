@@ -121,18 +121,8 @@ void Main_Form::on_pushButton_clicked()
 
 void Main_Form::on_action_11_triggered()
 {
-    /*
-    PasswordDialog *set_password_dialog = new PasswordDialog;
-    if (set_password_dialog->exec() == QDialog::Accepted) {
-        if (auto password = set_password_dialog->getPassword()) {
-            qDebug() << *password;
-        }
-        else {
-            QMessageBox::warning(nullptr, "Несоответствие", "Введенные пароли не совпадают!");
-        }
-    }
-    delete set_password_dialog;
-    */
+    PasswordForm *w = new PasswordForm;
+    w->show();
 }
 
 void Main_Form::on_pushButton_2_clicked()
@@ -147,14 +137,17 @@ void Main_Form::on_pushButton_2_clicked()
 
 void Main_Form::on_pushButton_3_clicked()
 {
-    QString password = ui->password->text(); /*ui->password->text().toStdString();*/
-    decrypt_archive(path_to_archive, password.toStdString());
-    QString another_path;
-    for (int i = 0; i < path_to_archive.length() - 2 ; ++i) {
-        another_path += path_to_archive[i];
+    PasswordForm *password_form = new PasswordForm;
+    if (password_form->exec() == QDialog::Accepted) {
+        QString password = password_form->getPassword(); /*ui->password->text().toStdString();*/
+        decrypt_archive(path_to_archive, password.toStdString());
+        QString another_path;
+        for (int i = 0; i < path_to_archive.length() - 2; ++i) {
+            another_path += path_to_archive[i];
+        }
+        dearchive(another_path.toStdString());
+        QMessageBox::information(nullptr, "Распаковка", "Распаковка успешно завершена!");
     }
-    dearchive(another_path.toStdString());
-    QMessageBox::information(nullptr, "Распаковка", "Распаковка успешно завершена!");
 }
 
 void Main_Form::on_pushButton_4_clicked()

@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QDebug>
+#include <QFile>
 #include <set>
 #include <experimental/vector>
 #include "compressor/Selector.hpp"
