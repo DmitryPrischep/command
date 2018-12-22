@@ -39,7 +39,8 @@ SOURCES += \
     crypto/aes.cpp \
     crypto/key.cpp \
     passworddialog.cpp \
-    archive.cpp
+    archive.cpp \
+    passwordform.cpp
 
 
 HEADERS += \
@@ -56,10 +57,12 @@ HEADERS += \
     crypto/aes.h \
     crypto/key.h \
     passworddialog.h \
-    archive.h
+    archive.h \
+    passwordform.h
 
 FORMS += \
-        main_form.ui
+        main_form.ui \
+    passwordform.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

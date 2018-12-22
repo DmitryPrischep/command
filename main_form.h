@@ -10,6 +10,7 @@
 #include "dir_controller.h"
 #include "archive.h"
 #include "passworddialog.h"
+#include "passwordform.h"
 #include <QMenu>
 #include <QToolBar>
 #include <QMessageBox>
@@ -22,6 +23,7 @@
 #include <QMimeData>
 #include <QUrl>
 #include <QList>
+
 
 namespace Ui {
 class Main_Form;

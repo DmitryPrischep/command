@@ -93,9 +93,19 @@ void Main_Form::on_pushButton_clicked()
 
   // set<string> temp = dir_controller.sendList(); //Временный накопитель директорий текущей операции
    std::string password = ui->password->text().toStdString();
-            create_archive(dir_controller.sendList(), true, path_to_archive);
+   std::string password_confirmation = ui->password_confirmation->text().toStdString();
+   if (password == password_confirmation) {
+           create_archive(dir_controller.sendList(), true, path_to_archive);
            encrypt_archive(path_to_archive, password);
            QMessageBox::information(nullptr, "Архивация", "Архив создан!");
+   }
+   else {
+           QMessageBox::critical(nullptr, "Несовпадение паролей", "Пароли не совпадают!");
+   }
+   ui->password->clear();
+   ui->password_confirmation->clear();
+   ui->password->setFocus();
+
         /*
         else {
             delete set_password_dialog;
