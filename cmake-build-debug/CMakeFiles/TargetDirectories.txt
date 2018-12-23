@@ -1,0 +1,7 @@
+/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/cmake-build-debug/CMakeFiles/Test_Interface.dir
+/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/cmake-build-debug/CMakeFiles/Read_Arch.dir
+/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/cmake-build-debug/CMakeFiles/Write_Liner.dir
+/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/cmake-build-debug/CMakeFiles/command.dir
+/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/cmake-build-debug/CMakeFiles/FileInfo.dir

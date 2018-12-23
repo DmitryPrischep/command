@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="command"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="command">
+				<Option output="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/command" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler/>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 command"/>
+					<CompileFile command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="command/fast">
+				<Option output="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/command" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler/>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 command/fast"/>
+					<CompileFile command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Recovery_Arch">
+				<Option output="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/libRecovery_Arch.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler/>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 Recovery_Arch"/>
+					<CompileFile command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Recovery_Arch/fast">
+				<Option output="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/libRecovery_Arch.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler/>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 Recovery_Arch/fast"/>
+					<CompileFile command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Test_Interface">
+				<Option output="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/libTest_Interface.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler/>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 Test_Interface"/>
+					<CompileFile command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Test_Interface/fast">
+				<Option output="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/libTest_Interface.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler/>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 Test_Interface/fast"/>
+					<CompileFile command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Read_Arch">
+				<Option output="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/libRead_Arch.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler/>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 Read_Arch"/>
+					<CompileFile command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Read_Arch/fast">
+				<Option output="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/libRead_Arch.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler/>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 Read_Arch/fast"/>
+					<CompileFile command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Write_Liner">
+				<Option output="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/libWrite_Liner.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler/>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 Write_Liner"/>
+					<CompileFile command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Write_Liner/fast">
+				<Option output="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/libWrite_Liner.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler/>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 Write_Liner/fast"/>
+					<CompileFile command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="FileInfo">
+				<Option output="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/libFileInfo.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler/>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 FileInfo"/>
+					<CompileFile command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="FileInfo/fast">
+				<Option output="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/libFileInfo.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler/>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 FileInfo/fast"/>
+					<CompileFile command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -f &quot;/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/FileInfo.cpp">
+			<Option target="command"/>
+			<Option target="Recovery_Arch"/>
+			<Option target="Test_Interface"/>
+			<Option target="Read_Arch"/>
+			<Option target="Write_Liner"/>
+			<Option target="FileInfo"/>
+		</Unit>
+		<Unit filename="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/FileInfo.h">
+			<Option target="command"/>
+			<Option target="Recovery_Arch"/>
+			<Option target="Test_Interface"/>
+			<Option target="Read_Arch"/>
+			<Option target="Write_Liner"/>
+			<Option target="FileInfo"/>
+		</Unit>
+		<Unit filename="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Read_Arch.cpp">
+			<Option target="command"/>
+			<Option target="Recovery_Arch"/>
+			<Option target="Test_Interface"/>
+			<Option target="Read_Arch"/>
+			<Option target="Write_Liner"/>
+			<Option target="FileInfo"/>
+		</Unit>
+		<Unit filename="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Read_Arch.h">
+			<Option target="command"/>
+			<Option target="Recovery_Arch"/>
+			<Option target="Test_Interface"/>
+			<Option target="Read_Arch"/>
+			<Option target="Write_Liner"/>
+			<Option target="FileInfo"/>
+		</Unit>
+		<Unit filename="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Recovery_Arch.cpp">
+			<Option target="command"/>
+			<Option target="Recovery_Arch"/>
+			<Option target="Test_Interface"/>
+			<Option target="Read_Arch"/>
+			<Option target="Write_Liner"/>
+			<Option target="FileInfo"/>
+		</Unit>
+		<Unit filename="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Recovery_Arch.h">
+			<Option target="command"/>
+			<Option target="Recovery_Arch"/>
+			<Option target="Test_Interface"/>
+			<Option target="Read_Arch"/>
+			<Option target="Write_Liner"/>
+			<Option target="FileInfo"/>
+		</Unit>
+		<Unit filename="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Test_Interface.cpp">
+			<Option target="command"/>
+			<Option target="Recovery_Arch"/>
+			<Option target="Test_Interface"/>
+			<Option target="Read_Arch"/>
+			<Option target="Write_Liner"/>
+			<Option target="FileInfo"/>
+		</Unit>
+		<Unit filename="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Test_Interface.h">
+			<Option target="command"/>
+			<Option target="Recovery_Arch"/>
+			<Option target="Test_Interface"/>
+			<Option target="Read_Arch"/>
+			<Option target="Write_Liner"/>
+			<Option target="FileInfo"/>
+		</Unit>
+		<Unit filename="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Write_Liner.cpp">
+			<Option target="command"/>
+			<Option target="Recovery_Arch"/>
+			<Option target="Test_Interface"/>
+			<Option target="Read_Arch"/>
+			<Option target="Write_Liner"/>
+			<Option target="FileInfo"/>
+		</Unit>
+		<Unit filename="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/Write_Liner.h">
+			<Option target="command"/>
+			<Option target="Recovery_Arch"/>
+			<Option target="Test_Interface"/>
+			<Option target="Read_Arch"/>
+			<Option target="Write_Liner"/>
+			<Option target="FileInfo"/>
+		</Unit>
+		<Unit filename="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/main.cpp">
+			<Option target="command"/>
+		</Unit>
+		<Unit filename="/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

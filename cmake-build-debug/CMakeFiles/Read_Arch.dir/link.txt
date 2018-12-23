@@ -1,0 +1,2 @@
+/Library/Developer/CommandLineTools/usr/bin/ar qc libRead_Arch.a  CMakeFiles/Read_Arch.dir/FileInfo.cpp.o CMakeFiles/Read_Arch.dir/Write_Liner.cpp.o CMakeFiles/Read_Arch.dir/Read_Arch.cpp.o CMakeFiles/Read_Arch.dir/Test_Interface.cpp.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libRead_Arch.a

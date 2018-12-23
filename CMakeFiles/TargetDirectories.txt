@@ -1,0 +1,8 @@
+/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/CMakeFiles/command.dir
+/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/CMakeFiles/Recovery_Arch.dir
+/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/CMakeFiles/Test_Interface.dir
+/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/CMakeFiles/edit_cache.dir
+/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/CMakeFiles/Read_Arch.dir
+/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/CMakeFiles/Write_Liner.dir
+/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/CMakeFiles/rebuild_cache.dir
+/Users/howle/prog/Cpp/WTexn/C/Project_2.0/comand_4.12/command/CMakeFiles/FileInfo.dir
