@@ -2,14 +2,16 @@
 #include "aes.h"
 
 Key::Key(const std::string& pass_string, const size_t key_size):
-    key_size(key_size),
-    length_word(4)
+    length_word(4),
+    key_size(key_size)
 {
     check_key(key_size);
-    std::vector<byte> password(key_size);
-    for(size_t i = 0; i < key_size; i++){
+    std::vector<byte> password(key_size/8);
+    for(size_t i = 0; i < key_size/8; i++){
         if(i < pass_string.size())
             password[i] = pass_string[i];
+        else
+            password[i] = '&';
     }
     data_key = get_encrypt_key(password);
 }
@@ -19,7 +21,7 @@ byte AES::get_r_con(size_t x, size_t y)
     return r_con[x][y];
 }
 
-ByteArray Key::get_matrix_key(size_t index)
+ByteArray Key::get_matrix_key(size_t index) const
 {
     index *= 4;
     ByteArray result(4);
