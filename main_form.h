@@ -46,13 +46,13 @@ protected:
 
 private slots:
 
-    void on_pushButton_clicked();
+    void on_archive_button_clicked();
 
     void on_action_11_triggered();
 
     void on_pushButton_2_clicked();
 
-    void on_pushButton_3_clicked();
+    void on_dearchive_button_clicked();
 
     void on_pushButton_4_clicked();
 

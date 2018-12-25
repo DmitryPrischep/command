@@ -62,6 +62,8 @@ void dearchive(std::string path_to_archive)
         } else {
             std::cerr << "Нет файла для чтения" << "\n";
         }
+
+        QFile(QString::fromStdString(path_to_archive)).remove(); // Удаление промежуточного (незашифрованного архива)
 }
 
 

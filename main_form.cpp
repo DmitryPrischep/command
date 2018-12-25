@@ -2,7 +2,6 @@
 #include "ui_main_form.h"
 #include <QDebug>
 #include <QFileInfo>
-#
 Main_Form::Main_Form(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Main_Form)
@@ -13,25 +12,14 @@ Main_Form::Main_Form(QWidget *parent) :
     model->setRootPath(QDir::currentPath());
     ui->tree->setModel(model);
     ui->tree->resizeColumnToContents(0);
-    //Создаем toolbar
-    //#############################################################################################
-    QToolBar *bar = new QToolBar("Main_ToolBar");
-    bar->addAction(ui->action_8);
-    ui->action_8->setIcon(QIcon(QApplication::style()->standardIcon(QStyle::SP_DialogSaveButton)));
-    bar->addSeparator();
-    bar->addAction(ui->action_5);
-    bar->addAction(ui->action_7);
-    bar->addSeparator();
-    bar->addAction(ui->action_11);
-    bar->addSeparator();
-    bar->addAction(ui->action_2);
-    addToolBar(bar);
     //#############################################################################################
     path_to_archive = "";
     //При нажатиях на файловом менеджере (или раскрытии/скрытии директорий) растягиваем поле под содержимое
     connect(ui->tree, &QTreeView::clicked, [this](){ui->tree->resizeColumnToContents(0);});
     connect(ui->tree, &QTreeView::collapsed, [this](){ui->tree->resizeColumnToContents(0);});
     connect(ui->tree, &QTreeView::expanded, [this](){ui->tree->resizeColumnToContents(0);});
+    ui->archive_button->setEnabled(false);
+    ui->dearchive_button->setEnabled(false);
 }
 
 Main_Form::~Main_Form()
@@ -60,7 +48,7 @@ void Main_Form::dropEvent(QDropEvent *event)
         }
 }
 
-void Main_Form::on_pushButton_clicked()
+void Main_Form::on_archive_button_clicked()
 {
     QFileSystemModel *model = dynamic_cast<QFileSystemModel*>(ui->tree->model());
     dir_controller.clearAll(); //Очищаем предыдущий список директорий и путей файлов
@@ -132,10 +120,11 @@ void Main_Form::on_pushButton_2_clicked()
   if (!checked_string.isEmpty()) {
       ui->label_with_path->setText("Путь до архива: " + checked_string);
       path_to_archive = checked_string.toStdString();
+      ui->archive_button->setEnabled(true);
   }
 }
 
-void Main_Form::on_pushButton_3_clicked()
+void Main_Form::on_dearchive_button_clicked()
 {
     PasswordForm *password_form = new PasswordForm;
     if (password_form->exec() == QDialog::Accepted) {
@@ -157,5 +146,6 @@ void Main_Form::on_pushButton_4_clicked()
     if (!checked_string.isEmpty()) {
         ui->label_to_archive->setText("Путь до архива: " + checked_string);
         path_to_archive = checked_string.toStdString();
+        ui->dearchive_button->setEnabled(true);
     }
 }
